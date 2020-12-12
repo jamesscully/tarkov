@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.picMap = new System.Windows.Forms.PictureBox();
-            this.button3 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picMap)).BeginInit();
             this.SuspendLayout();
@@ -49,6 +49,16 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Map Selection";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(169, 19);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Interchange";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.MapButtonClick);
             // 
             // button2
             // 
@@ -76,20 +86,11 @@
             this.picMap.Location = new System.Drawing.Point(0, 52);
             this.picMap.Name = "picMap";
             this.picMap.Size = new System.Drawing.Size(800, 398);
+            this.picMap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picMap.TabIndex = 2;
             this.picMap.TabStop = false;
             this.picMap.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnMouseDown);
             this.picMap.MouseUp += new System.Windows.Forms.MouseEventHandler(this.OnMouseUp);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(169, 19);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Interchange";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.MapButtonClick);
             // 
             // TarkovMain
             // 
@@ -101,6 +102,7 @@
             this.Name = "TarkovMain";
             this.ShowIcon = false;
             this.Text = "Tarkov Assistant - Main";
+            this.Load += new System.EventHandler(this.OnLoad);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picMap)).EndInit();
             this.ResumeLayout(false);
