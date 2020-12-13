@@ -30,10 +30,8 @@ namespace TarkovAssistant
 
         public void OnChangeMap(Bitmap map)
         {
-            if (overlay != null)
-            {
-                overlay.Dispose();
-            }
+
+            overlay?.Dispose();
 
             overlay = (Bitmap) map.Clone();
 
@@ -45,15 +43,21 @@ namespace TarkovAssistant
 
             int x = (int) (point.X * scaleX);
             int y = (int) (point.Y * scaleY);
+
             Debug.WriteLine($"Canvas: Drawing dot at ({x}, {y}), screen: {point}");
+
             using (Graphics g = Graphics.FromImage(overlay))
             {
+                // create a circle where we clicked, scaled to image
                 g.FillEllipse(
                     Brushes.Magenta,
-                    x - strokeWidth / 2, y - strokeWidth / 2, 
+                    // center the dot to the cursor
+                    x - strokeWidth / 2,
+                    y - strokeWidth / 2, 
                     strokeWidth, 
                     strokeWidth
                 );
+                g.Dispose();
             }
         }
     }

@@ -49,7 +49,6 @@ namespace TarkovAssistant
         {
             if (picMap.Image != null)
             {
-                Debug.WriteLine($"Current image size: {picMap}");
 
                 // free image resource if we already assigned one
                 picMap.Image.Dispose();
@@ -57,13 +56,14 @@ namespace TarkovAssistant
 
             currentMap = img;
 
-            canvas = new Canvas((Bitmap) img);
-
+            if (canvas == null)
+            {
+                canvas = new Canvas((Bitmap)img);
+            }
 
             picMap.SizeMode = PictureBoxSizeMode.Zoom;
             picMap.Dock = DockStyle.Fill;
             picMap.Image = img;
-
 
             if (picMap.Created)
             {
@@ -119,6 +119,19 @@ namespace TarkovAssistant
             return ret;
         }
 
+        private Size GetMapViewportSize()
+        {
+            Size ret = Size.Empty;
+
+            GraphicsUnit format = GraphicsUnit.Pixel;
+
+            Invoke(new Action(() =>
+            {
+                Debug.WriteLine("Main: Image bounds: " + picMap);
+            }));
+            return ret;
+        }
+
         // Returns our map image in pixels
         private Size GetMapPixelSize()
         {
@@ -135,22 +148,24 @@ namespace TarkovAssistant
         // Mouse event handlers
         private void OnMouseDown(object sender, MouseEventArgs e)
         {
-            Debug.WriteLine($"Mouse down at ({e.X}, {e.Y})");
-            mouseDownLoop.Enabled = true;
+            // Debug.WriteLine($"Mouse down at ({e.X}, {e.Y})");
+            // mouseDownLoop.Enabled = true;
             canvas.drawDot(e.Location);
             RefreshDrawing();
+
+            var x = GetMapViewportSize();
         }
 
         private void WhileMouseDown(Object source, EventArgs e)
         {
-            Point point = GetCursorInPictureBox();
-            Debug.WriteLine($"Mouse drag at ({point.X}, {point.Y})");
+            // Point point = GetCursorInPictureBox();
+            // Debug.WriteLine($"Mouse drag at ({point.X}, {point.Y})");
         }
 
         private void OnMouseUp(object sender, MouseEventArgs e)
         {
-            Debug.WriteLine($"Mouse up at ({e.X}, {e.Y})");
-            mouseDownLoop.Enabled = false;
+            // Debug.WriteLine($"Mouse up at ({e.X}, {e.Y})");
+            // mouseDownLoop.Enabled = false;
         }
 
         // TODO fix
@@ -172,7 +187,6 @@ namespace TarkovAssistant
         // Draws the map with the Canvas for drawing overlayed
         private void RefreshDrawing()
         {
-
             // Clone our original image - funky things happen else (properties not copied?)
             Image old = picMap.Image;
             Image newMap = (Image) old.Clone();
@@ -185,8 +199,20 @@ namespace TarkovAssistant
 
             // Load our new image
             LoadMapImage(newMap);
+            old.Dispose();
+
         }
 
+        private void OnResizeEnd(object sender, EventArgs e)
+        {
+            
+        }
 
+        private void picMap_SizeChanged(object sender, EventArgs e)
+        {
+            Size size = picMap.Size;
+
+            SetCanvasScales();
+        }
     }
 }

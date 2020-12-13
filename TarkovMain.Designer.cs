@@ -82,13 +82,13 @@
             // 
             // picMap
             // 
-            this.picMap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.picMap.Location = new System.Drawing.Point(0, 52);
             this.picMap.Name = "picMap";
             this.picMap.Size = new System.Drawing.Size(800, 398);
             this.picMap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picMap.TabIndex = 2;
             this.picMap.TabStop = false;
+            this.picMap.SizeChanged += new System.EventHandler(this.picMap_SizeChanged);
             this.picMap.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnMouseDown);
             this.picMap.MouseUp += new System.Windows.Forms.MouseEventHandler(this.OnMouseUp);
             // 
@@ -103,6 +103,7 @@
             this.ShowIcon = false;
             this.Text = "Tarkov Assistant - Main";
             this.Load += new System.EventHandler(this.OnLoad);
+            this.ResizeEnd += new System.EventHandler(this.OnResizeEnd);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picMap)).EndInit();
             this.ResumeLayout(false);
