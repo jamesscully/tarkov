@@ -22,16 +22,45 @@ namespace TarkovAssistant
         private static Timer mouseDownLoop;
         private Canvas canvas;
 
+        private PictureBox picMap = new PictureBox();
+
         public TarkovMain()
         {
             InitializeComponent();
+        }
 
+        private void OnFormLoad(object sender, EventArgs e)
+        {
+            if (panel1 != null)
+            {
+                
+                picMap.Location = new Point(0, 50);
+                picMap.SizeMode = PictureBoxSizeMode.AutoSize;
+
+                picMap.MouseClick += OnMouseClick;
+                picMap.MouseDown += OnMouseDown;
+                picMap.MouseUp += OnMouseUp;
+
+                panel1.AutoScroll = true;
+                panel1.Controls.Add(picMap);
+            }
+            else
+            {
+                Debug.WriteLine("Hey");
+            }
+                
+
+        }
+
+
+        private void OnMapContainerLoad(object sender, ControlEventArgs e)
+        {
             // load default map
             LoadMapImage(Resources.customs);
 
             mouseDownLoop = new Timer
             {
-                Interval = 250,
+                Interval = 500,
                 Enabled = false,
                 AutoReset = true
             };
@@ -39,36 +68,17 @@ namespace TarkovAssistant
             mouseDownLoop.Elapsed += WhileMouseDown;
         }
 
-        private void OnLoad(object sender, EventArgs e)
-        {
-            SetCanvasScales();
-        }
-
         // Loads an Image object into the picture box - processed via RefreshDrawing()
         private void LoadMapImage(Image img)
         {
             if (picMap.Image != null)
             {
-
                 // free image resource if we already assigned one
                 picMap.Image.Dispose();
             }
 
             currentMap = img;
-
-            if (canvas == null)
-            {
-                canvas = new Canvas((Bitmap)img);
-            }
-
-            picMap.SizeMode = PictureBoxSizeMode.Zoom;
-            picMap.Dock = DockStyle.Fill;
             picMap.Image = img;
-
-            if (picMap.Created)
-            {
-                SetCanvasScales();
-            }
         }
 
         // Fires when a map button is pressed
@@ -91,128 +101,100 @@ namespace TarkovAssistant
                 bmp = Resources.customs;
             }
 
+            // remove ref to canvas prior to swapping image
+            canvas = null;
+
             LoadMapImage(bmp);
         }
 
 
 
-        // Returns our cursor relative to the picture/map control
-        private Point GetCursorInPictureBox()
-        {
-            Point ret = Point.Empty;
-            Invoke(new Action(() =>
-            {
-                ret = picMap.PointToClient(Cursor.Position);
-            }));
-            return ret;
-        }
-
-        // Returns the PictureBox size in pixels
-        private Size GetPictureBoxSize()
-        {
-            Size ret = Size.Empty;
-
-            Invoke(new Action(() =>
-            {
-                ret = picMap.Size;
-            }));
-            return ret;
-        }
-
-        private Size GetMapViewportSize()
-        {
-            Size ret = Size.Empty;
-
-            GraphicsUnit format = GraphicsUnit.Pixel;
-
-            Invoke(new Action(() =>
-            {
-                Debug.WriteLine("Main: Image bounds: " + picMap);
-            }));
-            return ret;
-        }
-
-        // Returns our map image in pixels
-        private Size GetMapPixelSize()
-        {
-            Size ret = Size.Empty;
-
-            Invoke(new Action(() =>
-            {
-                ret = picMap.Image.Size;
-            }));
-            return ret;
-        }
-
-
         // Mouse event handlers
         private void OnMouseDown(object sender, MouseEventArgs e)
         {
-            // Debug.WriteLine($"Mouse down at ({e.X}, {e.Y})");
-            // mouseDownLoop.Enabled = true;
-            canvas.drawDot(e.Location);
-            RefreshDrawing();
 
-            var x = GetMapViewportSize();
         }
 
         private void WhileMouseDown(Object source, EventArgs e)
         {
-            // Point point = GetCursorInPictureBox();
-            // Debug.WriteLine($"Mouse drag at ({point.X}, {point.Y})");
+
         }
 
         private void OnMouseUp(object sender, MouseEventArgs e)
         {
-            // Debug.WriteLine($"Mouse up at ({e.X}, {e.Y})");
-            // mouseDownLoop.Enabled = false;
-        }
-
-        // TODO fix
-        // Scales our canvas to match 1:1 with map image
-        private void SetCanvasScales()
-        {
-            Size viewPortSize = GetPictureBoxSize();
-            Size mapSize = GetMapPixelSize();
-
-            Debug.WriteLine($"View: ({viewPortSize}) | Img: ({mapSize}) ");
-
-            canvas.scaleX = (float) mapSize.Width  / (float) viewPortSize.Width;
-            canvas.scaleY = (float) mapSize.Height / (float) viewPortSize.Height;
-
-            Debug.WriteLine($"Set canvas scales: {canvas.scaleX}, {canvas.scaleY}");
 
         }
 
-        // Draws the map with the Canvas for drawing overlayed
-        private void RefreshDrawing()
+        private void OnMouseClick(object sender, MouseEventArgs e)
         {
-            // Clone our original image - funky things happen else (properties not copied?)
-            Image old = picMap.Image;
-            Image newMap = (Image) old.Clone();
 
-            using (Graphics gr = Graphics.FromImage(newMap))
+        }
+
+        private void WriteDebugPicmap()
+        {
+            Debug.WriteLine("Panel Size: " + panel1.Size);
+            Debug.WriteLine("Form Size: " + this.Size);
+            Debug.WriteLine("PicMap Size:" + picMap.Size);
+        }
+
+        private bool fullscreen = false;
+        private void ToggleFullscreen()
+        {
+            fullscreen = !fullscreen;
+
+            if (fullscreen)
             {
-                gr.DrawImage(old, new Point(0, 0));
-                gr.DrawImage(canvas.overlay, new Point(0, 0));
+                Debug.WriteLine("Entered Fullscreen");
+
+
+                // Maximizes the form and image (to scale), hides UI
+                this.TopMost = false;
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.WindowState = FormWindowState.Maximized;
+                this.picMap.SizeMode = PictureBoxSizeMode.Zoom;
+
+                // set form background to dark when in fullscreen
+                BackColor = Color.Black;
+
+                // readjust PictureBox size to its container
+                picMap.Size = panel1.Size;
+
+                // we have no margin to account for now (with the UI header)
+                picMap.Location = Point.Empty;
+
+                UIControlsHeader.Hide();
+            }
+            else
+            {
+                Debug.WriteLine("Exited Fullscreen");
+
+                this.TopMost = true;
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.WindowState = FormWindowState.Normal;
+                picMap.SizeMode = PictureBoxSizeMode.AutoSize;
+
+
+                picMap.Location = new Point(0, 50);
+
+                ResetBackColor();
+
+                UIControlsHeader.Show();
             }
 
-            // Load our new image
-            LoadMapImage(newMap);
-            old.Dispose();
-
+            WriteDebugPicmap();
         }
 
-        private void OnResizeEnd(object sender, EventArgs e)
+        private void OnKeyPress(object sender, KeyPressEventArgs e)
         {
-            
-        }
+            Debug.WriteLine("Pressed: " + e.KeyChar);
 
-        private void picMap_SizeChanged(object sender, EventArgs e)
-        {
-            Size size = picMap.Size;
+            if(e.KeyChar == 'F' || e.KeyChar == 'f')
+                ToggleFullscreen();
 
-            SetCanvasScales();
+            if (e.KeyChar == 'a')
+            {
+                this.picMap.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
         }
     }
 }

@@ -28,27 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.UIControlsHeader = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.picMap = new System.Windows.Forms.PictureBox();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picMap)).BeginInit();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.UIControlsHeader.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // UIControlsHeader
             // 
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(800, 52);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Map Selection";
+            this.UIControlsHeader.Controls.Add(this.button3);
+            this.UIControlsHeader.Controls.Add(this.button2);
+            this.UIControlsHeader.Controls.Add(this.button1);
+            this.UIControlsHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.UIControlsHeader.Location = new System.Drawing.Point(0, 0);
+            this.UIControlsHeader.Name = "UIControlsHeader";
+            this.UIControlsHeader.Size = new System.Drawing.Size(800, 50);
+            this.UIControlsHeader.TabIndex = 1;
+            this.UIControlsHeader.TabStop = false;
+            this.UIControlsHeader.Text = "Map Selection";
             // 
             // button3
             // 
@@ -80,43 +79,41 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.MapButtonClick);
             // 
-            // picMap
+            // panel1
             // 
-            this.picMap.Location = new System.Drawing.Point(0, 52);
-            this.picMap.Name = "picMap";
-            this.picMap.Size = new System.Drawing.Size(800, 398);
-            this.picMap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picMap.TabIndex = 2;
-            this.picMap.TabStop = false;
-            this.picMap.SizeChanged += new System.EventHandler(this.picMap_SizeChanged);
-            this.picMap.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnMouseDown);
-            this.picMap.MouseUp += new System.Windows.Forms.MouseEventHandler(this.OnMouseUp);
+            this.panel1.AutoScroll = true;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(800, 450);
+            this.panel1.TabIndex = 3;
+            this.panel1.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.OnMapContainerLoad);
             // 
             // TarkovMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.picMap);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.UIControlsHeader);
+            this.Controls.Add(this.panel1);
+            this.KeyPreview = true;
             this.Name = "TarkovMain";
             this.ShowIcon = false;
             this.Text = "Tarkov Assistant - Main";
-            this.Load += new System.EventHandler(this.OnLoad);
-            this.ResizeEnd += new System.EventHandler(this.OnResizeEnd);
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picMap)).EndInit();
+            this.Shown += new System.EventHandler(this.OnFormLoad);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
+            this.UIControlsHeader.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox UIControlsHeader;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.PictureBox picMap;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

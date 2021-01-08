@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TarkovAssistant
 {
@@ -19,6 +20,8 @@ namespace TarkovAssistant
 
         public float scaleX = 1;
         public float scaleY = 1;
+
+        public PictureBox view;
 
         // bitmap to write any drawing to
         public Bitmap overlay;
@@ -57,7 +60,6 @@ namespace TarkovAssistant
                     strokeWidth, 
                     strokeWidth
                 );
-                g.Dispose();
             }
         }
     }
