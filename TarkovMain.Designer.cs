@@ -102,6 +102,7 @@ namespace TarkovAssistant
             this.panel1.Size = new System.Drawing.Size(800, 450);
             this.panel1.TabIndex = 3;
             this.panel1.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.OnMapContainerLoad);
+            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnMouseMove);
             // 
             // TarkovMain
             // 
@@ -115,8 +116,8 @@ namespace TarkovAssistant
             this.ShowIcon = false;
             this.Text = "Tarkov Assistant - Main";
             this.Shown += new System.EventHandler(this.OnFormLoad);
-            this.MouseWheel += new MouseEventHandler(this.OnMouseWheelScroll);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
+            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.OnMouseWheelScroll);
             this.UIControlsHeader.ResumeLayout(false);
             this.ResumeLayout(false);
 

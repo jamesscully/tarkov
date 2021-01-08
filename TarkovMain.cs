@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using TarkovAssistant.Properties;
+using Timer = System.Timers.Timer;
 
 namespace TarkovAssistant
 {
@@ -14,9 +15,20 @@ namespace TarkovAssistant
         private Image originalImage = null;
         private Size preScrollSize = Size.Empty;
 
+        private static Timer mouseDownLoop;
+
         public TarkovMain()
         {
             InitializeComponent();
+
+            mouseDownLoop = new Timer
+            {
+                Interval = 10,
+                Enabled = false,
+                AutoReset = true
+            };
+
+            mouseDownLoop.Elapsed += WhileMouseDown;
         }
 
         private void OnFormLoad(object sender, EventArgs e)
@@ -29,6 +41,9 @@ namespace TarkovAssistant
 
                 panel1.AutoScroll = true;
                 panel1.Controls.Add(picMap);
+
+                picMap.MouseDown += this.OnMouseDown;
+                picMap.MouseUp += this.OnMouseUp;
             }
         }
 
@@ -95,6 +110,7 @@ namespace TarkovAssistant
             {
                 Debug.WriteLine("Entered Fullscreen");
 
+                // update the og. picturebox size before we can scroll or do anything!
                 preScrollSize = picMap.Size;
 
                 // Maximizes the form and image (to scale), hides UI
@@ -120,13 +136,13 @@ namespace TarkovAssistant
             {
                 Debug.WriteLine("Exited Fullscreen");
 
+                // inverse of above 
+
                 this.TopMost = true;
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.WindowState = FormWindowState.Normal;
                 picMap.SizeMode = PictureBoxSizeMode.AutoSize;
                 panel1.AutoScroll = true;
-
-
 
                 picMap.Location = new Point(0, 50);
 
@@ -149,6 +165,7 @@ namespace TarkovAssistant
             {
                 if (fullscreen)
                 {
+                    // set our picturebox to original size, apply normal fullscreen settings
                     picMap.Size = preScrollSize;
                     picMap.SizeMode = PictureBoxSizeMode.Zoom;
                     picMap.Size = panel1.Size;
@@ -173,6 +190,59 @@ namespace TarkovAssistant
                 picMap.Width -= zoomAmount;
                 picMap.Height -= zoomAmount;
             }
+        }
+
+
+        private Point mouseDragStart = Point.Empty;
+        private Point mouseDragEnd = Point.Empty;
+
+        // Mouse event handlers
+        private void OnMouseDown(object sender, MouseEventArgs e)
+        {
+            mouseDragStart = e.Location;
+            mouseDownLoop.Enabled = true;
+
+        }
+        // Returns our cursor relative to the picture/map control
+        private Point GetCursorInPictureBox()
+        {
+            Point ret = Point.Empty;
+            Invoke(new Action(() =>
+            {
+                ret = picMap.PointToClient(Cursor.Position);
+            }));
+            return ret;
+        }
+
+        private void WhileMouseDown(Object source, EventArgs e)
+        {
+            mouseDragEnd = GetCursorInPictureBox();
+
+            int deltaX = (int) (mouseDragEnd.X - mouseDragStart.X);
+            int deltaY = (int) (mouseDragStart.Y - mouseDragEnd.Y);
+
+            Debug.WriteLine("Mousedown, delta: " + deltaX + " " + deltaY);
+
+            picMap.Invoke((MethodInvoker) delegate
+            {
+                int processedX = picMap.Location.X + deltaX;
+                int processedY = picMap.Location.Y - deltaY;
+
+                picMap.Location = new Point(processedX, processedY);
+
+            });
+
+            mouseDragStart = GetCursorInPictureBox();
+        }
+
+        private void OnMouseUp(object sender, MouseEventArgs e)
+        {
+            mouseDownLoop.Enabled = false;
+        }
+
+        private void OnMouseMove(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }
