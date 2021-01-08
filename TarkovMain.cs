@@ -11,6 +11,9 @@ namespace TarkovAssistant
 
         private PictureBox picMap = new PictureBox();
 
+        private Image originalImage = null;
+        private Size preScrollSize = Size.Empty;
+
         public TarkovMain()
         {
             InitializeComponent();
@@ -45,7 +48,11 @@ namespace TarkovAssistant
                 picMap.Image.Dispose();
             }
 
+            originalImage = (Image) img.Clone();
+
             picMap.Image = img;
+
+
         }
 
         // Fires when a map button is pressed
@@ -68,7 +75,6 @@ namespace TarkovAssistant
                 bmp = Resources.customs;
             }
 
-
             LoadMapImage(bmp);
         }
 
@@ -89,6 +95,7 @@ namespace TarkovAssistant
             {
                 Debug.WriteLine("Entered Fullscreen");
 
+                preScrollSize = picMap.Size;
 
                 // Maximizes the form and image (to scale), hides UI
                 this.TopMost = false;
@@ -137,6 +144,35 @@ namespace TarkovAssistant
 
             if (e.KeyChar == 'F' || e.KeyChar == 'f')
                 ToggleFullscreen();
+
+            if (e.KeyChar == 'R' || e.KeyChar == 'r')
+            {
+                if (fullscreen)
+                {
+                    picMap.Size = preScrollSize;
+                    picMap.SizeMode = PictureBoxSizeMode.Zoom;
+                    picMap.Size = panel1.Size;
+                    picMap.Location = Point.Empty;
+                }
+            }
+        }
+
+        private void OnMouseWheelScroll(object sender, MouseEventArgs e)
+        {
+            bool zoomIn = e.Delta > 0;
+
+            int zoomAmount = 50;
+
+            if (zoomIn)
+            {
+                picMap.Width += zoomAmount;
+                picMap.Height += zoomAmount;
+            }
+            else
+            {
+                picMap.Width -= zoomAmount;
+                picMap.Height -= zoomAmount;
+            }
         }
     }
 }

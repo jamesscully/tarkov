@@ -1,4 +1,6 @@
-﻿namespace TarkovAssistant
+﻿using System.Windows.Forms;
+
+namespace TarkovAssistant
 {
     partial class TarkovMain
     {
@@ -113,6 +115,7 @@
             this.ShowIcon = false;
             this.Text = "Tarkov Assistant - Main";
             this.Shown += new System.EventHandler(this.OnFormLoad);
+            this.MouseWheel += new MouseEventHandler(this.OnMouseWheelScroll);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             this.UIControlsHeader.ResumeLayout(false);
             this.ResumeLayout(false);
