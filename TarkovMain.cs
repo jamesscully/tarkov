@@ -223,13 +223,17 @@ namespace TarkovAssistant
 
             Debug.WriteLine("Mousedown, delta: " + deltaX + " " + deltaY);
 
+
+            if (deltaX == 0 && deltaY == 0)
+                return;
+
             picMap.Invoke((MethodInvoker) delegate
             {
                 int processedX = picMap.Location.X + deltaX;
                 int processedY = picMap.Location.Y - deltaY;
 
                 picMap.Location = new Point(processedX, processedY);
-
+                panel1.Invalidate();
             });
 
             mouseDragStart = GetCursorInPictureBox();
