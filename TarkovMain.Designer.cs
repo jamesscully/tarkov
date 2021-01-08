@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.UIControlsHeader = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -38,6 +39,7 @@
             // 
             // UIControlsHeader
             // 
+            this.UIControlsHeader.Controls.Add(this.button4);
             this.UIControlsHeader.Controls.Add(this.button3);
             this.UIControlsHeader.Controls.Add(this.button2);
             this.UIControlsHeader.Controls.Add(this.button1);
@@ -48,6 +50,16 @@
             this.UIControlsHeader.TabIndex = 1;
             this.UIControlsHeader.TabStop = false;
             this.UIControlsHeader.Text = "Map Selection";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(250, 19);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 3;
+            this.button4.Text = "Woods";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.MapButtonClick);
             // 
             // button3
             // 
@@ -114,6 +126,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button4;
     }
 }
 

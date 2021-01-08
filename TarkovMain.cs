@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Design.Serialization;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using TarkovAssistant.Properties;
-using Timer = System.Timers.Timer;
 
 namespace TarkovAssistant
 {
@@ -30,19 +20,13 @@ namespace TarkovAssistant
         {
             if (panel1 != null)
             {
-                
+
                 picMap.Location = new Point(0, 50);
                 picMap.SizeMode = PictureBoxSizeMode.AutoSize;
 
                 panel1.AutoScroll = true;
                 panel1.Controls.Add(picMap);
             }
-            else
-            {
-                Debug.WriteLine("Hey");
-            }
-                
-
         }
 
 
@@ -50,7 +34,6 @@ namespace TarkovAssistant
         {
             // load default map
             LoadMapImage(Resources.customs);
-
         }
 
         // Loads an Image object into the picture box - processed via RefreshDrawing()
@@ -68,7 +51,7 @@ namespace TarkovAssistant
         // Fires when a map button is pressed
         private void MapButtonClick(object sender, EventArgs e)
         {
-            Button button = (Button) sender;
+            Button button = (Button)sender;
 
             string mapName = button.Text.ToLower();
 
@@ -123,6 +106,8 @@ namespace TarkovAssistant
                 picMap.Location = Point.Empty;
 
                 UIControlsHeader.Hide();
+                panel1.AutoScroll = false;
+
             }
             else
             {
@@ -132,6 +117,8 @@ namespace TarkovAssistant
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.WindowState = FormWindowState.Normal;
                 picMap.SizeMode = PictureBoxSizeMode.AutoSize;
+                panel1.AutoScroll = true;
+
 
 
                 picMap.Location = new Point(0, 50);
@@ -148,7 +135,7 @@ namespace TarkovAssistant
         {
             Debug.WriteLine("Pressed: " + e.KeyChar);
 
-            if(e.KeyChar == 'F' || e.KeyChar == 'f')
+            if (e.KeyChar == 'F' || e.KeyChar == 'f')
                 ToggleFullscreen();
         }
     }
