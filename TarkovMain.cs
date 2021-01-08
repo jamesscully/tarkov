@@ -18,9 +18,6 @@ namespace TarkovAssistant
 {
     public partial class TarkovMain : Form
     {
-        private Image currentMap = null;
-        private static Timer mouseDownLoop;
-        private Canvas canvas;
 
         private PictureBox picMap = new PictureBox();
 
@@ -36,10 +33,6 @@ namespace TarkovAssistant
                 
                 picMap.Location = new Point(0, 50);
                 picMap.SizeMode = PictureBoxSizeMode.AutoSize;
-
-                picMap.MouseClick += OnMouseClick;
-                picMap.MouseDown += OnMouseDown;
-                picMap.MouseUp += OnMouseUp;
 
                 panel1.AutoScroll = true;
                 panel1.Controls.Add(picMap);
@@ -58,14 +51,6 @@ namespace TarkovAssistant
             // load default map
             LoadMapImage(Resources.customs);
 
-            mouseDownLoop = new Timer
-            {
-                Interval = 500,
-                Enabled = false,
-                AutoReset = true
-            };
-
-            mouseDownLoop.Elapsed += WhileMouseDown;
         }
 
         // Loads an Image object into the picture box - processed via RefreshDrawing()
@@ -77,7 +62,6 @@ namespace TarkovAssistant
                 picMap.Image.Dispose();
             }
 
-            currentMap = img;
             picMap.Image = img;
         }
 
@@ -101,34 +85,10 @@ namespace TarkovAssistant
                 bmp = Resources.customs;
             }
 
-            // remove ref to canvas prior to swapping image
-            canvas = null;
 
             LoadMapImage(bmp);
         }
 
-
-
-        // Mouse event handlers
-        private void OnMouseDown(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void WhileMouseDown(Object source, EventArgs e)
-        {
-
-        }
-
-        private void OnMouseUp(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void OnMouseClick(object sender, MouseEventArgs e)
-        {
-
-        }
 
         private void WriteDebugPicmap()
         {
@@ -190,11 +150,6 @@ namespace TarkovAssistant
 
             if(e.KeyChar == 'F' || e.KeyChar == 'f')
                 ToggleFullscreen();
-
-            if (e.KeyChar == 'a')
-            {
-                this.picMap.SizeMode = PictureBoxSizeMode.StretchImage;
-            }
         }
     }
 }

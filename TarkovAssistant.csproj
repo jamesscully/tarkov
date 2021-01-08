@@ -61,7 +61,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Canvas.cs" />
     <Compile Include="TarkovMain.cs">
       <SubType>Form</SubType>
     </Compile>
