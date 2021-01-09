@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Timer = System.Timers.Timer;
 
 namespace TarkovAssistant
 {
@@ -19,15 +20,29 @@ namespace TarkovAssistant
 
         private Size imageSize = Size.Empty;
 
+        private Timer mouseDownLoop;
+
         public MapViewerControl()
         {
             InitializeComponent();
+
+            mouseDownLoop = new Timer
+            {
+                Interval = 25,
+                Enabled = false,
+                AutoReset = true
+            };
         }
 
         public void LoadImage(Image map)
         {
+
+
             mapImage = map;
             imageSize = map.Size;
+
+            if (canvas != null)
+                canvas.Clear(Color.White);
 
             canvas = Graphics.FromImage(mapImage);
             
@@ -51,23 +66,17 @@ namespace TarkovAssistant
             
             bool directionPositive = (e.Delta > 0);
 
-            Debug.WriteLine("Moving Canvas, direction positive: " + directionPositive);
-
             int scrollStepAmount = 20;
 
-            if(ShiftKeyHeld())
-                mapX += (directionPositive) ? -(scrollStepAmount) : scrollStepAmount;
-            else if (CtrlKeyHeld())
-                mapY += (directionPositive) ? -(scrollStepAmount) : scrollStepAmount;
+            if (!directionPositive)
+                scrollStepAmount = -(scrollStepAmount);
 
-            Point newPos = new Point(mapX, mapY);
-
-            Debug.WriteLine("Drawing image at: " + newPos);
-            canvas.RotateTransform(50);
+            if (ShiftKeyHeld())
+                PanImage(scrollStepAmount, 0);
+            else if (!CtrlKeyHeld())
+                PanImage(0, scrollStepAmount);
 
             pictureBox.Invalidate();
-
-            // Redraw();
         }
 
         private void OnMouseClick(object sender, MouseEventArgs e)
@@ -75,33 +84,67 @@ namespace TarkovAssistant
 
         }
 
+        Point MousePointA = Point.Empty;
+        Point MousePointB = Point.Empty;
+
+        private bool panGrab = false;
+
         private void OnMouseDown(object sender, MouseEventArgs e)
         {
             Cursor.Current = Cursors.Hand;
+            panGrab = true;
+            mouseDownLoop.Enabled = true;
+            mouseDownLoop.Elapsed += (o, args) =>
+            {
+
+            };
+
+            MousePointA = Cursor.Position;
         }
 
         private void OnMouseMove(object sender, MouseEventArgs e)
         {
+            if (panGrab)
+            {
+                // calculate our position (and deltas) from absolute values,
+                // rather than relative (in-form)
+                MousePointB = Cursor.Position;
 
+                int deltaX = MousePointB.X - MousePointA.X;
+                int deltaY = MousePointB.Y - MousePointA.Y;
+
+                PanImage(deltaX, deltaY);
+
+                MousePointA = Cursor.Position;
+            }
         }
 
         private void OnMouseUp(object sender, MouseEventArgs e)
         {
-
+            panGrab = false;
         }
 
         private void OnPaint(object sender, PaintEventArgs e)
         {
 
+            e.Graphics.Clear(Color.White);
+
             if(mapImage != null)
                 e.Graphics.DrawImage(mapImage, mapX, mapY);
-
-            Debug.WriteLine("Picturebox is being repainted");
         }
 
         public void OnKeyPress(object sender, KeyPressEventArgs e)
         {
             Debug.WriteLine("KeyPressed:" + e.KeyChar);
+        }
+
+
+        public void PanImage(int dX, int dY)
+        {
+            mapX += dX;
+            mapY += dY;
+
+            Redraw();
         }
     }
 }
