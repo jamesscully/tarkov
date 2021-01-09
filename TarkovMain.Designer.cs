@@ -36,7 +36,9 @@ namespace TarkovAssistant
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.mapViewerControl1 = new TarkovAssistant.MapViewerControl();
             this.UIControlsHeader.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // UIControlsHeader
@@ -96,21 +98,31 @@ namespace TarkovAssistant
             // panel1
             // 
             this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.mapViewerControl1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(0, 50);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1104, 589);
+            this.panel1.Size = new System.Drawing.Size(1104, 539);
             this.panel1.TabIndex = 3;
             this.panel1.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.OnMapContainerLoad);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnMouseMove);
+            // 
+            // mapViewerControl1
+            // 
+            this.mapViewerControl1.AutoSize = true;
+            this.mapViewerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapViewerControl1.Location = new System.Drawing.Point(0, 0);
+            this.mapViewerControl1.Name = "mapViewerControl1";
+            this.mapViewerControl1.Size = new System.Drawing.Size(1104, 539);
+            this.mapViewerControl1.TabIndex = 0;
             // 
             // TarkovMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1104, 589);
-            this.Controls.Add(this.UIControlsHeader);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.UIControlsHeader);
             this.KeyPreview = true;
             this.Name = "TarkovMain";
             this.ShowIcon = false;
@@ -119,6 +131,8 @@ namespace TarkovAssistant
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.OnMouseWheelScroll);
             this.UIControlsHeader.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -131,6 +145,7 @@ namespace TarkovAssistant
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button4;
+        private MapViewerControl mapViewerControl1;
     }
 }
 

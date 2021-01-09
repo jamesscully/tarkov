@@ -69,6 +69,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MapViewerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MapViewerControl.Designer.cs">
+      <DependentUpon>MapViewerControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="TarkovMain.resx">
       <DependentUpon>TarkovMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -76,6 +82,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MapViewerControl.resx">
+      <DependentUpon>MapViewerControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

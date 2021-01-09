@@ -35,14 +35,7 @@ namespace TarkovAssistant
         {
             if (panel1 != null)
             {
-                picMap.Location = new Point(0, UIControlsHeader.Height);
-                picMap.SizeMode = PictureBoxSizeMode.AutoSize;
-
-                panel1.AutoScroll = true;
-                panel1.Controls.Add(picMap);
-
-                picMap.MouseDown += this.OnMouseDown;
-                picMap.MouseUp += this.OnMouseUp;
+                mapViewerControl1.Location = new Point(0, UIControlsHeader.Height);
             }
         }
 
@@ -50,7 +43,7 @@ namespace TarkovAssistant
         private void OnMapContainerLoad(object sender, ControlEventArgs e)
         {
             // load default map
-            LoadMapImage(Resources.customs);
+            mapViewerControl1.LoadImage(Resources.customs);
         }
 
         // Loads an Image object into the picture box - processed via RefreshDrawing()
@@ -87,7 +80,9 @@ namespace TarkovAssistant
                 bmp = Resources.customs;
             }
 
-            LoadMapImage(bmp);
+            mapViewerControl1.LoadImage(bmp);
+
+            // LoadMapImage(bmp);
         }
 
 
@@ -111,7 +106,7 @@ namespace TarkovAssistant
                 preScrollSize = picMap.Size;
 
                 // Maximizes the form and image (to scale), hides UI
-                this.TopMost = false;
+                this.TopMost = true;
                 this.FormBorderStyle = FormBorderStyle.None;
                 this.WindowState = FormWindowState.Maximized;
                 this.picMap.SizeMode = PictureBoxSizeMode.Zoom;
@@ -133,13 +128,12 @@ namespace TarkovAssistant
                 Debug.WriteLine("Exited Fullscreen");
 
                 // inverse of above 
-                this.TopMost = true;
+                this.TopMost = false;
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.WindowState = FormWindowState.Normal;
                 ApplyFullscreenSettings();
 
                 panel1.AutoScroll = true;
-
 
                 ResetBackColor();
 
@@ -163,6 +157,9 @@ namespace TarkovAssistant
                     ApplyFullscreenSettings();
                 }
             }
+
+            // pass key events to mapviewer
+            mapViewerControl1.OnKeyPress(sender, e);
         }
 
         // encapsulates applying fullscreen settings; use as a 'reset' for fullscreen
@@ -216,13 +213,14 @@ namespace TarkovAssistant
             mouseDragStart = GetCursorInPictureBox();
             mouseDownLoop.Enabled = true;
 
-            Cursor.Current = Cursors.Hand;
+            // Cursor.Current = Cursors.Hand;
         }
 
         // Returns our cursor relative to the picture/map control
         private Point GetCursorInPictureBox()
         {
             Point ret = Point.Empty;
+
             Invoke(new Action(() =>
             {
                 ret = picMap.PointToClient(Cursor.Position);
@@ -244,12 +242,12 @@ namespace TarkovAssistant
 
         private void PanImage(int dX, int dY)
         {
-            picMap.Invoke((MethodInvoker) delegate
-            {
-                int processedX = picMap.Location.X + dX;
-                int processedY = picMap.Location.Y - dY;
-                picMap.Location = new Point(processedX, processedY);
-            });
+            // picMap.Invoke((MethodInvoker) delegate
+            // {
+            //     int processedX = picMap.Location.X + dX;
+            //     int processedY = picMap.Location.Y - dY;
+            //     picMap.Location = new Point(processedX, processedY);
+            // });
 
         }
 
@@ -259,9 +257,6 @@ namespace TarkovAssistant
 
             int deltaX = (int) (mouseDragEnd.X - mouseDragStart.X);
             int deltaY = (int) (mouseDragStart.Y - mouseDragEnd.Y);
-
-            if (deltaX == 0 && deltaY == 0)
-                return;
 
             PanImage(deltaX, deltaY);
 
@@ -280,7 +275,8 @@ namespace TarkovAssistant
 
         private void OnMouseMove(object sender, MouseEventArgs e)
         {
-
+            
         }
+
     }
 }
