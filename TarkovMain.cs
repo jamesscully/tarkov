@@ -23,7 +23,7 @@ namespace TarkovAssistant
 
             mouseDownLoop = new Timer
             {
-                Interval = 10,
+                Interval = 25,
                 Enabled = false,
                 AutoReset = true
             };
@@ -36,7 +36,7 @@ namespace TarkovAssistant
             if (panel1 != null)
             {
 
-                picMap.Location = new Point(0, 50);
+                picMap.Location = new Point(0, UIControlsHeader.Height);
                 picMap.SizeMode = PictureBoxSizeMode.AutoSize;
 
                 panel1.AutoScroll = true;
@@ -130,21 +130,19 @@ namespace TarkovAssistant
 
                 UIControlsHeader.Hide();
                 panel1.AutoScroll = false;
-
             }
             else
             {
                 Debug.WriteLine("Exited Fullscreen");
 
                 // inverse of above 
-
                 this.TopMost = true;
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.WindowState = FormWindowState.Normal;
                 picMap.SizeMode = PictureBoxSizeMode.AutoSize;
                 panel1.AutoScroll = true;
 
-                picMap.Location = new Point(0, 50);
+                picMap.Location = new Point(0, UIControlsHeader.Height);
 
                 ResetBackColor();
 
@@ -174,24 +172,37 @@ namespace TarkovAssistant
             }
         }
 
+        private float scrollScale = 1f;
+        
         private void OnMouseWheelScroll(object sender, MouseEventArgs e)
         {
-            bool zoomIn = e.Delta > 0;
-
-            int zoomAmount = 50;
-
-            if (zoomIn)
+            // zoom if we hold Ctrl whilst scrolling; most zoom implementations function this way
+            if (ModifierKeys.HasFlag(Keys.Control))
             {
-                picMap.Width += zoomAmount;
-                picMap.Height += zoomAmount;
+                HandleMapZoom(e.Delta);
             }
+
+            bool panUp = e.Delta > 0;
+            int panAmount = (panUp) ? -25 : 25;
+
+            // if we're holding shift, we move left-right, else up/down.
+            if(ModifierKeys.HasFlag(Keys.Shift)) 
+                PanImage(panAmount, 0);
             else
-            {
-                picMap.Width -= zoomAmount;
-                picMap.Height -= zoomAmount;
-            }
+                PanImage(0, panAmount);
         }
 
+        private void HandleMapZoom(float delta)
+        {
+            bool zoomIn = delta > 0;
+            float zoomAmount = (zoomIn) ? 0.1f : -0.1f;
+            int width = preScrollSize.Width, height = preScrollSize.Height;
+
+            scrollScale += zoomAmount;
+
+            picMap.Width = (int)(width * scrollScale);
+            picMap.Height = (int)(height * scrollScale);
+        }
 
         private Point mouseDragStart = Point.Empty;
         private Point mouseDragEnd = Point.Empty;
@@ -199,9 +210,10 @@ namespace TarkovAssistant
         // Mouse event handlers
         private void OnMouseDown(object sender, MouseEventArgs e)
         {
-            mouseDragStart = e.Location;
+            mouseDragStart = GetCursorInPictureBox();
             mouseDownLoop.Enabled = true;
 
+            Cursor.Current = Cursors.Hand;
         }
         // Returns our cursor relative to the picture/map control
         private Point GetCursorInPictureBox()
@@ -214,6 +226,17 @@ namespace TarkovAssistant
             return ret;
         }
 
+        private void PanImage(int dX, int dY)
+        {
+            picMap.Invoke((MethodInvoker)delegate
+            {
+                int processedX = picMap.Location.X + dX;
+                int processedY = picMap.Location.Y - dY;
+                picMap.Location = new Point(processedX, processedY);
+                panel1.Invalidate();
+            });
+        }
+
         private void WhileMouseDown(Object source, EventArgs e)
         {
             mouseDragEnd = GetCursorInPictureBox();
@@ -221,20 +244,10 @@ namespace TarkovAssistant
             int deltaX = (int) (mouseDragEnd.X - mouseDragStart.X);
             int deltaY = (int) (mouseDragStart.Y - mouseDragEnd.Y);
 
-            Debug.WriteLine("Mousedown, delta: " + deltaX + " " + deltaY);
-
-
             if (deltaX == 0 && deltaY == 0)
                 return;
 
-            picMap.Invoke((MethodInvoker) delegate
-            {
-                int processedX = picMap.Location.X + deltaX;
-                int processedY = picMap.Location.Y - deltaY;
-
-                picMap.Location = new Point(processedX, processedY);
-                panel1.Invalidate();
-            });
+            PanImage(deltaX, deltaY);
 
             mouseDragStart = GetCursorInPictureBox();
         }
