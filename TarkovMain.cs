@@ -35,7 +35,6 @@ namespace TarkovAssistant
         {
             if (panel1 != null)
             {
-
                 picMap.Location = new Point(0, UIControlsHeader.Height);
                 picMap.SizeMode = PictureBoxSizeMode.AutoSize;
 
@@ -66,14 +65,12 @@ namespace TarkovAssistant
             originalImage = (Image) img.Clone();
 
             picMap.Image = img;
-
-
         }
 
         // Fires when a map button is pressed
         private void MapButtonClick(object sender, EventArgs e)
         {
-            Button button = (Button)sender;
+            Button button = (Button) sender;
 
             string mapName = button.Text.ToLower();
 
@@ -139,10 +136,10 @@ namespace TarkovAssistant
                 this.TopMost = true;
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.WindowState = FormWindowState.Normal;
-                picMap.SizeMode = PictureBoxSizeMode.AutoSize;
+                ApplyFullscreenSettings();
+
                 panel1.AutoScroll = true;
 
-                picMap.Location = new Point(0, UIControlsHeader.Height);
 
                 ResetBackColor();
 
@@ -163,13 +160,19 @@ namespace TarkovAssistant
             {
                 if (fullscreen)
                 {
-                    // set our picturebox to original size, apply normal fullscreen settings
-                    picMap.Size = preScrollSize;
-                    picMap.SizeMode = PictureBoxSizeMode.Zoom;
-                    picMap.Size = panel1.Size;
-                    picMap.Location = Point.Empty;
+                    ApplyFullscreenSettings();
                 }
             }
+        }
+
+        // encapsulates applying fullscreen settings; use as a 'reset' for fullscreen
+        private void ApplyFullscreenSettings()
+        {
+            // set our picturebox to original size, apply normal fullscreen settings
+            picMap.Size = preScrollSize;
+            picMap.SizeMode = PictureBoxSizeMode.Zoom;
+            picMap.Size = panel1.Size;
+            picMap.Location = Point.Empty;
         }
 
         private float scrollScale = 1f;
@@ -200,8 +203,8 @@ namespace TarkovAssistant
 
             scrollScale += zoomAmount;
 
-            picMap.Width = (int)(width * scrollScale);
-            picMap.Height = (int)(height * scrollScale);
+            picMap.Width  = (int) (width  * scrollScale);
+            picMap.Height = (int) (height * scrollScale);
         }
 
         private Point mouseDragStart = Point.Empty;
@@ -215,6 +218,7 @@ namespace TarkovAssistant
 
             Cursor.Current = Cursors.Hand;
         }
+
         // Returns our cursor relative to the picture/map control
         private Point GetCursorInPictureBox()
         {
@@ -223,18 +227,30 @@ namespace TarkovAssistant
             {
                 ret = picMap.PointToClient(Cursor.Position);
             }));
+
             return ret;
+        }
+
+        private bool IsImageOutsideBounds()
+        {
+            var pictureBounds = picMap.Bounds;
+            var panelBounds = panel1.Bounds;
+
+            var intersect = Rectangle.Intersect(pictureBounds, panelBounds);
+
+            // Rectangle.Intersect will return empty if there is no intersection
+            return (intersect == Rectangle.Empty);
         }
 
         private void PanImage(int dX, int dY)
         {
-            picMap.Invoke((MethodInvoker)delegate
+            picMap.Invoke((MethodInvoker) delegate
             {
                 int processedX = picMap.Location.X + dX;
                 int processedY = picMap.Location.Y - dY;
                 picMap.Location = new Point(processedX, processedY);
-                panel1.Invalidate();
             });
+
         }
 
         private void WhileMouseDown(Object source, EventArgs e)
@@ -255,6 +271,11 @@ namespace TarkovAssistant
         private void OnMouseUp(object sender, MouseEventArgs e)
         {
             mouseDownLoop.Enabled = false;
+
+            if (IsImageOutsideBounds())
+            {
+                ApplyFullscreenSettings();
+            }
         }
 
         private void OnMouseMove(object sender, MouseEventArgs e)

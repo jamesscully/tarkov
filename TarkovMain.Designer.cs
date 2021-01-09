@@ -48,7 +48,7 @@ namespace TarkovAssistant
             this.UIControlsHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.UIControlsHeader.Location = new System.Drawing.Point(0, 0);
             this.UIControlsHeader.Name = "UIControlsHeader";
-            this.UIControlsHeader.Size = new System.Drawing.Size(800, 50);
+            this.UIControlsHeader.Size = new System.Drawing.Size(1104, 50);
             this.UIControlsHeader.TabIndex = 1;
             this.UIControlsHeader.TabStop = false;
             this.UIControlsHeader.Text = "Map Selection";
@@ -99,7 +99,7 @@ namespace TarkovAssistant
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 450);
+            this.panel1.Size = new System.Drawing.Size(1104, 589);
             this.panel1.TabIndex = 3;
             this.panel1.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.OnMapContainerLoad);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnMouseMove);
@@ -108,7 +108,7 @@ namespace TarkovAssistant
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1104, 589);
             this.Controls.Add(this.UIControlsHeader);
             this.Controls.Add(this.panel1);
             this.KeyPreview = true;
