@@ -6,13 +6,31 @@
         xmlns:local="clr-namespace:TarkovAssistantWPF"
         mc:Ignorable="d"
         Title="Tarkov Assistant - Map Viewer" Height="768" Width="1366"  KeyDown="OnKeyDown" KeyUp="OnKeyUp" MouseWheel="OnMouseWheel">
+
     <Grid>
-        <Image x:Name="pictureBox" Margin="0,10,0,0" MouseMove="OnMouseMove" MouseLeftButtonDown="OnMouseDown" PreviewMouseUp="OnMouseUp" OpacityMask="Black" Source="maps/customs.png">
+
+        <Border Background="Gray">
+        <Image x:Name="pictureBox" MouseMove="OnMouseMove" MouseLeftButtonDown="OnMouseDown" PreviewMouseUp="OnMouseUp" OpacityMask="Black" Source=" " Height="678" VerticalAlignment="Bottom" Margin="0,0,0,36">
             <Image.RenderTransform>
                 <TransformGroup>
                     <MatrixTransform x:Name="mapTransform"/>
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
+            </Border>
+        <Menu HorizontalAlignment="Left" VerticalAlignment="Top" Width="1358">
+            <MenuItem Header="Menu">
+
+            </MenuItem>
+
+            <MenuItem Header="Map">
+                <MenuItem Click="OnMapChange"  Header="Customs" HorizontalAlignment="Left" Tag="customs"/>
+                <MenuItem Click="OnMapChange"  Header="Shoreline" HorizontalAlignment="Left" Tag="shoreline"/>
+                <MenuItem Click="OnMapChange"  Header="Woods" HorizontalAlignment="Left" Tag="woods"/>
+                <MenuItem Click="OnMapChange"  Header="Interchange" HorizontalAlignment="Left" Tag="interchange"/>
+                <MenuItem Click="OnMapChange"  Header="Factory" HorizontalAlignment="Left" Tag="factory"/>
+                
+            </MenuItem>
+        </Menu>
     </Grid>
 </Window>

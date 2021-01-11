@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,15 +29,32 @@ namespace TarkovAssistantWPF
 
             pictureBox.MouseLeave += (sender, args) => panGrab = false;
 
-            SetMap();
+            pictureBox.OpacityMask = Brushes.Black;
+
+            SetMap("customs");
         }
 
-        private void SetMap()
+        private string mapName = "customs";
+
+        private void SetMap(string map)
         {
-            var bitmap = new BitmapImage(new Uri("maps/customs.png", UriKind.Relative));
+
+            BitmapImage bitmap = null;
+
+            try
+            {
+                bitmap = new BitmapImage(new Uri($"maps/{map}.png", UriKind.Relative));
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error: file 'maps/{map}' not found!");
+                return;
+            }
 
             pictureBox.Source = bitmap;
             pictureBox.MouseUp += OnMouseUp;
+
+            mapName = map;
 
         }
 
@@ -86,7 +104,18 @@ namespace TarkovAssistantWPF
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            Console.WriteLine($"{mapScale}");
+
+            if (e.Key == Key.R)
+            {
+
+                Console.WriteLine("Resetting map");
+                SetMap("interchange");
+            }
+            else
+            {
+                Console.WriteLine($"{mapScale}");
+
+            }
         }
 
         private void OnKeyUp(object sender, KeyEventArgs e) { }
@@ -111,5 +140,13 @@ namespace TarkovAssistantWPF
 
             mapTransform.Matrix = matrix;
         }
+
+        private void OnMapChange(object sender, RoutedEventArgs e)
+        {
+            var item = (MenuItem) sender;
+
+            SetMap(item.Tag as string);
+        }
+
     }
 }
