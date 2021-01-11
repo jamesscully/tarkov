@@ -7,10 +7,16 @@
         mc:Ignorable="d"
         Title="Tarkov Assistant - Map Viewer" Height="768" Width="1366"  KeyDown="OnKeyDown" KeyUp="OnKeyUp" MouseWheel="OnMouseWheel">
 
-    <Grid>
-
+    <Grid Background="Black">
+        <Canvas x:Name="mapCanvas" Height="Auto" Width="Auto" ZIndex="1">
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <MatrixTransform x:Name="mapCanvasTransform"/>
+                </TransformGroup>
+            </Canvas.RenderTransform>
+        </Canvas>
         <Border Background="#212121">
-            <Image x:Name="pictureBox" MouseMove="OnMouseMove" MouseLeftButtonDown="OnMouseDown" PreviewMouseUp="OnMouseUp" OpacityMask="Black" Source=" " Height="Auto" VerticalAlignment="Stretch" Margin="0">
+            <Image x:Name="pictureBox" MouseMove="OnMouseMove" MouseLeftButtonDown="OnMouseDown" Height="Auto" VerticalAlignment="Stretch" Margin="0">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <MatrixTransform x:Name="mapTransform"/>
@@ -19,17 +25,12 @@
             </Image>
         </Border>
         <Menu VerticalAlignment="Top" HorizontalAlignment="Left">
-            <MenuItem Header="Menu">
-
-            </MenuItem>
-
             <MenuItem Header="Map">
                 <MenuItem Click="OnMapChange"  Header="Customs" HorizontalAlignment="Left" Tag="customs"/>
                 <MenuItem Click="OnMapChange"  Header="Shoreline" HorizontalAlignment="Left" Tag="shoreline"/>
                 <MenuItem Click="OnMapChange"  Header="Woods" HorizontalAlignment="Left" Tag="woods"/>
                 <MenuItem Click="OnMapChange"  Header="Interchange" HorizontalAlignment="Left" Tag="interchange"/>
                 <MenuItem Click="OnMapChange"  Header="Factory" HorizontalAlignment="Left" Tag="factory"/>
-
             </MenuItem>
         </Menu>
     </Grid>

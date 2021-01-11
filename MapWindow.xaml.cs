@@ -28,8 +28,10 @@ namespace TarkovAssistantWPF
             InitializeComponent();
 
             pictureBox.MouseLeave += (sender, args) => panGrab = false;
+            mapCanvas.IsHitTestVisible = false;
 
             SetMap("customs");
+
         }
 
         private void SetMap(string map)
@@ -58,13 +60,19 @@ namespace TarkovAssistantWPF
 
         private bool fullscreenEnabled = false;
 
+
+        private TimeSpan clickStart = new TimeSpan(); 
+        private TimeSpan clickEnd = new TimeSpan();
+
+        private bool addingDot = true;
+
+        #region MouseControls
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             panGrab = true;
 
-            MousePointA = e.GetPosition(pictureBox);
+            MousePointA = e.GetPosition(mapCanvas);
 
-            this.Cursor = Cursors.ScrollAll;
         }
 
         private void OnMouseMove(object sender, MouseEventArgs e)
@@ -73,15 +81,17 @@ namespace TarkovAssistantWPF
 
             if (panGrab)
             {
+                Debug.WriteLine("Disabling dot");
+                addingDot = false;
+
+                this.Cursor = Cursors.ScrollAll;
+
                 // how many pixels travelled since last call
-                Point delta = (Point) Point.Subtract(MousePointB, MousePointA);
+                Point delta = (Point)Point.Subtract(MousePointB, MousePointA);
 
-                var matrix = mapTransform.Matrix;
-
-                // use map scale to keep constant pan speed when zoomed in
-                matrix.Translate(delta.X * mapScale, delta.Y * mapScale);
-
-                mapTransform.Matrix = matrix;
+                // translate both the image and the canvas
+                TranslateLayer(ref mapTransform, delta.X * mapScale, delta.Y * mapScale);
+                TranslateLayer(ref mapCanvasTransform, delta.X * mapScale, delta.Y * mapScale);
             }
 
             MousePointA = e.GetPosition(pictureBox);
@@ -89,45 +99,46 @@ namespace TarkovAssistantWPF
 
         private void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
+
+            if (sender is Canvas)
+            {
+                Debug.WriteLine("Sender was not image");
+                e.Handled = true;
+                return;
+            }
+
+            Debug.WriteLine("Mouse moving");
+
+            if (addingDot)
+            {
+                var dotRadius = 50;
+
+                Debug.WriteLine("Adding dot");
+
+                Ellipse dot = new Ellipse
+                {
+                    Fill = Brushes.DarkRed,
+                    Width = dotRadius,
+                    Height = dotRadius,
+                    IsHitTestVisible = false,
+                    Opacity = 0.5
+                };
+
+                mapCanvas.Children.Add(dot);
+
+                Canvas.SetLeft(dot, MousePointA.X - dotRadius / 2);
+                Canvas.SetTop(dot, MousePointA.Y - dotRadius / 2);
+            }
+
             if (panGrab)
             {
+                Debug.WriteLine("Enabling dot");
                 // stop dragging the image, reset cursor
                 panGrab = false;
                 this.Cursor = Cursors.Arrow;
+                addingDot = true;
             }
         }
-
-        private void OnKeyDown(object sender, KeyEventArgs e)
-        {
-
-            // reset
-            if (e.Key == Key.R)
-            {
-                // remove any transformations
-                mapTransform.Matrix = Matrix.Identity;
-            }
-
-            // fullscreen
-
-            if (e.Key == Key.F || e.Key == Key.F11)
-            {
-                if (fullscreenEnabled)
-                {
-                    this.WindowState = WindowState.Normal;
-                    this.WindowStyle = WindowStyle.SingleBorderWindow;
-                }
-                else
-                {
-                    this.WindowState = WindowState.Maximized;
-                    this.WindowStyle = WindowStyle.None;
-                }
-
-                fullscreenEnabled = !fullscreenEnabled;
-            }
-
-        }
-
-        private void OnKeyUp(object sender, KeyEventArgs e) { }
 
         private void OnMouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -145,17 +156,54 @@ namespace TarkovAssistantWPF
 
             mapScale *= amount;
 
-            
             matrix.ScaleAt(amount, amount, mousePoint.X, mousePoint.Y);
 
             mapTransform.Matrix = matrix;
         }
+        #endregion
+
+        // Handles translating a layer, i.e. the Image or Canvas
+        private void TranslateLayer(ref MatrixTransform transform, double dX, double dY)
+        {
+            var matrix = transform.Matrix;
+            matrix.Translate(dX, dY);
+            transform.Matrix = matrix;
+        }
+
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+
+            // reset
+            if (e.Key == Key.R)
+            {
+                // remove any transformations
+                mapTransform.Matrix = Matrix.Identity;
+                mapCanvasTransform.Matrix = Matrix.Identity;
+            }
+
+            // fullscreen
+            if (e.Key == Key.F || e.Key == Key.F11)
+            {
+                this.WindowState = (fullscreenEnabled) ? WindowState.Normal : WindowState.Maximized;
+                this.WindowStyle = (fullscreenEnabled) ? WindowStyle.SingleBorderWindow : WindowStyle.None;
+
+                fullscreenEnabled = !fullscreenEnabled;
+            }
+        }
+
+        private void OnKeyUp(object sender, KeyEventArgs e) { }
 
         private void OnMapChange(object sender, RoutedEventArgs e)
         {
             var item = (MenuItem) sender;
 
             SetMap(item.Tag as string);
+        }
+
+        private void AddMarker(UIElement marker, double posX, double posY)
+        {
+
         }
 
     }
