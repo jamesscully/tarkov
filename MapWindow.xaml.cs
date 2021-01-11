@@ -100,6 +100,7 @@ namespace TarkovAssistantWPF
         private void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
 
+
             if (sender is Canvas)
             {
                 Debug.WriteLine("Sender was not image");
@@ -111,26 +112,13 @@ namespace TarkovAssistantWPF
 
             if (addingDot)
             {
-                var dotRadius = 50;
+                var pos = e.GetPosition(mapCanvas);
 
-                Ellipse dot = new Ellipse
-                {
-                    Fill = Brushes.DarkRed,
-                    Width = dotRadius,
-                    Height = dotRadius,
-                    IsHitTestVisible = false,
-                    Opacity = 0.5
-                };
-
-                mapCanvas.Children.Add(dot);
-
-                Canvas.SetLeft(dot, MousePointA.X - dotRadius / 2);
-                Canvas.SetTop(dot, MousePointA.Y - dotRadius / 2);
+                AddAreaMarker(25, pos.X, pos.Y);
             }
 
             if (panGrab)
             {
-                Debug.WriteLine("Enabling dot");
                 // stop dragging the image, reset cursor
                 panGrab = false;
                 this.Cursor = Cursors.Arrow;
@@ -208,13 +196,12 @@ namespace TarkovAssistantWPF
                 fullscreenEnabled = !fullscreenEnabled;
             }
 
+            // clear markers on canvas 
             if (e.Key == Key.C)
             {
-                mapCanvas.Children.Clear();
+                ClearCanvas();
             }
         }
-
-        private void OnKeyUp(object sender, KeyEventArgs e) { }
 
         private void OnMapChange(object sender, RoutedEventArgs e)
         {
@@ -223,10 +210,49 @@ namespace TarkovAssistantWPF
             SetMap(item.Tag as string);
         }
 
-        private void AddMarker(UIElement marker, double posX, double posY)
+
+        #region CanvasControls
+
+        private void AddAreaMarker(double radius, double posX, double posY)
+        {
+            var dotRadius = radius;
+
+            FrameworkElement dot = new Ellipse
+            {
+                Fill = Brushes.DarkRed,
+                Width = dotRadius,
+                Height = dotRadius,
+                IsHitTestVisible = false,
+                Opacity = 0.5
+            };
+
+            AddMarker(ref dot, posX, posY);
+        }
+
+        private void AddMarker(ref FrameworkElement marker, double posX, double posY, bool center = true)
         {
 
+            if (center)
+            {
+                posX -= marker.Width / 2;
+                posY -= marker.Height / 2;
+            }
+
+            Debug.WriteLine($"Adding marker at [{posX}, {posY}]");
+
+            mapCanvas.Children.Add(marker);
+
+
+            Canvas.SetLeft(marker, posX);
+            Canvas.SetTop(marker, posY);
         }
+
+        private void ClearCanvas()
+        {
+            mapCanvas.Children.Clear();
+        }
+
+        #endregion
 
     }
 }

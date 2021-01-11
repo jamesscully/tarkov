@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TarkovAssistantWPF"
         mc:Ignorable="d"
-        Title="Tarkov Assistant - Map Viewer" Height="768" Width="1366"  KeyDown="OnKeyDown" KeyUp="OnKeyUp" MouseWheel="OnMouseWheel">
+        Title="Tarkov Assistant - Map Viewer" Height="768" Width="1366"  KeyDown="OnKeyDown"  MouseWheel="OnMouseWheel">
 
     <Grid Background="Black">
         <Canvas x:Name="mapCanvas" Height="Auto" Width="Auto" ZIndex="1">
