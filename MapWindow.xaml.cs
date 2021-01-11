@@ -113,8 +113,6 @@ namespace TarkovAssistantWPF
             {
                 var dotRadius = 50;
 
-                Debug.WriteLine("Adding dot");
-
                 Ellipse dot = new Ellipse
                 {
                     Fill = Brushes.DarkRed,
@@ -144,7 +142,6 @@ namespace TarkovAssistantWPF
         {
             var amount = 1.2;
             var mousePoint = e.GetPosition(mapWindow);
-            var matrix = mapTransform.Matrix;
 
             // remove percentage if scrolling down
             if (e.Delta < 0)
@@ -156,17 +153,37 @@ namespace TarkovAssistantWPF
 
             mapScale *= amount;
 
-            matrix.ScaleAt(amount, amount, mousePoint.X, mousePoint.Y);
+            ScaleLayer(ref mapTransform, amount, amount, mousePoint.X, mousePoint.Y);
 
-            mapTransform.Matrix = matrix;
+            ScaleLayer(ref mapCanvasTransform, amount, amount, mousePoint.X, mousePoint.Y);
         }
         #endregion
 
         // Handles translating a layer, i.e. the Image or Canvas
-        private void TranslateLayer(ref MatrixTransform transform, double dX, double dY)
+        private void TranslateLayer(
+                ref MatrixTransform transform, 
+                double dX, 
+                double dY
+            )
         {
             var matrix = transform.Matrix;
             matrix.Translate(dX, dY);
+            transform.Matrix = matrix;
+        }
+
+        // Handles scaling a layer, image or canvas
+        private void ScaleLayer(
+                ref MatrixTransform transform, 
+                double scaleX, 
+                double scaleY,
+                double centerX,
+                double centerY
+            )
+        {
+            var matrix = transform.Matrix;
+
+            matrix.ScaleAt(scaleX, scaleY, centerX, centerY);
+
             transform.Matrix = matrix;
         }
 
@@ -189,6 +206,11 @@ namespace TarkovAssistantWPF
                 this.WindowStyle = (fullscreenEnabled) ? WindowStyle.SingleBorderWindow : WindowStyle.None;
 
                 fullscreenEnabled = !fullscreenEnabled;
+            }
+
+            if (e.Key == Key.C)
+            {
+                mapCanvas.Children.Clear();
             }
         }
 
