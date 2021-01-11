@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TarkovAssistant.Properties
+namespace TarkovAssistantWPF.Properties
 {
 
 
