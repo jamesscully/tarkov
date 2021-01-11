@@ -29,12 +29,8 @@ namespace TarkovAssistantWPF
 
             pictureBox.MouseLeave += (sender, args) => panGrab = false;
 
-            pictureBox.OpacityMask = Brushes.Black;
-
             SetMap("customs");
         }
-
-        private string mapName = "customs";
 
         private void SetMap(string map)
         {
@@ -53,15 +49,14 @@ namespace TarkovAssistantWPF
 
             pictureBox.Source = bitmap;
             pictureBox.MouseUp += OnMouseUp;
-
-            mapName = map;
-
         }
 
         double mapScale = 1;
 
         private bool panGrab = false;
         private Point MousePointA, MousePointB;
+
+        private bool fullscreenEnabled = false;
 
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -105,17 +100,31 @@ namespace TarkovAssistantWPF
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
 
+            // reset
             if (e.Key == Key.R)
             {
-
-                Console.WriteLine("Resetting map");
-                SetMap("interchange");
+                // remove any transformations
+                mapTransform.Matrix = Matrix.Identity;
             }
-            else
+
+            // fullscreen
+
+            if (e.Key == Key.F || e.Key == Key.F11)
             {
-                Console.WriteLine($"{mapScale}");
+                if (fullscreenEnabled)
+                {
+                    this.WindowState = WindowState.Normal;
+                    this.WindowStyle = WindowStyle.SingleBorderWindow;
+                }
+                else
+                {
+                    this.WindowState = WindowState.Maximized;
+                    this.WindowStyle = WindowStyle.None;
+                }
 
+                fullscreenEnabled = !fullscreenEnabled;
             }
+
         }
 
         private void OnKeyUp(object sender, KeyEventArgs e) { }
@@ -135,6 +144,8 @@ namespace TarkovAssistantWPF
                 return;
 
             mapScale *= amount;
+
+            
 
             matrix.ScaleAt(amount, amount, mousePoint.X, mousePoint.Y);
 

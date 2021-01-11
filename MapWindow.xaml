@@ -9,16 +9,16 @@
 
     <Grid>
 
-        <Border Background="Gray">
-        <Image x:Name="pictureBox" MouseMove="OnMouseMove" MouseLeftButtonDown="OnMouseDown" PreviewMouseUp="OnMouseUp" OpacityMask="Black" Source=" " Height="678" VerticalAlignment="Bottom" Margin="0,0,0,36">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <MatrixTransform x:Name="mapTransform"/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
-            </Border>
-        <Menu HorizontalAlignment="Left" VerticalAlignment="Top" Width="1358">
+        <Border Background="#212121">
+            <Image x:Name="pictureBox" MouseMove="OnMouseMove" MouseLeftButtonDown="OnMouseDown" PreviewMouseUp="OnMouseUp" OpacityMask="Black" Source=" " Height="Auto" VerticalAlignment="Stretch" Margin="0">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <MatrixTransform x:Name="mapTransform"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+        </Border>
+        <Menu VerticalAlignment="Top" HorizontalAlignment="Left">
             <MenuItem Header="Menu">
 
             </MenuItem>
@@ -29,7 +29,7 @@
                 <MenuItem Click="OnMapChange"  Header="Woods" HorizontalAlignment="Left" Tag="woods"/>
                 <MenuItem Click="OnMapChange"  Header="Interchange" HorizontalAlignment="Left" Tag="interchange"/>
                 <MenuItem Click="OnMapChange"  Header="Factory" HorizontalAlignment="Left" Tag="factory"/>
-                
+
             </MenuItem>
         </Menu>
     </Grid>
