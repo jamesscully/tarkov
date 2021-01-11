@@ -146,7 +146,6 @@ namespace TarkovAssistantWPF
             mapScale *= amount;
 
             
-
             matrix.ScaleAt(amount, amount, mousePoint.X, mousePoint.Y);
 
             mapTransform.Matrix = matrix;
