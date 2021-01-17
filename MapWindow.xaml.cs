@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,14 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Brushes = System.Windows.Media.Brushes;
+using Image = System.Windows.Controls.Image;
+using Point = System.Windows.Point;
 
 namespace TarkovAssistantWPF
 {
@@ -27,49 +32,32 @@ namespace TarkovAssistantWPF
         {
             InitializeComponent();
 
-            pictureBox.MouseLeave += (sender, args) => panGrab = false;
+            pictureBox.MouseLeave += (sender, args) => _flagPanGrab = false;
             mapCanvas.IsHitTestVisible = false;
+
+            pictureBox.MouseUp += OnMouseUp;
 
             SetMap("customs");
 
+
+            ScaleLayer(ref mapTransform, 1, 1, 0, 0);
+            ScaleLayer(ref mapCanvasTransform, 1, 1, 0, 0);
         }
 
-        private void SetMap(string map)
-        {
+        double mapScale = 5;
 
-            BitmapImage bitmap = null;
-
-            try
-            {
-                bitmap = new BitmapImage(new Uri($"maps/{map}.png", UriKind.Relative));
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine($"Error: file 'maps/{map}' not found!");
-                return;
-            }
-
-            pictureBox.Source = bitmap;
-            pictureBox.MouseUp += OnMouseUp;
-        }
-
-        double mapScale = 1;
-
-        private bool panGrab = false;
         private Point MousePointA, MousePointB;
 
-        private bool fullscreenEnabled = false;
+        private bool _fullscreen = false;
 
+        private bool _flagAddMarker = true;
 
-        private TimeSpan clickStart = new TimeSpan(); 
-        private TimeSpan clickEnd = new TimeSpan();
-
-        private bool addingDot = true;
+        private bool _flagPanGrab;
 
         #region MouseControls
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            panGrab = true;
+            _flagPanGrab = true;
 
             MousePointA = e.GetPosition(mapCanvas);
 
@@ -79,10 +67,9 @@ namespace TarkovAssistantWPF
         {
             MousePointB = e.GetPosition(pictureBox);
 
-            if (panGrab)
+            if (_flagPanGrab)
             {
-                Debug.WriteLine("Disabling dot");
-                addingDot = false;
+                _flagAddMarker = false;
 
                 this.Cursor = Cursors.ScrollAll;
 
@@ -99,36 +86,24 @@ namespace TarkovAssistantWPF
 
         private void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
-
-
-            if (sender is Canvas)
-            {
-                Debug.WriteLine("Sender was not image");
-                e.Handled = true;
-                return;
-            }
-
-            Debug.WriteLine("Mouse moving");
-
-            if (addingDot)
+            if (_flagAddMarker)
             {
                 var pos = e.GetPosition(mapCanvas);
-
                 AddAreaMarker(25, pos.X, pos.Y);
             }
 
-            if (panGrab)
+            if (_flagPanGrab)
             {
                 // stop dragging the image, reset cursor
-                panGrab = false;
+                _flagPanGrab = false;
                 this.Cursor = Cursors.Arrow;
-                addingDot = true;
+                _flagAddMarker = true;
             }
         }
 
         private void OnMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            var amount = 1.2;
+            var amount = 1.1;
             var mousePoint = e.GetPosition(mapWindow);
 
             // remove percentage if scrolling down
@@ -144,6 +119,11 @@ namespace TarkovAssistantWPF
             ScaleLayer(ref mapTransform, amount, amount, mousePoint.X, mousePoint.Y);
 
             ScaleLayer(ref mapCanvasTransform, amount, amount, mousePoint.X, mousePoint.Y);
+
+            Debug.WriteLine($"Canvas Width      : {mapCanvas.Width}");
+            Debug.WriteLine($"Canvas ActualWidth: {mapCanvas.ActualWidth}");
+
+
         }
         #endregion
 
@@ -190,10 +170,10 @@ namespace TarkovAssistantWPF
             // fullscreen
             if (e.Key == Key.F || e.Key == Key.F11)
             {
-                this.WindowState = (fullscreenEnabled) ? WindowState.Normal : WindowState.Maximized;
-                this.WindowStyle = (fullscreenEnabled) ? WindowStyle.SingleBorderWindow : WindowStyle.None;
+                this.WindowState = (_fullscreen) ? WindowState.Normal : WindowState.Maximized;
+                this.WindowStyle = (_fullscreen) ? WindowStyle.SingleBorderWindow : WindowStyle.None;
 
-                fullscreenEnabled = !fullscreenEnabled;
+                _fullscreen = !_fullscreen;
             }
 
             // clear markers on canvas 
@@ -203,6 +183,51 @@ namespace TarkovAssistantWPF
             }
         }
 
+        #region MapMethods
+
+
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr hObject);
+
+        private void SetMap(string map)
+        {
+
+            Debug.WriteLine($"Drawing map {map}, {new Uri($"maps/{map}.png", UriKind.Relative)}");
+
+            
+
+            var resolvedImage = (Bitmap) Properties.Resources.ResourceManager.GetObject(map);
+
+            if (resolvedImage == null)
+            {
+                Debug.WriteLine($"Error: resource {map}.png could not be found!");
+                return;
+            }
+
+            pictureBox.Source = null;
+
+            IntPtr hBitmap = resolvedImage.GetHbitmap();
+            ImageSource img;
+
+            try
+            {
+                img = Imaging.CreateBitmapSourceFromHBitmap(
+                    hBitmap,
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions()
+                );
+            }
+            finally
+            {
+                DeleteObject(hBitmap);
+            }
+
+            pictureBox.Source = img;
+
+            ClearCanvas();
+        }
+
         private void OnMapChange(object sender, RoutedEventArgs e)
         {
             var item = (MenuItem) sender;
@@ -210,6 +235,23 @@ namespace TarkovAssistantWPF
             SetMap(item.Tag as string);
         }
 
+        #endregion
+
+        private BitmapImage GenerateBitmap(string mapname)
+        {
+            BitmapImage bitmap = new BitmapImage();
+
+            bitmap.BeginInit();
+
+            bitmap.CacheOption = BitmapCacheOption.OnDemand;
+            bitmap.UriSource = new Uri($"maps/{mapname}.png", UriKind.Relative);
+
+            // bitmap.DecodePixelWidth = (int) pictureBox.ActualWidth;
+
+            bitmap.EndInit();
+
+            return bitmap;
+        }
 
         #region CanvasControls
 

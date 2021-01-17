@@ -8,7 +8,7 @@
         Title="Tarkov Assistant - Map Viewer" Height="768" Width="1366"  KeyDown="OnKeyDown"  MouseWheel="OnMouseWheel">
 
     <Grid Background="Black">
-        <Canvas x:Name="mapCanvas" Height="Auto" Width="Auto" ZIndex="1">
+        <Canvas x:Name="mapCanvas" Height="Auto" Width="Auto" ZIndex="1" IsHitTestVisible="False">
             <Canvas.RenderTransform>
                 <TransformGroup>
                     <MatrixTransform x:Name="mapCanvasTransform"/>
@@ -16,7 +16,7 @@
             </Canvas.RenderTransform>
         </Canvas>
         <Border Background="#212121">
-            <Image x:Name="pictureBox" MouseMove="OnMouseMove" MouseLeftButtonDown="OnMouseDown" Height="Auto" VerticalAlignment="Stretch" Margin="0">
+            <Image x:Name="pictureBox" MouseMove="OnMouseMove" MouseLeftButtonDown="OnMouseDown" Height="Auto" VerticalAlignment="Stretch" Margin="0" Source="maps/woods_small.png" ClipToBounds="True">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <MatrixTransform x:Name="mapTransform"/>
