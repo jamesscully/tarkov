@@ -33,7 +33,12 @@ namespace TarkovAssistantWPF
             InitializeComponent();
 
             pictureBox.MouseLeave += (sender, args) => _flagPanGrab = false;
+
+
+            // we'll use the mapWindow for translation of the image;
+            // disable these hitboxes to prevent glitches when cursor leaves picturebox/canvas
             mapCanvas.IsHitTestVisible = false;
+            pictureBox.IsHitTestVisible = false;
 
             pictureBox.MouseUp += OnMouseUp;
 
@@ -49,9 +54,7 @@ namespace TarkovAssistantWPF
         private Point MousePointA, MousePointB;
 
         private bool _fullscreen = false;
-
         private bool _flagAddMarker = true;
-
         private bool _flagPanGrab;
 
         #region MouseControls
@@ -59,13 +62,12 @@ namespace TarkovAssistantWPF
         {
             _flagPanGrab = true;
 
-            MousePointA = e.GetPosition(mapCanvas);
-
+            MousePointA = e.GetPosition(mapWindow);
         }
 
         private void OnMouseMove(object sender, MouseEventArgs e)
         {
-            MousePointB = e.GetPosition(pictureBox);
+            MousePointB = e.GetPosition(mapWindow);
 
             if (_flagPanGrab)
             {
@@ -76,16 +78,19 @@ namespace TarkovAssistantWPF
                 // how many pixels travelled since last call
                 Point delta = (Point)Point.Subtract(MousePointB, MousePointA);
 
+                double panSpeed = 0.8;
+
                 // translate both the image and the canvas
-                TranslateLayer(ref mapTransform, delta.X * mapScale, delta.Y * mapScale);
-                TranslateLayer(ref mapCanvasTransform, delta.X * mapScale, delta.Y * mapScale);
+                TranslateLayer(ref mapTransform, delta.X * panSpeed, delta.Y * panSpeed);
+                TranslateLayer(ref mapCanvasTransform, delta.X * panSpeed, delta.Y * panSpeed);
             }
 
-            MousePointA = e.GetPosition(pictureBox);
+            MousePointA = e.GetPosition(mapWindow);
         }
 
         private void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
+            Debug.WriteLine("Mouse lifted up");
             if (_flagAddMarker)
             {
                 var pos = e.GetPosition(mapCanvas);
@@ -117,12 +122,7 @@ namespace TarkovAssistantWPF
             mapScale *= amount;
 
             ScaleLayer(ref mapTransform, amount, amount, mousePoint.X, mousePoint.Y);
-
             ScaleLayer(ref mapCanvasTransform, amount, amount, mousePoint.X, mousePoint.Y);
-
-            Debug.WriteLine($"Canvas Width      : {mapCanvas.Width}");
-            Debug.WriteLine($"Canvas ActualWidth: {mapCanvas.ActualWidth}");
-
 
         }
         #endregion
@@ -245,8 +245,6 @@ namespace TarkovAssistantWPF
 
             bitmap.CacheOption = BitmapCacheOption.OnDemand;
             bitmap.UriSource = new Uri($"maps/{mapname}.png", UriKind.Relative);
-
-            // bitmap.DecodePixelWidth = (int) pictureBox.ActualWidth;
 
             bitmap.EndInit();
 

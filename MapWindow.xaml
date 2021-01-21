@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TarkovAssistantWPF"
         mc:Ignorable="d"
-        Title="Tarkov Assistant - Map Viewer" Height="768" Width="1366"  KeyDown="OnKeyDown"  MouseWheel="OnMouseWheel">
+        Title="Tarkov Assistant - Map Viewer" Height="768" Width="1366"  KeyDown="OnKeyDown"  MouseWheel="OnMouseWheel" MouseLeftButtonDown="OnMouseDown" MouseLeftButtonUp="OnMouseUp" MouseMove="OnMouseMove">
 
     <Grid Background="Black">
         <Canvas x:Name="mapCanvas" Height="Auto" Width="Auto" ZIndex="1" IsHitTestVisible="False">
@@ -16,7 +16,7 @@
             </Canvas.RenderTransform>
         </Canvas>
         <Border Background="#212121">
-            <Image x:Name="pictureBox" MouseMove="OnMouseMove" MouseLeftButtonDown="OnMouseDown" Height="Auto" VerticalAlignment="Stretch" Margin="0" Source="maps/woods_small.png" ClipToBounds="True">
+            <Image x:Name="pictureBox" Height="Auto" VerticalAlignment="Stretch" Margin="0" Source="maps/woods_small.png" ClipToBounds="True">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <MatrixTransform x:Name="mapTransform"/>
