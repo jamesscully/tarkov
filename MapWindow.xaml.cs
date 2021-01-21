@@ -23,7 +23,8 @@ using Point = System.Windows.Point;
 namespace TarkovAssistantWPF
 {
     /// <summary>
-    /// Interaction logic for MapWindow.xaml
+    /// Handles the Map viewer functionality; this could be embedded into another main form later on,
+    /// with the introduction of item searching
     /// </summary>
     public partial class MapWindow : Window
     {
@@ -194,8 +195,6 @@ namespace TarkovAssistantWPF
 
             Debug.WriteLine($"Drawing map {map}, {new Uri($"maps/{map}.png", UriKind.Relative)}");
 
-            
-
             var resolvedImage = (Bitmap) Properties.Resources.ResourceManager.GetObject(map);
 
             if (resolvedImage == null)
@@ -204,13 +203,16 @@ namespace TarkovAssistantWPF
                 return;
             }
 
+
             pictureBox.Source = null;
 
+            // get raw bitmap
             IntPtr hBitmap = resolvedImage.GetHbitmap();
             ImageSource img;
 
             try
             {
+                // attempt to convert bitmap -> image source
                 img = Imaging.CreateBitmapSourceFromHBitmap(
                     hBitmap,
                     IntPtr.Zero,
@@ -220,6 +222,7 @@ namespace TarkovAssistantWPF
             }
             finally
             {
+                // remove any resources attached to bitmap
                 DeleteObject(hBitmap);
             }
 
@@ -236,20 +239,6 @@ namespace TarkovAssistantWPF
         }
 
         #endregion
-
-        private BitmapImage GenerateBitmap(string mapname)
-        {
-            BitmapImage bitmap = new BitmapImage();
-
-            bitmap.BeginInit();
-
-            bitmap.CacheOption = BitmapCacheOption.OnDemand;
-            bitmap.UriSource = new Uri($"maps/{mapname}.png", UriKind.Relative);
-
-            bitmap.EndInit();
-
-            return bitmap;
-        }
 
         #region CanvasControls
 
