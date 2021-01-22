@@ -7,23 +7,25 @@
         mc:Ignorable="d"
         Title="Tarkov Assistant - Map Viewer" Height="768" Width="1366"  KeyDown="OnKeyDown"  MouseWheel="OnMouseWheel" MouseLeftButtonDown="OnMouseDown" MouseLeftButtonUp="OnMouseUp" MouseMove="OnMouseMove">
 
-    <Grid Background="Black">
-        <Canvas x:Name="mapCanvas" Height="Auto" Width="Auto" ZIndex="1" IsHitTestVisible="False">
-            <Canvas.RenderTransform>
-                <TransformGroup>
-                    <MatrixTransform x:Name="mapCanvasTransform"/>
-                </TransformGroup>
-            </Canvas.RenderTransform>
-        </Canvas>
-        <Border Background="#212121">
-            <Image x:Name="pictureBox" Height="Auto" VerticalAlignment="Stretch" Margin="0" Source="maps/woods_small.png" ClipToBounds="True">
+    <Grid Background="#212121" >
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Canvas x:Name="mapCanvas" ZIndex="1" IsHitTestVisible="False" VerticalAlignment="Stretch"  MinHeight="737">
+                <Canvas.RenderTransform>
+                    <TransformGroup>
+                        <MatrixTransform x:Name="mapCanvasTransform"/>
+                    </TransformGroup>
+                </Canvas.RenderTransform>
+            </Canvas>
+
+            <Image x:Name="pictureBox" Source="maps/customs.png" MinHeight="737">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <MatrixTransform x:Name="mapTransform"/>
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
-        </Border>
+        </Grid>
+
         <Menu VerticalAlignment="Top" HorizontalAlignment="Left">
             <MenuItem Header="Map">
                 <MenuItem Click="OnMapChange"  Header="Customs" HorizontalAlignment="Left" Tag="customs"/>

@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using Brushes = System.Windows.Media.Brushes;
 using Image = System.Windows.Controls.Image;
 using Point = System.Windows.Point;
+using Size = System.Windows.Size;
 
 namespace TarkovAssistantWPF
 {
@@ -32,7 +33,7 @@ namespace TarkovAssistantWPF
         public MapWindow()
         {
             InitializeComponent();
-
+            
             pictureBox.MouseLeave += (sender, args) => _flagPanGrab = false;
 
 
@@ -43,14 +44,16 @@ namespace TarkovAssistantWPF
 
             pictureBox.MouseUp += OnMouseUp;
 
-            SetMap("customs");
+            SetMap("woods");
 
 
             ScaleLayer(ref mapTransform, 1, 1, 0, 0);
             ScaleLayer(ref mapCanvasTransform, 1, 1, 0, 0);
+
+            this.Deactivated += (sender, args) => ((Window) sender).Topmost = true;
         }
 
-        double mapScale = 5;
+        double mapScale = 1;
 
         private Point MousePointA, MousePointB;
 
@@ -85,6 +88,9 @@ namespace TarkovAssistantWPF
                 TranslateLayer(ref mapTransform, delta.X * panSpeed, delta.Y * panSpeed);
                 TranslateLayer(ref mapCanvasTransform, delta.X * panSpeed, delta.Y * panSpeed);
             }
+
+            Debug.WriteLine($"ActualWidth * Det ({mapTransform.Matrix.Determinant}   ):  {pictureBox.ActualWidth * mapTransform.Matrix.Determinant}");
+            Debug.WriteLine($"ActualWidth * mapScale ({mapScale}):  {pictureBox.ActualWidth * mapScale}");
 
             MousePointA = e.GetPosition(mapWindow);
         }
@@ -182,6 +188,15 @@ namespace TarkovAssistantWPF
             {
                 ClearCanvas();
             }
+
+            if (e.Key == Key.A)
+            {
+                mapCanvas.Height = GetMapRenderedSize().Height;
+
+                Debug.WriteLine($"Setting height to: " + GetMapRenderedSize().Height);
+
+
+            }
         }
 
         #region MapMethods
@@ -228,6 +243,9 @@ namespace TarkovAssistantWPF
 
             pictureBox.Source = img;
 
+            mapCanvas.Width = pictureBox.Width;
+            mapCanvas.Height = pictureBox.Height;
+
             ClearCanvas();
         }
 
@@ -236,6 +254,14 @@ namespace TarkovAssistantWPF
             var item = (MenuItem) sender;
 
             SetMap(item.Tag as string);
+        }
+
+        private Size GetMapRenderedSize()
+        {
+            return new Size(
+                pictureBox.ActualWidth * mapScale, 
+                pictureBox.ActualHeight * mapScale
+            );
         }
 
         #endregion
