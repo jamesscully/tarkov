@@ -188,15 +188,6 @@ namespace TarkovAssistantWPF
             {
                 ClearCanvas();
             }
-
-            if (e.Key == Key.A)
-            {
-                mapCanvas.Height = GetMapRenderedSize().Height;
-
-                Debug.WriteLine($"Setting height to: " + GetMapRenderedSize().Height);
-
-
-            }
         }
 
         #region MapMethods

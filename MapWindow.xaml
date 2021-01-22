@@ -9,7 +9,7 @@
 
     <Grid Background="#212121" >
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Canvas x:Name="mapCanvas" ZIndex="1" IsHitTestVisible="False" VerticalAlignment="Stretch"  MinHeight="737">
+            <Canvas x:Name="mapCanvas" ZIndex="1" IsHitTestVisible="False" VerticalAlignment="Stretch">
                 <Canvas.RenderTransform>
                     <TransformGroup>
                         <MatrixTransform x:Name="mapCanvasTransform"/>
@@ -17,7 +17,7 @@
                 </Canvas.RenderTransform>
             </Canvas>
 
-            <Image x:Name="pictureBox" Source="maps/customs.png" MinHeight="737">
+            <Image x:Name="pictureBox" Source="maps/customs.png">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <MatrixTransform x:Name="mapTransform"/>
