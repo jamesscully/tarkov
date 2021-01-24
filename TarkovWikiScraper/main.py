@@ -59,33 +59,22 @@ def processHideout(tokens: [str], item: Item, toplevel = True):
 
     # example: ['10 need to be found for the ', 'bitcoin farm level 1']
 
-    upgrade = HideoutUpgrade()
+    while len(tokens) > 0:
+        upgrade = HideoutUpgrade()
 
-    try:
-        first_word = tokens.pop(0).split()[0]  # amount should be the first 'word'
-        upgrade.upgradeAmount = int(first_word)
-    except ValueError:
-        return
+        try:
+            first_word = tokens.pop(0).split()[0]  # amount should be the first 'word'
+            upgrade.upgradeAmount = int(first_word)
+        except ValueError:
+            return
 
-    upgrade.upgradeName = str(tokens.pop(0))  # upgrade name should be first after prev pop
+        upgrade.upgradeName = str(tokens.pop(0))  # upgrade name should be first after prev pop
 
-    arr_upgrades.append(upgrade)
+        arr_upgrades.append(upgrade)
 
-    item.maxUpgrade += upgrade.upgradeAmount
+        item.maxUpgrade += upgrade.upgradeAmount
 
-    print(f"\t\t Item requires {upgrade.upgradeAmount} for {upgrade.upgradeName}")
-
-    if len(tokens) > 0:
-        recursed_upgrade = processHideout(tokens, item, False)[1]
-
-        for u in recursed_upgrade:
-            print("\t []", u)
-
-        arr_upgrades.append(recursed_upgrade)
-    else:
-        print("\t Finished parsing hideout upgrades, found upgrades:")
-        # for u in arr_upgrades:
-            # print("\t-> ", u)
+        print(f"\t\t Item requires {upgrade.upgradeAmount} for {upgrade.upgradeName}")
 
     return item, arr_upgrades
 
@@ -170,7 +159,8 @@ if __name__ == '__main__':
             newItem.upgrades = upgrades
 
         if newItem.isHideoutItem:
+            print("\tHideout Upgrades: ")
             for y in newItem.upgrades:
-                print("\t", y)
+                print("\t\t", y)
 
         print(f"Finished processing {newItem.name}")
