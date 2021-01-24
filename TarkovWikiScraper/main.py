@@ -1,54 +1,76 @@
 import requests
+import re
 
 from bs4 import BeautifulSoup
 from Models import Item, HideoutUpgrade, QuestItem
 
 
-def processQuestline(tokens: [str], itemName: str):
+def processQuestline(tokens: [str], item: Item):
+
+    empty = (item, [])
+
     if not len(tokens) > 0:
-        return
+        return empty
 
-    print("\tParsing quests")
+    if item.name == "Dogtag" or item.name == "Paracord":
+        return empty
 
-    # if we somehow have 'quests' identifier, just ignore it
-    if tokens[0] == 'Quests':
-        tokens.pop(0)
+    print("\tParsing quests", tokens)
 
-    quest = QuestItem()
+    quests: [QuestItem] = []
+
+    while len(tokens) > 0:
+
+        # if we somehow have 'quests' or hideout identifier, just ignore it
+        if tokens[0] == 'Quests':
+            tokens.pop(0)
+
+        if tokens[0] == 'Hideout':
+            return empty
+
+        quest = QuestItem()
+
+        firSkip = False
+
+        try:
+            first_word: str = tokens.pop(0)
+            quest.questAmount = int(first_word.split()[0])
+
+            # some items glob two tokens together if not needed to be found in raid, this will fix .pop orders
+            if re.match("[0-9]+ needs to be found for the quest", first_word):
+                firSkip = True
+                print("Skipped found in raid check")
+
+        except ValueError as e:
+            print("Error item:", item.name)
+            item.hasError = True
+            return empty
+
+        if not firSkip:
+            # ['in raid', ' for the quest ', 'Living high is not a crime - Part 1']
+            # or
+            # [' for the quest ', 'Living high is not a crime - Part 1']
+            temp = tokens.pop(0)
+
+            quest.bFoundInRaid = temp == 'in raid'
+
+            # remove ' for the quest '
+            if quest.bFoundInRaid:
+                tokens.pop(0)
+
+        try:
+            quest.questName = tokens.pop(0)
+        except UnboundLocalError:
+            print("\t\tError with messages: ", tokens, " item name: ", item.name)
+        except IndexError:
+            print("\t\tError with messages: ", tokens, " item name: ", item.name)
+
+        quests.append(quest)
+
+    return item, quests
 
 
-
-    quest.questAmount = int(tokens.pop(0)[0])
-
-    # ['in raid', ' for the quest ', 'Living high is not a crime - Part 1']
-    # or
-    # [' for the quest ', 'Living high is not a crime - Part 1']
-    temp = tokens.pop(0)
-    
-    quest.bFoundInRaid = temp == 'in raid'
-
-    # remove ' for the quest '
-    if quest.bFoundInRaid:
-        tokens.pop(0)
-
-    try:
-        quest.questName = tokens.pop(0)
-    except UnboundLocalError:
-        print("\t\tError with messages: ", tokens, " item name: ", itemName)
-    except IndexError:
-        print("\t\tError with messages: ", tokens, " item name: ", itemName)
-
-    if len(tokens) > 0:
-        # print("\t\tRemaining messages: ", tokens)
-
-        if tokens[0].__contains__("for the quest"):
-            # print("\t\tFound extra quests")
-            processQuestline(tokens, itemName)
-
-    return
-
-
-def processHideout(tokens: [str], item: Item, toplevel = True):
+def processHideout(tokens: [str], item: Item, toplevel=True):
     if tokens[0] == 'Hideout':
         tokens.pop(0)
 
@@ -66,7 +88,7 @@ def processHideout(tokens: [str], item: Item, toplevel = True):
             first_word = tokens.pop(0).split()[0]  # amount should be the first 'word'
             upgrade.upgradeAmount = int(first_word)
         except ValueError:
-            return
+            return item, []
 
         upgrade.upgradeName = str(tokens.pop(0))  # upgrade name should be first after prev pop
 
@@ -135,8 +157,8 @@ if __name__ == '__main__':
             except ValueError:
                 pass
 
-            print("\tBarter Item:", newItem.isCraftItem)
-            print("\tCraft Item: ", newItem.isBarterItem)
+        print("\tBarter Item:", newItem.isBarterItem)
+        print("\tCraft Item: ", newItem.isCraftItem)
 
         # should now be able to linearly process quests needed for
         # all that should be left is 'Quests' or 'Hideout', indcating quest item or needed  for upgrades
@@ -147,7 +169,8 @@ if __name__ == '__main__':
 
         if len(messages) > 0 and messages[0] == 'Quests':
             newItem.isQuestItem = True
-            processQuestline(messages, newItem)
+            newItem, newItem.quests = processQuestline(messages, newItem)
+
             messages.pop(0) if messages else None
 
         if len(messages) > 0 and messages[0] == 'Hideout':
@@ -162,5 +185,10 @@ if __name__ == '__main__':
             print("\tHideout Upgrades: ")
             for y in newItem.upgrades:
                 print("\t\t", y)
+
+        if newItem.isQuestItem and newItem.quests is not None:
+            print("\tNeeded for Quests: ")
+            for q in newItem.quests:
+                print("\t\t", q)
 
         print(f"Finished processing {newItem.name}")
