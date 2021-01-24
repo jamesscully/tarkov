@@ -29,6 +29,7 @@ namespace TarkovAssistantWPF
     /// </summary>
     public partial class MapWindow : Window
     {
+        private string selected_map = "woods";
 
         public MapWindow()
         {
@@ -44,7 +45,7 @@ namespace TarkovAssistantWPF
 
             pictureBox.MouseUp += OnMouseUp;
 
-            SetMap("woods");
+            SetMap(selected_map);
 
 
             ScaleLayer(ref mapTransform, 1, 1, 0, 0);
@@ -89,15 +90,11 @@ namespace TarkovAssistantWPF
                 TranslateLayer(ref mapCanvasTransform, delta.X * panSpeed, delta.Y * panSpeed);
             }
 
-            Debug.WriteLine($"ActualWidth * Det ({mapTransform.Matrix.Determinant}   ):  {pictureBox.ActualWidth * mapTransform.Matrix.Determinant}");
-            Debug.WriteLine($"ActualWidth * mapScale ({mapScale}):  {pictureBox.ActualWidth * mapScale}");
-
             MousePointA = e.GetPosition(mapWindow);
         }
 
         private void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
-            Debug.WriteLine("Mouse lifted up");
             if (_flagAddMarker)
             {
                 var pos = e.GetPosition(mapCanvas);
@@ -116,7 +113,12 @@ namespace TarkovAssistantWPF
         private void OnMouseWheel(object sender, MouseWheelEventArgs e)
         {
             var amount = 1.1;
-            var mousePoint = e.GetPosition(mapWindow);
+            var mousePoint = e.GetPosition(pictureBox);
+
+            Debug.WriteLine(mousePoint);
+
+            if (mousePoint.X < 0 || mousePoint.Y < 0)
+                return;
 
             // remove percentage if scrolling down
             if (e.Delta < 0)
@@ -128,8 +130,16 @@ namespace TarkovAssistantWPF
 
             mapScale *= amount;
 
-            ScaleLayer(ref mapTransform, amount, amount, mousePoint.X, mousePoint.Y);
-            ScaleLayer(ref mapCanvasTransform, amount, amount, mousePoint.X, mousePoint.Y);
+            if (selected_map == "woods")
+            {
+                ScaleLayer(ref mapTransform, amount, amount, mousePoint.X, mousePoint.Y);
+                ScaleLayer(ref mapCanvasTransform, amount, amount, mousePoint.X, mousePoint.Y);
+            }
+            else
+            {
+                ScaleLayer(ref mapTransform, amount, amount, mousePoint.X, mousePoint.Y);
+                ScaleLayer(ref mapCanvasTransform, amount, amount, mousePoint.X, mousePoint.Y);
+            }
 
         }
         #endregion
@@ -209,6 +219,8 @@ namespace TarkovAssistantWPF
                 return;
             }
 
+            selected_map = map;
+
 
             pictureBox.Source = null;
 
@@ -245,14 +257,6 @@ namespace TarkovAssistantWPF
             var item = (MenuItem) sender;
 
             SetMap(item.Tag as string);
-        }
-
-        private Size GetMapRenderedSize()
-        {
-            return new Size(
-                pictureBox.ActualWidth * mapScale, 
-                pictureBox.ActualHeight * mapScale
-            );
         }
 
         #endregion

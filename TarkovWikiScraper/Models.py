@@ -26,15 +26,19 @@ class Item:
         return self.name
 
 
-class HideoutUpgrade:
-    name: str
-    item: Item
-    amount: int
+class QuestItem:
+    questName: str = ""
+    questAmount: int = -1
+    bFoundInRaid: bool = False
 
-    def __init__(self, name: str, item: Item, amount: int):
-        self.name = name
-        self.item = item
-        self.amount = amount
+
+class HideoutUpgrade:
+    upgradeName: str
+    upgradeAmount: int
+
+    def __init__(self, name: str = "", amount: int = -1):
+        self.upgradeName = name
+        self.upgradeAmount = amount
 
     def __str__(self):
-        return "{} of {} needed for {}".format(self.amount, self.item.name, self.name)
+        return "{} needed for {}".format(self.upgradeAmount, self.upgradeName)
