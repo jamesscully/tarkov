@@ -34,6 +34,8 @@
                 <MenuItem Click="OnMapChange"  Header="Interchange" HorizontalAlignment="Left" Tag="interchange"/>
                 <MenuItem Click="OnMapChange"  Header="Factory" HorizontalAlignment="Left" Tag="factory"/>
             </MenuItem>
+            Quick Search:
+            <TextBox Name="quickSearch" MinWidth="100px" KeyUp="QuickSearch_OnKeyUp" ></TextBox>
         </Menu>
     </Grid>
 </Window>

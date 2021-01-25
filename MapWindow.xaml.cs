@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -304,5 +305,32 @@ namespace TarkovAssistantWPF
 
         #endregion
 
+        private void QuickSearch_OnKeyUp(object sender, KeyEventArgs e)
+        {
+            Debug.WriteLine($"Searching for pages: {(sender as TextBox).Text}");
+            if (e.Key == Key.Enter)
+            {
+
+            }
+
+            if (quickSearch.Text.Length < 3 || e.Key == Key.Back)
+                return;
+
+            string api_url =
+                $"https://escapefromtarkov.gamepedia.com/api.php?action=opensearch&format=json&formatversion=2&search={quickSearch.Text}&namespace=0&limit=3&suggest=true";
+
+
+            Task.Run((() =>
+            {
+                WebRequest request = HttpWebRequest.Create(api_url);
+                WebResponse response = request.GetResponse();
+
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+
+                string json = reader.ReadToEndAsync().Result;
+
+                Debug.WriteLine(json);
+            }));
+        }
     }
 }
