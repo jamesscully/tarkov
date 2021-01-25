@@ -5,8 +5,9 @@ from bs4 import BeautifulSoup
 from Models import Item, HideoutUpgrade, QuestItem
 
 
-def processQuestline(tokens: [str], item: Item):
+def parseQuestline(item: Item, tokens: [str]):
 
+    # used to exit this function graciously; return item but no quests
     empty = (item, [])
 
     if not len(tokens) > 0:
@@ -26,7 +27,7 @@ def processQuestline(tokens: [str], item: Item):
             tokens.pop(0)
 
         if tokens[0] == 'Hideout':
-            return empty
+            break
 
         quest = QuestItem()
 
@@ -70,12 +71,12 @@ def processQuestline(tokens: [str], item: Item):
     return item, quests
 
 
-def processHideout(tokens: [str], item: Item, toplevel=True):
+def parseHideout(item: Item, tokens: [str], toplevel=True):
     if tokens[0] == 'Hideout':
         tokens.pop(0)
 
     if toplevel:
-        print("\tParsing hideout upgrades: ")
+        print("\tParsing hideout upgrades:")
 
     arr_upgrades: [HideoutUpgrade] = []
 
@@ -122,7 +123,7 @@ if __name__ == '__main__':
         newItem.name = iconAndName[1].a.contents[0]
         newItem.type = typeAndNotes[0].contents[0].rstrip()
 
-        print(f"\nProcessing `{newItem.name}`")
+        print(f"\nProcessing `{newItem.name} ` {{")
 
         notes = typeAndNotes[1]
 
@@ -163,23 +164,17 @@ if __name__ == '__main__':
         # should now be able to linearly process quests needed for
         # all that should be left is 'Quests' or 'Hideout', indcating quest item or needed  for upgrades
         # example: ['Quests', '1 needs to be found ', 'in raid', ' for the quest ', 'Collector']
-
-        if len(messages) == 0:
-            continue
-
         if len(messages) > 0 and messages[0] == 'Quests':
             newItem.isQuestItem = True
-            newItem, newItem.quests = processQuestline(messages, newItem)
+            newItem, newItem.quests = parseQuestline(newItem, messages)
 
             messages.pop(0) if messages else None
 
         if len(messages) > 0 and messages[0] == 'Hideout':
             newItem.isHideoutItem = True
-            newItem, upgrades = processHideout(messages, newItem)
+            newItem, newItem.upgrades = parseHideout(newItem, messages)
 
             messages.pop(0) if messages else None
-
-            newItem.upgrades = upgrades
 
         if newItem.isHideoutItem:
             print("\tHideout Upgrades: ")
@@ -191,4 +186,7 @@ if __name__ == '__main__':
             for q in newItem.quests:
                 print("\t\t", q)
 
-        print(f"Finished processing {newItem.name}")
+        if newItem.hasError:
+            print(f"###### Error in {newItem.name} #####")
+
+        print(f"}}")
