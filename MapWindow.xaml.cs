@@ -28,6 +28,7 @@ namespace TarkovAssistantWPF
     /// Handles the Map viewer functionality; this could be embedded into another main form later on,
     /// with the introduction of item searching
     /// </summary>
+
     public partial class MapWindow : Window
     {
         private string selected_map = "woods";
@@ -51,8 +52,6 @@ namespace TarkovAssistantWPF
 
             ScaleLayer(ref mapTransform, 1, 1, 0, 0);
             ScaleLayer(ref mapCanvasTransform, 1, 1, 0, 0);
-
-            this.Deactivated += (sender, args) => ((Window) sender).Topmost = true;
         }
 
         double mapScale = 1;
@@ -81,7 +80,7 @@ namespace TarkovAssistantWPF
 
                 this.Cursor = Cursors.ScrollAll;
 
-                // how many pixels travelled since last call
+                // how many pixels traveled since last call
                 Point delta = (Point)Point.Subtract(MousePointB, MousePointA);
 
                 double panSpeed = 0.8;
@@ -116,8 +115,6 @@ namespace TarkovAssistantWPF
             var amount = 1.1;
             var mousePoint = e.GetPosition(pictureBox);
 
-            Debug.WriteLine(mousePoint);
-
             if (mousePoint.X < 0 || mousePoint.Y < 0)
                 return;
 
@@ -141,7 +138,6 @@ namespace TarkovAssistantWPF
                 ScaleLayer(ref mapTransform, amount, amount, mousePoint.X, mousePoint.Y);
                 ScaleLayer(ref mapCanvasTransform, amount, amount, mousePoint.X, mousePoint.Y);
             }
-
         }
         #endregion
 
@@ -187,10 +183,9 @@ namespace TarkovAssistantWPF
 
             // fullscreen
             if (e.Key == Key.F || e.Key == Key.F11)
-            {
+            {  
                 this.WindowState = (_fullscreen) ? WindowState.Normal : WindowState.Maximized;
                 this.WindowStyle = (_fullscreen) ? WindowStyle.SingleBorderWindow : WindowStyle.None;
-
                 _fullscreen = !_fullscreen;
             }
 
@@ -253,6 +248,7 @@ namespace TarkovAssistantWPF
             ClearCanvas();
         }
 
+        // Fired when a map button is pressed
         private void OnMapChange(object sender, RoutedEventArgs e)
         {
             var item = (MenuItem) sender;
@@ -260,10 +256,24 @@ namespace TarkovAssistantWPF
             SetMap(item.Tag as string);
         }
 
+        // Return our mapsize by manually applying the transform
+        // to the rendered width/height
+        private Size GetMapScreenSize()
+        {
+            var width = pictureBox.ActualWidth;
+            var height = pictureBox.ActualHeight;
+
+            height *= (mapTransform.Matrix.M11);
+            width *= (mapTransform.Matrix.M22);
+
+            return new Size(width, height);
+        }
+
         #endregion
 
         #region CanvasControls
 
+        // used to create a default 'area' marker
         private void AddAreaMarker(double radius, double posX, double posY)
         {
             var dotRadius = radius;
@@ -280,6 +290,7 @@ namespace TarkovAssistantWPF
             AddMarker(ref dot, posX, posY);
         }
 
+        // Adds a given marker (control) to the canvas
         private void AddMarker(ref FrameworkElement marker, double posX, double posY, bool center = true)
         {
 
@@ -289,10 +300,10 @@ namespace TarkovAssistantWPF
                 posY -= marker.Height / 2;
             }
 
-            Debug.WriteLine($"Adding marker at [{posX}, {posY}]");
-
             mapCanvas.Children.Add(marker);
 
+            double relX = mapCanvas.ActualWidth / posX;
+            double relY = mapCanvas.ActualHeight / posY;
 
             Canvas.SetLeft(marker, posX);
             Canvas.SetTop(marker, posY);
@@ -303,11 +314,29 @@ namespace TarkovAssistantWPF
             mapCanvas.Children.Clear();
         }
 
+        // Fires on canvas resize; this will calculate each markers new position
+        private void OnCanvasSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            // width/height scale changes
+            var dX = e.NewSize.Width / e.PreviousSize.Width;
+            var dY = e.NewSize.Height / e.PreviousSize.Height;
+
+            foreach (UIElement mark in mapCanvas.Children)
+            {
+                var left = Canvas.GetLeft(mark);
+                var top = Canvas.GetTop(mark);
+
+                Canvas.SetLeft(mark, left * dX);
+                Canvas.SetTop(mark, top * dY);
+            }
+        }
+
         #endregion
+
+        #region SearchFunctions
 
         private void QuickSearch_OnKeyUp(object sender, KeyEventArgs e)
         {
-            Debug.WriteLine($"Searching for pages: {(sender as TextBox).Text}");
             if (e.Key == Key.Enter)
             {
 
@@ -316,11 +345,14 @@ namespace TarkovAssistantWPF
             if (quickSearch.Text.Length < 3 || e.Key == Key.Back)
                 return;
 
+            Debug.WriteLine($"Searching for pages: {(sender as TextBox).Text}");
+
+
             string api_url =
                 $"https://escapefromtarkov.gamepedia.com/api.php?action=opensearch&format=json&formatversion=2&search={quickSearch.Text}&namespace=0&limit=3&suggest=true";
 
 
-            Task.Run((() =>
+            Task.Run(() =>
             {
                 WebRequest request = HttpWebRequest.Create(api_url);
                 WebResponse response = request.GetResponse();
@@ -330,7 +362,21 @@ namespace TarkovAssistantWPF
                 string json = reader.ReadToEndAsync().Result;
 
                 Debug.WriteLine(json);
-            }));
+            });
         }
+
+        private void QuickSearch_OnIsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+            bool focused = e.NewValue.ToString() == "True";
+
+            if (focused)
+            {
+
+            }
+        }
+
+        #endregion
+
     }
 }

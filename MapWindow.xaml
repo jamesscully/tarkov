@@ -9,7 +9,7 @@
 
     <Grid Background="#212121" >
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Canvas x:Name="mapCanvas" ZIndex="1" IsHitTestVisible="False" VerticalAlignment="Stretch">
+            <Canvas x:Name="mapCanvas" ZIndex="1" IsHitTestVisible="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SizeChanged="OnCanvasSizeChanged">
                 <Canvas.RenderTransform>
                     <TransformGroup>
                         <MatrixTransform x:Name="mapCanvasTransform"/>
@@ -17,7 +17,7 @@
                 </Canvas.RenderTransform>
             </Canvas>
 
-            <Image x:Name="pictureBox" Source="maps/customs.png">
+            <Image x:Name="pictureBox" Source="maps/customs.png" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <MatrixTransform x:Name="mapTransform"/>
@@ -34,8 +34,10 @@
                 <MenuItem Click="OnMapChange"  Header="Interchange" HorizontalAlignment="Left" Tag="interchange"/>
                 <MenuItem Click="OnMapChange"  Header="Factory" HorizontalAlignment="Left" Tag="factory"/>
             </MenuItem>
-            Quick Search:
-            <TextBox Name="quickSearch" MinWidth="100px" KeyUp="QuickSearch_OnKeyUp" ></TextBox>
+
+            <TextBox Name="quickSearch" MinWidth="100px" KeyUp="QuickSearch_OnKeyUp" IsKeyboardFocusedChanged="QuickSearch_OnIsKeyboardFocusedChanged" >
+                
+            </TextBox>
         </Menu>
     </Grid>
 </Window>
