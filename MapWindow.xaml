@@ -5,26 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TarkovAssistantWPF"
         mc:Ignorable="d"
-        Title="Tarkov Assistant - Map Viewer" Height="768" Width="1366"  KeyDown="OnMapKeyDown"  MouseWheel="OnMapMouseWheel" MouseLeftButtonDown="OnMapMouseDown" MouseLeftButtonUp="OnMapMouseUp" MouseMove="OnMapMouseMove">
+        Title="Tarkov Assistant - Map Viewer" Height="768" Width="1366" KeyDown="OnWindowKeyDown"  >
 
-    <Grid Background="#212121" >
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Canvas x:Name="mapCanvas" ZIndex="1" IsHitTestVisible="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SizeChanged="OnCanvasSizeChanged">
-                <Canvas.RenderTransform>
-                    <TransformGroup>
-                        <MatrixTransform x:Name="mapCanvasTransform"/>
-                    </TransformGroup>
-                </Canvas.RenderTransform>
-            </Canvas>
+    <Grid Background="#212121">
 
-            <Image x:Name="pictureBox" Source="maps/customs.png" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Image.RenderTransform>
-                    <TransformGroup>
-                        <MatrixTransform x:Name="mapTransform"/>
-                    </TransformGroup>
-                </Image.RenderTransform>
-            </Image>
-        </Grid>
+        <local:MapControl
+            x:Name="mapControl">
+
+        </local:MapControl>
 
         <Menu VerticalAlignment="Top" HorizontalAlignment="Left">
             <MenuItem Header="Map">
@@ -35,9 +23,7 @@
                 <MenuItem Click="OnMapChange"  Header="Factory" HorizontalAlignment="Left" Tag="factory"/>
             </MenuItem>
 
-            <TextBox Name="quickSearch" MinWidth="100px" KeyUp="QuickSearch_OnKeyUp" IsKeyboardFocusedChanged="QuickSearch_OnIsKeyboardFocusedChanged" Foreground="Gray" >
-                
-            </TextBox>
+            <TextBox x:Name="quickSearch" MinWidth="100px" KeyUp="QuickSearch_OnKeyUp" IsKeyboardFocusedChanged="QuickSearch_OnIsKeyboardFocusedChanged" Foreground="Gray" />
         </Menu>
     </Grid>
 </Window>
