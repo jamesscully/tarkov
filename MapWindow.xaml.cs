@@ -45,10 +45,12 @@ namespace TarkovAssistantWPF
             mapCanvas.IsHitTestVisible = false;
             pictureBox.IsHitTestVisible = false;
 
-            pictureBox.MouseUp += OnMouseUp;
+            pictureBox.MouseUp += OnMapMouseUp;
 
             SetMap(selected_map);
 
+            // set search bars hint
+            quickSearch.Text = Properties.Resources.str_searchhint;
 
             ScaleLayer(ref mapTransform, 1, 1, 0, 0);
             ScaleLayer(ref mapCanvasTransform, 1, 1, 0, 0);
@@ -63,14 +65,14 @@ namespace TarkovAssistantWPF
         private bool _flagPanGrab;
 
         #region MouseControls
-        private void OnMouseDown(object sender, MouseButtonEventArgs e)
+        private void OnMapMouseDown(object sender, MouseButtonEventArgs e)
         {
             _flagPanGrab = true;
 
             MousePointA = e.GetPosition(mapWindow);
         }
 
-        private void OnMouseMove(object sender, MouseEventArgs e)
+        private void OnMapMouseMove(object sender, MouseEventArgs e)
         {
             MousePointB = e.GetPosition(mapWindow);
 
@@ -93,7 +95,7 @@ namespace TarkovAssistantWPF
             MousePointA = e.GetPosition(mapWindow);
         }
 
-        private void OnMouseUp(object sender, MouseButtonEventArgs e)
+        private void OnMapMouseUp(object sender, MouseButtonEventArgs e)
         {
             if (_flagAddMarker)
             {
@@ -110,7 +112,7 @@ namespace TarkovAssistantWPF
             }
         }
 
-        private void OnMouseWheel(object sender, MouseWheelEventArgs e)
+        private void OnMapMouseWheel(object sender, MouseWheelEventArgs e)
         {
             var amount = 1.1;
             var mousePoint = e.GetPosition(pictureBox);
@@ -170,8 +172,14 @@ namespace TarkovAssistantWPF
         }
 
 
-        private void OnKeyDown(object sender, KeyEventArgs e)
+        private void OnMapKeyDown(object sender, KeyEventArgs e)
         {
+
+            // ignore if the map doesn't have keyboard focus
+            var control = (Control)sender;
+
+            if (!control.IsKeyboardFocused)
+                return;
 
             // reset
             if (e.Key == Key.R)
@@ -183,7 +191,7 @@ namespace TarkovAssistantWPF
 
             // fullscreen
             if (e.Key == Key.F || e.Key == Key.F11)
-            {  
+            {
                 this.WindowState = (_fullscreen) ? WindowState.Normal : WindowState.Maximized;
                 this.WindowStyle = (_fullscreen) ? WindowStyle.SingleBorderWindow : WindowStyle.None;
                 _fullscreen = !_fullscreen;
@@ -370,9 +378,17 @@ namespace TarkovAssistantWPF
 
             bool focused = e.NewValue.ToString() == "True";
 
+            TextBox textbox = (TextBox) sender;
+
             if (focused)
             {
-
+                textbox.Foreground = Brushes.Black;
+                textbox.Text = "";
+            }
+            else
+            {
+                textbox.Foreground = Brushes.Gray;
+                textbox.Text = Properties.Resources.str_searchhint;
             }
         }
 

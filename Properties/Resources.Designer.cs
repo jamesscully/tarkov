@@ -101,6 +101,15 @@ namespace TarkovAssistantWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search for an item....
+        /// </summary>
+        internal static string str_searchhint {
+            get {
+                return ResourceManager.GetString("str_searchhint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap woods {
