@@ -38,7 +38,7 @@ namespace TarkovAssistantWPF
         {
             InitializeComponent();
 
-            // we'll use the mapWindow for translation of the image;
+            // we'll use the base control for translation of the image;
             // disable these hitboxes to prevent glitches when cursor leaves picturebox/canvas
             mapCanvas.IsHitTestVisible = false;
             pictureBox.IsHitTestVisible = false;
@@ -46,10 +46,6 @@ namespace TarkovAssistantWPF
             pictureBox.MouseLeave += (sender, args) => _flagPanGrab = false;
 
             SetMap(selected_map);
-
-
-            ScaleLayer(ref mapTransform, 1, 1, 0, 0);
-            ScaleLayer(ref mapCanvasTransform, 1, 1, 0, 0);
 
         }
 
@@ -119,7 +115,39 @@ namespace TarkovAssistantWPF
             return new Size(width, height);
         }
 
+        // Handles translating a layer, i.e. the Image or Canvas
+        private void TranslateLayer(
+                ref MatrixTransform transform,
+                double dX,
+                double dY
+            )
+        {
+            var matrix = transform.Matrix;
+            matrix.Translate(dX, dY);
+            transform.Matrix = matrix;
+        }
+
+        // Handles scaling a layer, image or canvas
+        private void ScaleLayer(
+                ref MatrixTransform transform,
+                double scaleX,
+                double scaleY,
+                double centerX,
+                double centerY
+            )
+        {
+            var matrix = transform.Matrix;
+
+            matrix.ScaleAt(scaleX, scaleY, centerX, centerY);
+
+            transform.Matrix = matrix;
+        }
+
         #endregion
+
+
+
+
 
         #region CanvasControls
 
@@ -183,7 +211,15 @@ namespace TarkovAssistantWPF
 
         #endregion
 
-        #region MouseControls
+
+
+
+
+
+        #region Events
+
+        #region MouseEvents
+
         private void OnMapMouseDown(object sender, MouseButtonEventArgs e)
         {
             _flagPanGrab = true;
@@ -252,38 +288,12 @@ namespace TarkovAssistantWPF
             ScaleLayer(ref mapTransform, amount, amount, mousePoint.X, mousePoint.Y);
             ScaleLayer(ref mapCanvasTransform, amount, amount, mousePoint.X, mousePoint.Y);
         }
+
         #endregion
 
-        // Handles translating a layer, i.e. the Image or Canvas
-        private void TranslateLayer(
-                ref MatrixTransform transform,
-                double dX,
-                double dY
-            )
-        {
-            var matrix = transform.Matrix;
-            matrix.Translate(dX, dY);
-            transform.Matrix = matrix;
-        }
+        #region KeyboardEvents
 
-        // Handles scaling a layer, image or canvas
-        private void ScaleLayer(
-                ref MatrixTransform transform,
-                double scaleX,
-                double scaleY,
-                double centerX,
-                double centerY
-            )
-        {
-            var matrix = transform.Matrix;
-
-            matrix.ScaleAt(scaleX, scaleY, centerX, centerY);
-
-            transform.Matrix = matrix;
-        }
-
-
-        private void OnMapKeyDown(object sender, KeyEventArgs e)
+        private void OnKeyDown(object sender, KeyEventArgs e)
         {
 
             // ignore if the map doesn't have keyboard focus
@@ -308,5 +318,9 @@ namespace TarkovAssistantWPF
             }
 
         }
+
+        #endregion
+
+        #endregion
     }
 }

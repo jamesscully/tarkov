@@ -107,7 +107,7 @@ namespace TarkovAssistantWPF
 
         #endregion
 
-        private void OnWindowKeyDown(object sender, KeyEventArgs e)
+        private void OnKeyDown(object sender, KeyEventArgs e)
         {
             // fullscreen
             if (e.Key == Key.F || e.Key == Key.F11)

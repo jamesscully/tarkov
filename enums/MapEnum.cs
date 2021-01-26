@@ -1,9 +1,11 @@
-﻿
-public enum Map
+﻿namespace TarkovAssistantWPF
 {
-    WOODS,
-    SHORELINE,
-    CUSTOMS,
-    RESERVE,
-    FACTORY
+    public enum Map
+    {
+        WOODS,
+        SHORELINE,
+        CUSTOMS,
+        RESERVE,
+        FACTORY
+    }
 }
