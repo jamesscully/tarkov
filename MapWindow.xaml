@@ -9,21 +9,26 @@
 
     <Grid Background="#212121">
 
-        <local:MapControl
-            x:Name="mapControl">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
 
-        </local:MapControl>
-
-        <Menu VerticalAlignment="Top" HorizontalAlignment="Left">
-            <MenuItem Header="Map">
+        <Menu x:Name="menuBar" VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="0" Panel.ZIndex="1" Padding="0" VerticalContentAlignment="Stretch">
+            <MenuItem Header="Map" Margin="0,0,18,0">
                 <MenuItem Click="OnMapChange"  Header="Customs" HorizontalAlignment="Left" Tag="customs"/>
                 <MenuItem Click="OnMapChange"  Header="Shoreline" HorizontalAlignment="Left" Tag="shoreline"/>
                 <MenuItem Click="OnMapChange"  Header="Woods" HorizontalAlignment="Left" Tag="woods"/>
                 <MenuItem Click="OnMapChange"  Header="Interchange" HorizontalAlignment="Left" Tag="interchange"/>
                 <MenuItem Click="OnMapChange"  Header="Factory" HorizontalAlignment="Left" Tag="factory"/>
+                <MenuItem Click="OnMapChange"  Header="Reserve" HorizontalAlignment="Left" Tag="reserve"/>
             </MenuItem>
 
             <!-- <TextBox x:Name="quickSearch" MinWidth="100px" KeyUp="QuickSearch_OnKeyUp" IsKeyboardFocusedChanged="QuickSearch_OnIsKeyboardFocusedChanged" Foreground="Gray" /> -->
         </Menu>
+
+        <local:MapControl
+            x:Name="mapControl" Grid.Row="1">
+        </local:MapControl>
     </Grid>
 </Window>

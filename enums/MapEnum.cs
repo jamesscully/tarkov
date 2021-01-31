@@ -6,6 +6,7 @@
         SHORELINE,
         CUSTOMS,
         RESERVE,
+        RESERVE_TUNNELS,
         INTERCHANGE,
         FACTORY
     }

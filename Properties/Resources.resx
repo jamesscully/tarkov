@@ -127,6 +127,12 @@
   <data name="interchange" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\maps\interchange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="reserve" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\maps\reserve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="reserve_tunnels" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\maps\reserve_tunnels.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="shoreline" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\maps\shoreline.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

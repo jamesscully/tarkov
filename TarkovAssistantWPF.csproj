@@ -138,6 +138,11 @@
   <ItemGroup>
     <Resource Include="program.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="maps\reserve.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="maps\reserve_tunnels.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

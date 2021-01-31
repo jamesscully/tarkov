@@ -51,6 +51,36 @@ namespace TarkovAssistantWPF
             Map.TryParse((item.Tag as string), true, out Map map);
 
             mapControl.SetMap(map);
+
+            Debug.WriteLine(menuBar.Items.Count);
+
+            if (map == Map.RESERVE && menuBar.Items.Count == 1)
+            {
+
+                MenuItem TunnelMap = new MenuItem();
+                TunnelMap.Header = "Bunker View";
+                TunnelMap.Click += (o, args) => mapControl.SetMap(Map.RESERVE_TUNNELS);
+
+                MenuItem GroundMap = new MenuItem();
+                GroundMap.Header = "Ground View";
+                GroundMap.Click += (o, args) => mapControl.SetMap(Map.RESERVE);
+
+                menuBar.Items.Add(TunnelMap);
+                menuBar.Items.Add(GroundMap);
+            }
+            else
+            {
+                if (menuBar.Items.Count > 1)
+                {
+                    var mapMenuItem = menuBar.Items.GetItemAt(0);
+
+                    // remove-all and re-add 
+                    menuBar.Items.Clear();
+                    menuBar.Items.Add(mapMenuItem);
+
+                    menuBar.Items.Refresh();
+                }
+            }
         }
 
 
