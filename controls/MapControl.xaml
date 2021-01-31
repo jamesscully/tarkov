@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TarkovAssistantWPF"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" KeyDown="OnKeyDown"  MouseWheel="OnMapMouseWheel" MouseLeftButtonDown="OnMapMouseDown" MouseLeftButtonUp="OnMapMouseUp" MouseMove="OnMapMouseMove">
+             d:DesignHeight="450" d:DesignWidth="800"  MouseWheel="OnMapMouseWheel" MouseLeftButtonDown="OnMapMouseDown" MouseLeftButtonUp="OnMapMouseUp" MouseMove="OnMapMouseMove">
     <Grid Background="#212121" >
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
             <Canvas x:Name="mapCanvas" ZIndex="1" IsHitTestVisible="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SizeChanged="OnCanvasSizeChanged">
@@ -16,7 +16,7 @@
                 </Canvas.RenderTransform>
             </Canvas>
 
-            <Image x:Name="pictureBox" Source="maps/customs.png" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Image x:Name="mapImage" Source="maps/customs.png" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <MatrixTransform x:Name="mapTransform"/>

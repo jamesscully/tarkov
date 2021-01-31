@@ -41,9 +41,9 @@ namespace TarkovAssistantWPF
             // we'll use the base control for translation of the image;
             // disable these hitboxes to prevent glitches when cursor leaves picturebox/canvas
             mapCanvas.IsHitTestVisible = false;
-            pictureBox.IsHitTestVisible = false;
+            mapImage.IsHitTestVisible = false;
 
-            pictureBox.MouseLeave += (sender, args) => _flagPanGrab = false;
+            mapImage.MouseLeave += (sender, args) => _flagPanGrab = false;
 
             SetMap(selected_map);
 
@@ -71,7 +71,7 @@ namespace TarkovAssistantWPF
             selected_map = map;
 
 
-            pictureBox.Source = null;
+            mapImage.Source = null;
 
             // get raw bitmap
             IntPtr hBitmap = resolvedImage.GetHbitmap();
@@ -93,10 +93,10 @@ namespace TarkovAssistantWPF
                 DeleteObject(hBitmap);
             }
 
-            pictureBox.Source = img;
+            mapImage.Source = img;
 
-            mapCanvas.Width = pictureBox.Width;
-            mapCanvas.Height = pictureBox.Height;
+            mapCanvas.Width = mapImage.Width;
+            mapCanvas.Height = mapImage.Height;
 
             ClearCanvas();
         }
@@ -106,8 +106,8 @@ namespace TarkovAssistantWPF
         // to the rendered width/height
         private Size GetMapScreenSize()
         {
-            var width = pictureBox.ActualWidth;
-            var height = pictureBox.ActualHeight;
+            var width = mapImage.ActualWidth;
+            var height = mapImage.ActualHeight;
 
             height *= (mapTransform.Matrix.M11);
             width *= (mapTransform.Matrix.M22);
@@ -141,6 +141,12 @@ namespace TarkovAssistantWPF
             matrix.ScaleAt(scaleX, scaleY, centerX, centerY);
 
             transform.Matrix = matrix;
+        }
+
+        public void ResetTransforms()
+        {
+            mapCanvasTransform.Matrix = Matrix.Identity;
+            mapTransform.Matrix = Matrix.Identity;
         }
 
         #endregion
@@ -187,7 +193,7 @@ namespace TarkovAssistantWPF
             Canvas.SetTop(marker, posY);
         }
 
-        private void ClearCanvas()
+        public void ClearCanvas()
         {
             mapCanvas.Children.Clear();
         }
@@ -210,9 +216,6 @@ namespace TarkovAssistantWPF
         }
 
         #endregion
-
-
-
 
 
 
@@ -270,7 +273,7 @@ namespace TarkovAssistantWPF
         private void OnMapMouseWheel(object sender, MouseWheelEventArgs e)
         {
             var amount = 1.1;
-            var mousePoint = e.GetPosition(pictureBox);
+            var mousePoint = e.GetPosition(mapImage);
 
             if (mousePoint.X < 0 || mousePoint.Y < 0)
                 return;
@@ -292,32 +295,6 @@ namespace TarkovAssistantWPF
         #endregion
 
         #region KeyboardEvents
-
-        private void OnKeyDown(object sender, KeyEventArgs e)
-        {
-
-            // ignore if the map doesn't have keyboard focus
-            var control = (Control)sender;
-
-            if (!control.IsKeyboardFocused)
-                return;
-
-            // reset
-            if (e.Key == Key.R)
-            {
-                // remove any transformations
-                mapTransform.Matrix = Matrix.Identity;
-                mapCanvasTransform.Matrix = Matrix.Identity;
-            }
-
-
-            // clear markers on canvas 
-            if (e.Key == Key.C)
-            {
-                ClearCanvas();
-            }
-
-        }
 
         #endregion
 

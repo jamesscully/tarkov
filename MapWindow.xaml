@@ -23,7 +23,7 @@
                 <MenuItem Click="OnMapChange"  Header="Factory" HorizontalAlignment="Left" Tag="factory"/>
             </MenuItem>
 
-            <TextBox x:Name="quickSearch" MinWidth="100px" KeyUp="QuickSearch_OnKeyUp" IsKeyboardFocusedChanged="QuickSearch_OnIsKeyboardFocusedChanged" Foreground="Gray" />
+            <!-- <TextBox x:Name="quickSearch" MinWidth="100px" KeyUp="QuickSearch_OnKeyUp" IsKeyboardFocusedChanged="QuickSearch_OnIsKeyboardFocusedChanged" Foreground="Gray" /> -->
         </Menu>
     </Grid>
 </Window>

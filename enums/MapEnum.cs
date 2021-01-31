@@ -6,6 +6,7 @@
         SHORELINE,
         CUSTOMS,
         RESERVE,
+        INTERCHANGE,
         FACTORY
     }
 }

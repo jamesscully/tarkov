@@ -37,7 +37,7 @@ namespace TarkovAssistantWPF
             
 
             // set search bars hint
-            quickSearch.Text = Properties.Resources.str_searchhint;
+            // quickSearch.Text = Properties.Resources.str_searchhint;
 
         }
 
@@ -58,32 +58,32 @@ namespace TarkovAssistantWPF
 
         private void QuickSearch_OnKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
-            {
-
-            }
-
-            if (quickSearch.Text.Length < 3 || e.Key == Key.Back)
-                return;
-
-            Debug.WriteLine($"Searching for pages: {(sender as TextBox).Text}");
-
-
-            string api_url =
-                $"https://escapefromtarkov.gamepedia.com/api.php?action=opensearch&format=json&formatversion=2&search={quickSearch.Text}&namespace=0&limit=3&suggest=true";
-
-
-            Task.Run(() =>
-            {
-                WebRequest request = HttpWebRequest.Create(api_url);
-                WebResponse response = request.GetResponse();
-
-                StreamReader reader = new StreamReader(response.GetResponseStream());
-
-                string json = reader.ReadToEndAsync().Result;
-
-                Debug.WriteLine(json);
-            });
+            // if (e.Key == Key.Enter)
+            // {
+            //
+            // }
+            //
+            // if (quickSearch.Text.Length < 3 || e.Key == Key.Back)
+            //     return;
+            //
+            // Debug.WriteLine($"Searching for pages: {(sender as TextBox).Text}");
+            //
+            //
+            // string api_url =
+            //     $"https://escapefromtarkov.gamepedia.com/api.php?action=opensearch&format=json&formatversion=2&search={quickSearch.Text}&namespace=0&limit=3&suggest=true";
+            //
+            //
+            // Task.Run(() =>
+            // {
+            //     WebRequest request = HttpWebRequest.Create(api_url);
+            //     WebResponse response = request.GetResponse();
+            //
+            //     StreamReader reader = new StreamReader(response.GetResponseStream());
+            //
+            //     string json = reader.ReadToEndAsync().Result;
+            //
+            //     Debug.WriteLine(json);
+            // });
         }
 
         private void QuickSearch_OnIsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -115,6 +115,16 @@ namespace TarkovAssistantWPF
                 this.WindowState = (_fullscreen) ? WindowState.Normal : WindowState.Maximized;
                 this.WindowStyle = (_fullscreen) ? WindowStyle.SingleBorderWindow : WindowStyle.None;
                 _fullscreen = !_fullscreen;
+            }
+
+            if (e.Key == Key.C)
+            {
+                mapControl.ClearCanvas();
+            }
+
+            if (e.Key == Key.R)
+            {
+                mapControl.ResetTransforms();
             }
         }
     }
