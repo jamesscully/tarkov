@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace TarkovAssistantWPF.controls
 {
@@ -29,10 +30,18 @@ namespace TarkovAssistantWPF.controls
         public event OnMapButtonPress OnMapButtonPress;
         public event OnGlobalHotkeysChanged OnGlobalHotkeyToggle;
 
+        const string userRoot = "HKEY_CURRENT_USER";
+        const string subkey = "Tarkov Assistant";
+        const string keyName = userRoot + "\\" + subkey;
 
         public MapWindowMenu()
         {
             InitializeComponent();
+
+            //todo: refactor reg. values to a separate class
+            bool enabled = ((int) Registry.GetValue(keyName, "EnableGlobalHotkeys", 0)) == 1;
+
+            menuItem_EnableGlobalKeys.IsChecked = enabled;
         }
 
 
@@ -50,6 +59,14 @@ namespace TarkovAssistantWPF.controls
             var item = (MenuItem) sender;
 
             item.IsChecked = !item.IsChecked;
+
+            if(item.IsChecked)
+                Registry.SetValue(keyName, "EnableGlobalHotkeys", 1);
+            else
+                Registry.SetValue(keyName, "EnableGlobalHotkeys", 0);
+
+            Debug.WriteLine("Registry Value: " + Registry.GetValue(keyName, "EnableGlobalHotkeys", 0));
+
 
             OnGlobalHotkeyToggle?.Invoke(item.IsChecked);
         }

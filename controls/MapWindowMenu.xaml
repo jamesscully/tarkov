@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Menu x:Name="menuBar" VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="0" Panel.ZIndex="1" Padding="0" VerticalContentAlignment="Stretch">
-        <MenuItem Header="Map" Margin="0,0,18,0">
+        <MenuItem Header="Select Map" Margin="0,0,0,0">
             <MenuItem Click="MapButtonPressed"  Header="Customs" HorizontalAlignment="Left" Tag="customs"/>
             <MenuItem Click="MapButtonPressed"  Header="Shoreline" HorizontalAlignment="Left" Tag="shoreline"/>
             <MenuItem Click="MapButtonPressed"  Header="Woods" HorizontalAlignment="Left" Tag="woods"/>
@@ -15,11 +15,9 @@
             <MenuItem Click="MapButtonPressed"  Header="Reserve" HorizontalAlignment="Left" Tag="reserve"/>
         </MenuItem>
 
-        <MenuItem Header="Extras" Margin="0,0,18,0">
+        <MenuItem Header="Options" Margin="0,0,0,0">
             <MenuItem x:Name="menuItem_EnableGlobalKeys" Click="ToggleGlobalHotkeys"  Header="Enable global key hooks" HorizontalAlignment="Left"/>
         </MenuItem>
 
-        <MenuItem Header="WotDaaaaaewqeqea" Margin="0,0,18,0">
-        </MenuItem>
     </Menu>
 </UserControl>

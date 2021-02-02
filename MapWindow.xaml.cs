@@ -26,7 +26,7 @@ using Point = System.Windows.Point;
 using Size = System.Windows.Size;
 using TextBox = System.Windows.Controls.TextBox;
 using AutoUpdaterDotNET;
-
+using Microsoft.Win32;
 
 namespace TarkovAssistantWPF
 {
@@ -39,6 +39,10 @@ namespace TarkovAssistantWPF
     {
         private IKeyboardMouseEvents keyHook;
         private bool _isGlobalKeysEnabled = false;
+
+        const string userRoot = "HKEY_CURRENT_USER";
+        const string subkey = "Tarkov Assistant";
+        const string keyName = userRoot + "\\" + subkey;
 
         public MapWindow()
         {
@@ -57,6 +61,10 @@ namespace TarkovAssistantWPF
             // map menu buttons to needed functions
             menuBar.OnMapButtonPress += mapControl.SetMap;
             menuBar.OnGlobalHotkeyToggle += enableHotkeys => _isGlobalKeysEnabled = enableHotkeys;
+
+            bool enabled = ((int) Registry.GetValue(keyName, "EnableGlobalHotkeys", 0)) == 1;
+
+            _isGlobalKeysEnabled = enabled;
         }
 
         private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)

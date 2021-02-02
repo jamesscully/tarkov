@@ -21,8 +21,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_176D039AB993DE45471E8390EFAC568D"
-        "OwnerKey" = "8:_91B3E8949DB6423DBA8496BD257FC786"
+        "MsmKey" = "8:_1760AC0A8AB22F7619E12602EB00D138"
+        "OwnerKey" = "8:_39E298DF53DDAA929F9200B0DBCC91D1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -35,6 +35,12 @@
         {
         "MsmKey" = "8:_2B4D4521CF384F71B131C2991877DD82"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_39E298DF53DDAA929F9200B0DBCC91D1"
+        "OwnerKey" = "8:_91B3E8949DB6423DBA8496BD257FC786"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -106,7 +112,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_176D039AB993DE45471E8390EFAC568D"
+        "OwnerKey" = "8:_39E298DF53DDAA929F9200B0DBCC91D1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1760AC0A8AB22F7619E12602EB00D138"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -224,20 +236,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_176D039AB993DE45471E8390EFAC568D"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1760AC0A8AB22F7619E12602EB00D138"
             {
             "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+            "AssemblyIsInGAC" = "11:TRUE"
+            "AssemblyAsmDisplayName" = "8:System.IO.Compression, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_176D039AB993DE45471E8390EFAC568D"
+                    "_1760AC0A8AB22F7619E12602EB00D138"
                     {
-                    "Name" = "8:System.Net.Http.dll"
+                    "Name" = "8:System.IO.Compression.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:System.Net.Http.dll"
+            "SourcePath" = "8:System.IO.Compression.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_015C74988AD04A16A25EB90EF88BD908"
@@ -251,7 +263,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:FALSE"
+            "Exclude" = "11:TRUE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -293,6 +305,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_39E298DF53DDAA929F9200B0DBCC91D1"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.IO.Compression.FileSystem, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+                "ScatterAssemblies"
+                {
+                    "_39E298DF53DDAA929F9200B0DBCC91D1"
+                    {
+                    "Name" = "8:System.IO.Compression.FileSystem.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.IO.Compression.FileSystem.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_015C74988AD04A16A25EB90EF88BD908"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3DBD2571B9E9961415307E7282AC62CB"
@@ -525,7 +568,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Tarkov Assistant"
         "ProductCode" = "8:{986FD058-01A8-49CD-86E8-46B373F157F3}"
-        "PackageCode" = "8:{317ED50C-6441-498A-B259-54984BEFB143}"
+        "PackageCode" = "8:{D2DC5C08-61BE-4349-890D-EEDD04EEE3C0}"
         "UpgradeCode" = "8:{A026D895-36CD-4828-8FC0-8B400F9F0AC7}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
