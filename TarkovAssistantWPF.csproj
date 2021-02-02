@@ -58,7 +58,7 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>program.ico</ApplicationIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -70,7 +70,8 @@
     <StartupObject>TarkovAssistantWPF.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>tarkov-certificate.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>DAD5808D6ABB41C0FCBF1CF102E795F97CFD608E</ManifestCertificateThumbprint>
@@ -166,8 +167,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="tarkov-certificate.pfx" />
-    <None Include="TarkovAssistantWPF_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -192,9 +191,6 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="program.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="maps\reserve.png" />
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +207,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
