@@ -37,6 +37,7 @@ namespace TarkovAssistantWPF
     public partial class MapWindow : Window
     {
         private IKeyboardMouseEvents keyHook;
+        private bool _isGlobalKeysEnabled = false;
 
         public MapWindow()
         {
@@ -46,13 +47,17 @@ namespace TarkovAssistantWPF
 
             keyHook.KeyPress += GlobalHookKeyPress;
 
+            menuItem_EnableGlobalKeys.IsChecked = _isGlobalKeysEnabled;
+
             // set search bars hint
             // quickSearch.Text = Properties.Resources.str_searchhint;
         }
 
         private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
         {
-
+            // do nothing if the user does not want global keys enabled
+            if (!_isGlobalKeysEnabled)
+                return;
         }
 
         private bool _fullscreen = false;
@@ -169,6 +174,19 @@ namespace TarkovAssistantWPF
             if (e.Key == Key.R)
             {
                 mapControl.ResetTransforms();
+            }
+        }
+
+        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (sender.Equals(menuItem_EnableGlobalKeys))
+            {
+                MenuItem item = (MenuItem) sender;
+                bool isChecked = !item.IsChecked;
+
+                // update var and ui
+                _isGlobalKeysEnabled = isChecked;
+                menuItem_EnableGlobalKeys.IsChecked = isChecked;
             }
         }
     }

@@ -24,6 +24,10 @@
                 <MenuItem Click="OnMapChange"  Header="Reserve" HorizontalAlignment="Left" Tag="reserve"/>
             </MenuItem>
 
+            <MenuItem Header="Extras" Margin="0,0,18,0">
+                <MenuItem x:Name="menuItem_EnableGlobalKeys" Click="MenuItem_OnClick"  Header="Enable global key hooks" HorizontalAlignment="Left"/>
+            </MenuItem>
+
             <!-- <TextBox x:Name="quickSearch" MinWidth="100px" KeyUp="QuickSearch_OnKeyUp" IsKeyboardFocusedChanged="QuickSearch_OnIsKeyboardFocusedChanged" Foreground="Gray" /> -->
         </Menu>
 
