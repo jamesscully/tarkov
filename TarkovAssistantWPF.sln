@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		maps\woods.png = maps\woods.png
 	EndProjectSection
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TarkovAssistantSetup", "..\TarkovAssistantSetup\TarkovAssistantSetup.vdproj", "{F4507C6A-5DDE-4C2A-AFE7-92417D5E806B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,16 @@ Global
 		{720D5C05-51DF-418C-842E-159268591857}.Release|x64.Build.0 = Release|Any CPU
 		{720D5C05-51DF-418C-842E-159268591857}.Release|x86.ActiveCfg = Release|Any CPU
 		{720D5C05-51DF-418C-842E-159268591857}.Release|x86.Build.0 = Release|Any CPU
+		{F4507C6A-5DDE-4C2A-AFE7-92417D5E806B}.Debug|Any CPU.ActiveCfg = Debug
+		{F4507C6A-5DDE-4C2A-AFE7-92417D5E806B}.Debug|ARM.ActiveCfg = Debug
+		{F4507C6A-5DDE-4C2A-AFE7-92417D5E806B}.Debug|ARM64.ActiveCfg = Debug
+		{F4507C6A-5DDE-4C2A-AFE7-92417D5E806B}.Debug|x64.ActiveCfg = Debug
+		{F4507C6A-5DDE-4C2A-AFE7-92417D5E806B}.Debug|x86.ActiveCfg = Debug
+		{F4507C6A-5DDE-4C2A-AFE7-92417D5E806B}.Release|Any CPU.ActiveCfg = Release
+		{F4507C6A-5DDE-4C2A-AFE7-92417D5E806B}.Release|ARM.ActiveCfg = Release
+		{F4507C6A-5DDE-4C2A-AFE7-92417D5E806B}.Release|ARM64.ActiveCfg = Release
+		{F4507C6A-5DDE-4C2A-AFE7-92417D5E806B}.Release|x64.ActiveCfg = Release
+		{F4507C6A-5DDE-4C2A-AFE7-92417D5E806B}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
