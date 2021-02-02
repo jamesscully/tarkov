@@ -27,12 +27,18 @@ namespace TarkovAssistantWPF
     /// </summary>
     public partial class MapControl : UserControl
     {
+        // allows a marker to be added; this is false if we are panning image (_flagPanGrab)
         private bool _flagAddMarker = true;
+
         private bool _flagPanGrab;
-        private Map selected_map;
+
+        private Map _selectedMap;
+
+        private int _subMapIndex = 0;
+        private Map[] _subMaps = new Map[8];
 
         double mapScale = 1;
-        private Point MousePointA, MousePointB;
+
 
         public MapControl()
         {
@@ -45,7 +51,7 @@ namespace TarkovAssistantWPF
 
             mapImage.MouseLeave += (sender, args) => _flagPanGrab = false;
 
-            SetMap(selected_map);
+            SetMap(_selectedMap);
 
         }
 
@@ -68,7 +74,13 @@ namespace TarkovAssistantWPF
                 return;
             }
 
-            selected_map = map;
+            if (map == Map.RESERVE)
+            {
+                _subMaps = new [] { Map.RESERVE, Map.RESERVE_TUNNELS };
+            }
+
+            
+            _selectedMap = map;
 
 
             mapImage.Source = null;
@@ -99,6 +111,19 @@ namespace TarkovAssistantWPF
             mapCanvas.Height = mapImage.Height;
 
             ClearCanvas();
+        }
+
+
+        // Cycles the submaps (i.e. tunnel view on Reserve)
+        public void CycleSubMap()
+        {
+            _subMapIndex++;
+
+            // prevent outofindex
+            if (_subMapIndex >= _subMaps.Length)
+                _subMapIndex = 0;
+
+            SetMap(_subMaps[_subMapIndex]);
         }
 
 
@@ -222,6 +247,8 @@ namespace TarkovAssistantWPF
         #region Events
 
         #region MouseEvents
+
+        private Point MousePointA, MousePointB;
 
         private void OnMapMouseDown(object sender, MouseButtonEventArgs e)
         {

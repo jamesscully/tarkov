@@ -58,6 +58,13 @@ namespace TarkovAssistantWPF
             // do nothing if the user does not want global keys enabled
             if (!_isGlobalKeysEnabled)
                 return;
+
+            Debug.WriteLine("Global KeyPress: " + e.KeyChar);
+
+            if (e.KeyChar == '9')
+            {
+                mapControl.CycleSubMap();
+            }
         }
 
         private bool _fullscreen = false;
