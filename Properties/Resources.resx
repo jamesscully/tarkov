@@ -121,4 +121,8 @@
     <value>Search for an item...</value>
     <comment>Search box hint</comment>
   </data>
+  <data name="update_xml_url" xml:space="preserve">
+    <value>https://s3.eu-west-2.amazonaws.com/jwscully.uk/tarkov-assistant/update_info.xml</value>
+    <comment>XML file location for AutoUpdater.NET</comment>
+  </data>
 </root>

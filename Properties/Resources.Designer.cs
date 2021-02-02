@@ -68,5 +68,14 @@ namespace TarkovAssistantWPF.Properties {
                 return ResourceManager.GetString("str_searchhint", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://s3.eu-west-2.amazonaws.com/jwscully.uk/tarkov-assistant/update_info.xml.
+        /// </summary>
+        internal static string update_xml_url {
+            get {
+                return ResourceManager.GetString("update_xml_url", resourceCulture);
+            }
+        }
     }
 }

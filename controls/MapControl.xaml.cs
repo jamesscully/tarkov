@@ -32,7 +32,7 @@ namespace TarkovAssistantWPF
 
         private bool _flagPanGrab;
 
-        private Map _selectedMap;
+        private Map _selectedMap = Map.CUSTOMS;
 
         private int _subMapIndex = 0;
         private Map[] _subMaps = new Map[8];
@@ -57,9 +57,6 @@ namespace TarkovAssistantWPF
 
 
         #region MapMethods
-
-        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
-        public static extern bool DeleteObject(IntPtr hObject);
 
         public void SetMap(Map map)
         {
@@ -103,20 +100,6 @@ namespace TarkovAssistantWPF
             SetMap(_subMaps[_subMapIndex]);
         }
 
-
-        // Return our mapsize by manually applying the transform
-        // to the rendered width/height
-        private Size GetMapScreenSize()
-        {
-            var width = mapImage.ActualWidth;
-            var height = mapImage.ActualHeight;
-
-            height *= (mapTransform.Matrix.M11);
-            width *= (mapTransform.Matrix.M22);
-
-            return new Size(width, height);
-        }
-
         // Handles translating a layer, i.e. the Image or Canvas
         private void TranslateLayer(
                 ref MatrixTransform transform,
@@ -152,7 +135,6 @@ namespace TarkovAssistantWPF
         }
 
         #endregion
-
 
 
 

@@ -25,6 +25,7 @@ using MenuItem = System.Windows.Controls.MenuItem;
 using Point = System.Windows.Point;
 using Size = System.Windows.Size;
 using TextBox = System.Windows.Controls.TextBox;
+using AutoUpdaterDotNET;
 
 
 namespace TarkovAssistantWPF
@@ -42,6 +43,9 @@ namespace TarkovAssistantWPF
         public MapWindow()
         {
             InitializeComponent();
+
+            // check our remote update file, see if we need an update!
+            AutoUpdater.Start(Properties.Resources.update_xml_url);
 
             keyHook = Hook.GlobalEvents();
 
