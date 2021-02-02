@@ -64,48 +64,25 @@ namespace TarkovAssistantWPF
         public void SetMap(Map map)
         {
 
-            Debug.WriteLine($"Drawing map {map}, {new Uri($"maps/{map}.png", UriKind.Relative)}");
+            var mapDirectory = "/maps/";
+            var fileName = map.ToString().ToLower();
+            var fileExt = ".png";
 
-            var resolvedImage = (Bitmap)Properties.Resources.ResourceManager.GetObject(map.ToString().ToLower());
+            var path = mapDirectory + fileName + fileExt;
 
-            if (resolvedImage == null)
-            {
-                Debug.WriteLine($"Error: resource {map}.png could not be found!");
-                return;
-            }
+            var uri = new Uri(path, UriKind.Relative);
+
+            Debug.WriteLine($"Loading map: {uri}, current directory: {Environment.CurrentDirectory}");
 
             if (map == Map.RESERVE)
             {
                 _subMaps = new [] { Map.RESERVE, Map.RESERVE_TUNNELS };
             }
 
-            
             _selectedMap = map;
 
 
-            mapImage.Source = null;
-
-            // get raw bitmap
-            IntPtr hBitmap = resolvedImage.GetHbitmap();
-            ImageSource img;
-
-            try
-            {
-                // attempt to convert bitmap -> image source
-                img = Imaging.CreateBitmapSourceFromHBitmap(
-                    hBitmap,
-                    IntPtr.Zero,
-                    Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions()
-                );
-            }
-            finally
-            {
-                // remove any resources attached to bitmap
-                DeleteObject(hBitmap);
-            }
-
-            mapImage.Source = img;
+            mapImage.Source = new BitmapImage(uri);
 
             mapCanvas.Width = mapImage.Width;
             mapCanvas.Height = mapImage.Height;

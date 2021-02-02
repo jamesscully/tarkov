@@ -15,8 +15,26 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_05AB21E18A4C41009EA7AD4BFBED853F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_176D039AB993DE45471E8390EFAC568D"
         "OwnerKey" = "8:_91B3E8949DB6423DBA8496BD257FC786"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2817809DED9848EC953AFE22749F4C6C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2B4D4521CF384F71B131C2991877DD82"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -27,13 +45,37 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_78962CB7D9C34F0AB10877AA919BC419"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_855C6F957EE74722A3752DD25242CFD2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_91B3E8949DB6423DBA8496BD257FC786"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
+        "MsmKey" = "8:_9804A80240AB4DF9BD66D0DB51DFA660"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_CB9AED26310642C5901FE262AAE4527C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E0D85C9B2B60428F8510ABE9D32A5457"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -142,6 +184,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_05AB21E18A4C41009EA7AD4BFBED853F"
+            {
+            "SourcePath" = "8:..\\maps\\woods.png"
+            "TargetName" = "8:woods.png"
+            "Tag" = "8:"
+            "Folder" = "8:_1F92586792B3429C9A6E2E871C9D33CB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_176D039AB993DE45471E8390EFAC568D"
             {
             "AssemblyRegister" = "3:1"
@@ -171,6 +233,46 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2817809DED9848EC953AFE22749F4C6C"
+            {
+            "SourcePath" = "8:..\\maps\\interchange.png"
+            "TargetName" = "8:interchange.png"
+            "Tag" = "8:"
+            "Folder" = "8:_1F92586792B3429C9A6E2E871C9D33CB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2B4D4521CF384F71B131C2991877DD82"
+            {
+            "SourcePath" = "8:..\\maps\\reserve.png"
+            "TargetName" = "8:reserve.png"
+            "Tag" = "8:"
+            "Folder" = "8:_1F92586792B3429C9A6E2E871C9D33CB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3DBD2571B9E9961415307E7282AC62CB"
@@ -204,12 +306,92 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_78962CB7D9C34F0AB10877AA919BC419"
+            {
+            "SourcePath" = "8:..\\maps\\customs.png"
+            "TargetName" = "8:customs.png"
+            "Tag" = "8:"
+            "Folder" = "8:_1F92586792B3429C9A6E2E871C9D33CB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_855C6F957EE74722A3752DD25242CFD2"
+            {
+            "SourcePath" = "8:..\\maps\\factory.png"
+            "TargetName" = "8:factory.png"
+            "Tag" = "8:"
+            "Folder" = "8:_1F92586792B3429C9A6E2E871C9D33CB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9804A80240AB4DF9BD66D0DB51DFA660"
+            {
+            "SourcePath" = "8:..\\maps\\shoreline.png"
+            "TargetName" = "8:shoreline.png"
+            "Tag" = "8:"
+            "Folder" = "8:_1F92586792B3429C9A6E2E871C9D33CB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CB9AED26310642C5901FE262AAE4527C"
             {
             "SourcePath" = "8:..\\icon.ico"
             "TargetName" = "8:icon.ico"
             "Tag" = "8:"
             "Folder" = "8:_015C74988AD04A16A25EB90EF88BD908"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E0D85C9B2B60428F8510ABE9D32A5457"
+            {
+            "SourcePath" = "8:..\\maps\\reserve_tunnels.png"
+            "TargetName" = "8:reserve_tunnels.png"
+            "Tag" = "8:"
+            "Folder" = "8:_1F92586792B3429C9A6E2E871C9D33CB"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -240,6 +422,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_1F92586792B3429C9A6E2E871C9D33CB"
+                    {
+                    "Name" = "8:maps"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_5D75D20FF04A433C95531F00770D40E9"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_B9150BBD5D814EE48923C33893EA86C7"
@@ -281,7 +474,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Tarkov Assistant"
         "ProductCode" = "8:{986FD058-01A8-49CD-86E8-46B373F157F3}"
-        "PackageCode" = "8:{7BD998A4-0F93-4668-BC87-12BC656A8818}"
+        "PackageCode" = "8:{5D6B58DB-63EA-486C-815B-C1A231CC2045}"
         "UpgradeCode" = "8:{A026D895-36CD-4828-8FC0-8B400F9F0AC7}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"

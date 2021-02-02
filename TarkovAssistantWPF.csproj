@@ -195,10 +195,14 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="maps\reserve.png" />
+    <Resource Include="maps\reserve.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="maps\reserve_tunnels.png" />
+    <Resource Include="maps\reserve_tunnels.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
