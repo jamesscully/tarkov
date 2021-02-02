@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gma.System.MouseKeyHook;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -8,9 +9,9 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -19,8 +20,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Brushes = System.Windows.Media.Brushes;
 using Image = System.Windows.Controls.Image;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using MenuItem = System.Windows.Controls.MenuItem;
 using Point = System.Windows.Point;
 using Size = System.Windows.Size;
+using TextBox = System.Windows.Controls.TextBox;
+
 
 namespace TarkovAssistantWPF
 {
@@ -31,13 +36,22 @@ namespace TarkovAssistantWPF
 
     public partial class MapWindow : Window
     {
+        private IKeyboardMouseEvents keyHook;
+
         public MapWindow()
         {
             InitializeComponent();
-            
+
+            keyHook = Hook.GlobalEvents();
+
+            keyHook.KeyPress += GlobalHookKeyPress;
 
             // set search bars hint
             // quickSearch.Text = Properties.Resources.str_searchhint;
+        }
+
+        private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
+        {
 
         }
 
