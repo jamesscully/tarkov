@@ -18,5 +18,8 @@
         <MenuItem Header="Extras" Margin="0,0,18,0">
             <MenuItem x:Name="menuItem_EnableGlobalKeys" Click="ToggleGlobalHotkeys"  Header="Enable global key hooks" HorizontalAlignment="Left"/>
         </MenuItem>
+
+        <MenuItem Header="WotDaaaaaewqeqea" Margin="0,0,18,0">
+        </MenuItem>
     </Menu>
 </UserControl>

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -42,20 +42,21 @@ namespace TarkovAssistantWPF
 
         public MapWindow()
         {
+            Debug.WriteLine("################\n");
+            Debug.WriteLine($"Launched, Assembly Version {Assembly.GetEntryAssembly().GetName().Version}\n ");
+            Debug.WriteLine("################\n");
+
             InitializeComponent();
 
             // check our remote update file, see if we need an update!
             AutoUpdater.Start(Properties.Resources.update_xml_url);
 
             keyHook = Hook.GlobalEvents();
-
             keyHook.KeyPress += GlobalHookKeyPress;
 
+            // map menu buttons to needed functions
             menuBar.OnMapButtonPress += mapControl.SetMap;
             menuBar.OnGlobalHotkeyToggle += enableHotkeys => _isGlobalKeysEnabled = enableHotkeys;
-
-            // set search bars hint
-            // quickSearch.Text = Properties.Resources.str_searchhint;
         }
 
         private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)

@@ -525,7 +525,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Tarkov Assistant"
         "ProductCode" = "8:{986FD058-01A8-49CD-86E8-46B373F157F3}"
-        "PackageCode" = "8:{B4547E15-8D51-469E-B97F-E3DB420CAEF6}"
+        "PackageCode" = "8:{317ED50C-6441-498A-B259-54984BEFB143}"
         "UpgradeCode" = "8:{A026D895-36CD-4828-8FC0-8B400F9F0AC7}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"

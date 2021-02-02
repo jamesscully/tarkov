@@ -70,6 +70,15 @@ namespace TarkovAssistantWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://s3.eu-west-2.amazonaws.com/jwscully.uk/tarkov-assistant/update.zip.
+        /// </summary>
+        internal static string update_data_url {
+            get {
+                return ResourceManager.GetString("update_data_url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://s3.eu-west-2.amazonaws.com/jwscully.uk/tarkov-assistant/update_info.xml.
         /// </summary>
         internal static string update_xml_url {
