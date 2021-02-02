@@ -47,7 +47,7 @@ namespace TarkovAssistantWPF
 
             keyHook.KeyPress += GlobalHookKeyPress;
 
-            menuItem_EnableGlobalKeys.IsChecked = _isGlobalKeysEnabled;
+            menuBar.OnMapButtonPress += mapControl.SetMap;
 
             // set search bars hint
             // quickSearch.Text = Properties.Resources.str_searchhint;
@@ -70,43 +70,16 @@ namespace TarkovAssistantWPF
         private bool _fullscreen = false;
 
         // Fired when a map button is pressed
-        private void OnMapChange(object sender, RoutedEventArgs e)
+        private void OnMapChange(object sender, EventArgs e)
         {
+            return; 
+
             var item = (MenuItem)sender;
 
             Map.TryParse((item.Tag as string), true, out Map map);
 
             mapControl.SetMap(map);
 
-            Debug.WriteLine(menuBar.Items.Count);
-
-            if (map == Map.RESERVE && menuBar.Items.Count == 1)
-            {
-
-                MenuItem TunnelMap = new MenuItem();
-                TunnelMap.Header = "Bunker View";
-                TunnelMap.Click += (o, args) => mapControl.SetMap(Map.RESERVE_TUNNELS);
-
-                MenuItem GroundMap = new MenuItem();
-                GroundMap.Header = "Ground View";
-                GroundMap.Click += (o, args) => mapControl.SetMap(Map.RESERVE);
-
-                menuBar.Items.Add(TunnelMap);
-                menuBar.Items.Add(GroundMap);
-            }
-            else
-            {
-                if (menuBar.Items.Count > 1)
-                {
-                    var mapMenuItem = menuBar.Items.GetItemAt(0);
-
-                    // remove-all and re-add 
-                    menuBar.Items.Clear();
-                    menuBar.Items.Add(mapMenuItem);
-
-                    menuBar.Items.Refresh();
-                }
-            }
         }
 
 
@@ -184,17 +157,17 @@ namespace TarkovAssistantWPF
             }
         }
 
-        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (sender.Equals(menuItem_EnableGlobalKeys))
-            {
-                MenuItem item = (MenuItem) sender;
-                bool isChecked = !item.IsChecked;
-
-                // update var and ui
-                _isGlobalKeysEnabled = isChecked;
-                menuItem_EnableGlobalKeys.IsChecked = isChecked;
-            }
-        }
+        // private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        // {
+        //     if (sender.Equals(menuItem_EnableGlobalKeys))
+        //     {
+        //         MenuItem item = (MenuItem) sender;
+        //         bool isChecked = !item.IsChecked;
+        //
+        //         // update var and ui
+        //         _isGlobalKeysEnabled = isChecked;
+        //         menuItem_EnableGlobalKeys.IsChecked = isChecked;
+        //     }
+        // }
     }
 }

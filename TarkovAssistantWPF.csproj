@@ -113,8 +113,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="controls\UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
+    <Compile Include="controls\MapWindowMenu.xaml.cs">
+      <DependentUpon>MapWindowMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="enums\MapEnum.cs" />
     <Compile Include="controls\MapControl.xaml.cs">
@@ -125,7 +125,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="controls\UserControl1.xaml">
+    <Page Include="controls\MapWindowMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

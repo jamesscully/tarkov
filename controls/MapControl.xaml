@@ -16,7 +16,7 @@
                 </Canvas.RenderTransform>
             </Canvas>
 
-            <Image x:Name="mapImage" Source="maps/customs.png" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Image x:Name="mapImage" Source="../maps/customs.png" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <MatrixTransform x:Name="mapTransform"/>

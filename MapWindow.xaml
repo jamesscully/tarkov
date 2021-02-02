@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TarkovAssistantWPF"
+        xmlns:controls="clr-namespace:TarkovAssistantWPF.controls"
         mc:Ignorable="d"
         Title="Tarkov Assistant - Map Viewer" Height="768" Width="1366" KeyDown="OnKeyDown"  >
 
@@ -14,22 +15,24 @@
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Menu x:Name="menuBar" VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="0" Panel.ZIndex="1" Padding="0" VerticalContentAlignment="Stretch">
-            <MenuItem Header="Map" Margin="0,0,18,0">
-                <MenuItem Click="OnMapChange"  Header="Customs" HorizontalAlignment="Left" Tag="customs"/>
-                <MenuItem Click="OnMapChange"  Header="Shoreline" HorizontalAlignment="Left" Tag="shoreline"/>
-                <MenuItem Click="OnMapChange"  Header="Woods" HorizontalAlignment="Left" Tag="woods"/>
-                <MenuItem Click="OnMapChange"  Header="Interchange" HorizontalAlignment="Left" Tag="interchange"/>
-                <MenuItem Click="OnMapChange"  Header="Factory" HorizontalAlignment="Left" Tag="factory"/>
-                <MenuItem Click="OnMapChange"  Header="Reserve" HorizontalAlignment="Left" Tag="reserve"/>
-            </MenuItem>
+        <controls:MapWindowMenu x:Name="menuBar"/>
 
-            <MenuItem Header="Extras" Margin="0,0,18,0">
-                <MenuItem x:Name="menuItem_EnableGlobalKeys" Click="MenuItem_OnClick"  Header="Enable global key hooks" HorizontalAlignment="Left"/>
-            </MenuItem>
-
-            <!-- <TextBox x:Name="quickSearch" MinWidth="100px" KeyUp="QuickSearch_OnKeyUp" IsKeyboardFocusedChanged="QuickSearch_OnIsKeyboardFocusedChanged" Foreground="Gray" /> -->
-        </Menu>
+        <!-- <Menu x:Name="menuBar" VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="0" Panel.ZIndex="1" Padding="0" VerticalContentAlignment="Stretch"> -->
+        <!--     <MenuItem Header="Map" Margin="0,0,18,0"> -->
+        <!--         <MenuItem Click="OnMapChange"  Header="Customs" HorizontalAlignment="Left" Tag="customs"/> -->
+        <!--         <MenuItem Click="OnMapChange"  Header="Shoreline" HorizontalAlignment="Left" Tag="shoreline"/> -->
+        <!--         <MenuItem Click="OnMapChange"  Header="Woods" HorizontalAlignment="Left" Tag="woods"/> -->
+        <!--         <MenuItem Click="OnMapChange"  Header="Interchange" HorizontalAlignment="Left" Tag="interchange"/> -->
+        <!--         <MenuItem Click="OnMapChange"  Header="Factory" HorizontalAlignment="Left" Tag="factory"/> -->
+        <!--         <MenuItem Click="OnMapChange"  Header="Reserve" HorizontalAlignment="Left" Tag="reserve"/> -->
+        <!--     </MenuItem> -->
+        <!-- -->
+        <!--     <MenuItem Header="Extras" Margin="0,0,18,0"> -->
+        <!--         <MenuItem x:Name="menuItem_EnableGlobalKeys" Click="MenuItem_OnClick"  Header="Enable global key hooks" HorizontalAlignment="Left"/> -->
+        <!--     </MenuItem> -->
+        <!-- -->
+        <!--     ~1~ <TextBox x:Name="quickSearch" MinWidth="100px" KeyUp="QuickSearch_OnKeyUp" IsKeyboardFocusedChanged="QuickSearch_OnIsKeyboardFocusedChanged" Foreground="Gray" /> @1@ -->
+        <!-- </Menu> -->
 
         <local:MapControl
             x:Name="mapControl" Grid.Row="1">
