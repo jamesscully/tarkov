@@ -22,9 +22,13 @@ namespace TarkovAssistantWPF.controls
     ///
     
     public delegate void OnMapButtonPress(Map map);
+
+    public delegate void OnGlobalHotkeysChanged(bool enableHotkeys);
+
     public partial class MapWindowMenu : UserControl
     {
         public event OnMapButtonPress OnMapButtonPress;
+        public event OnGlobalHotkeysChanged OnGlobalHotkeyToggle;
 
 
         public MapWindowMenu()
@@ -42,9 +46,13 @@ namespace TarkovAssistantWPF.controls
             OnMapButtonPress?.Invoke(map);
         }
 
-        private void MenuItem_EnableGlobalKeys_OnClick(object sender, RoutedEventArgs e)
+        private void ToggleGlobalHotkeys(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var item = (MenuItem) sender;
+
+            item.IsChecked = !item.IsChecked;
+
+            OnGlobalHotkeyToggle?.Invoke(item.IsChecked);
         }
 
 

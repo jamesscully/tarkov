@@ -48,6 +48,7 @@ namespace TarkovAssistantWPF
             keyHook.KeyPress += GlobalHookKeyPress;
 
             menuBar.OnMapButtonPress += mapControl.SetMap;
+            menuBar.OnGlobalHotkeyToggle += enableHotkeys => _isGlobalKeysEnabled = enableHotkeys;
 
             // set search bars hint
             // quickSearch.Text = Properties.Resources.str_searchhint;
@@ -69,73 +70,6 @@ namespace TarkovAssistantWPF
 
         private bool _fullscreen = false;
 
-        // Fired when a map button is pressed
-        private void OnMapChange(object sender, EventArgs e)
-        {
-            return; 
-
-            var item = (MenuItem)sender;
-
-            Map.TryParse((item.Tag as string), true, out Map map);
-
-            mapControl.SetMap(map);
-
-        }
-
-
-        #region SearchFunctions
-
-        private void QuickSearch_OnKeyUp(object sender, KeyEventArgs e)
-        {
-            // if (e.Key == Key.Enter)
-            // {
-            //
-            // }
-            //
-            // if (quickSearch.Text.Length < 3 || e.Key == Key.Back)
-            //     return;
-            //
-            // Debug.WriteLine($"Searching for pages: {(sender as TextBox).Text}");
-            //
-            //
-            // string api_url =
-            //     $"https://escapefromtarkov.gamepedia.com/api.php?action=opensearch&format=json&formatversion=2&search={quickSearch.Text}&namespace=0&limit=3&suggest=true";
-            //
-            //
-            // Task.Run(() =>
-            // {
-            //     WebRequest request = HttpWebRequest.Create(api_url);
-            //     WebResponse response = request.GetResponse();
-            //
-            //     StreamReader reader = new StreamReader(response.GetResponseStream());
-            //
-            //     string json = reader.ReadToEndAsync().Result;
-            //
-            //     Debug.WriteLine(json);
-            // });
-        }
-
-        private void QuickSearch_OnIsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-
-            bool focused = e.NewValue.ToString() == "True";
-
-            TextBox textbox = (TextBox) sender;
-
-            if (focused)
-            {
-                textbox.Foreground = Brushes.Black;
-                textbox.Text = "";
-            }
-            else
-            {
-                textbox.Foreground = Brushes.Gray;
-                textbox.Text = Properties.Resources.str_searchhint;
-            }
-        }
-
-        #endregion
-
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             // fullscreen
@@ -156,18 +90,5 @@ namespace TarkovAssistantWPF
                 mapControl.ResetTransforms();
             }
         }
-
-        // private void MenuItem_OnClick(object sender, RoutedEventArgs e)
-        // {
-        //     if (sender.Equals(menuItem_EnableGlobalKeys))
-        //     {
-        //         MenuItem item = (MenuItem) sender;
-        //         bool isChecked = !item.IsChecked;
-        //
-        //         // update var and ui
-        //         _isGlobalKeysEnabled = isChecked;
-        //         menuItem_EnableGlobalKeys.IsChecked = isChecked;
-        //     }
-        // }
     }
 }
