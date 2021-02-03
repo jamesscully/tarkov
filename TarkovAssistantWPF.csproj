@@ -120,6 +120,7 @@
     <Compile Include="controls\MapControl.xaml.cs">
       <DependentUpon>MapControl.xaml</DependentUpon>
     </Compile>
+    <None Include="scripts\BuildAndDeploy.ps1" />
     <None Include="scripts\BuildScript.ps1" />
     <Compile Include="scripts\GenerateUpdateFiles.cs" />
     <Compile Include="wiki_parser\ParseWikiPage.cs" />
