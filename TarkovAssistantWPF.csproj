@@ -121,7 +121,7 @@
       <DependentUpon>MapControl.xaml</DependentUpon>
     </Compile>
     <None Include="scripts\BuildScript.ps1" />
-    <None Include="scripts\GenerateUpdateFiles.cs" />
+    <Compile Include="scripts\GenerateUpdateFiles.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="wiki_parser\ParseWikiPage.cs" />
     <Page Include="controls\MapControl.xaml">

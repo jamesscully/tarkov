@@ -21,7 +21,7 @@ namespace TarkovAssistantWPF.scripts
     public class GenerateUpdateFiles
     {
 
-        private static string DIR_OUTPUT = @"../updates/";
+        private static string DIR_OUTPUT = "../updates/";
         private static string PATH_EXE = Path.GetFullPath("../bin/Debug/TarkovAssistant.exe");
         private static string ZIP_NAME = "";
         private static string ZIP_OUT_PATH = "";
@@ -88,8 +88,7 @@ namespace TarkovAssistantWPF.scripts
                 // to easily send to AWS S3
                 GenerateZipFile(PATH_EXE);
                 GenerateXMLFile(version.ToString());
-
-                // UploadToAmazon().Wait();
+                AddChangeEntry(version);
             }
             catch (Exception e)
             {
@@ -143,7 +142,7 @@ namespace TarkovAssistantWPF.scripts
                 if (!Directory.Exists(STAGING_DIR))
                     Directory.CreateDirectory(STAGING_DIR);
 
-
+                
                 // append timestamp to basic name
                 ZIP_NAME = "update-" + DateTime.Now.ToString("yyyy-MM-ddHHmmss") + ".zip";
 
@@ -173,12 +172,32 @@ namespace TarkovAssistantWPF.scripts
             
         }
 
+        private static void AddChangeEntry(Version version)
+        {
+            string changelog_path = DIR_OUTPUT + "changes.txt";
+
+            WriteLog("AddChangeEntry: Opening " + changelog_path);
+
+            if (!File.Exists(changelog_path))
+            {
+                WriteLog("AddChangeEntry: Changelog not found, creating: " + changelog_path);
+                File.Create(changelog_path);
+            } 
+
+            StreamWriter writer = new StreamWriter(File.Open(changelog_path, FileMode.Open));
+            writer.WriteLine("-------------------------------");
+            writer.WriteLine("Changes for version " + version);
+            writer.Write("\n\n\n");
+
+        }
+
         private static void WriteLog(string message)
         {
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Out.WriteLine(message);
             Console.ResetColor();
         }
+
         private static void WriteError(string errorMessage)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
