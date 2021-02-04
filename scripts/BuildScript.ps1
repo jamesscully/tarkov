@@ -8,7 +8,7 @@ $ZIP_PATH = '../updates/update.zip'
 
 
 # Compile our project
-MSBuild ../TarkovAssistantWPF.csproj
+MSBuild ./TarkovAssistantWPF.csproj
 
 # Compile and run our update files script
 csc -reference:"$REF_FS"dsadsad .\GenerateUpdateFiles.cs; .\GenerateUpdateFiles.exe

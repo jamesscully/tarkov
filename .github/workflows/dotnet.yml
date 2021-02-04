@@ -1,0 +1,48 @@
+name: .NET
+
+on:
+  push:
+    branches: [ cicd_testing ]
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    env:
+          Solution_Name: 'TarkovAssistantWPF.sln'
+          Project_Application: 'TarkovAssistantWPF'
+          Project_Installer: 'TarkovAssistantSetup'
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Install application dependencies
+      run: msbuild -t:restore .\TarkovAssistantWPF.csproj
+
+      # Build actual application
+    - name: Build Application
+      run: msbuild $env:Solution_Name /t:$env:Project_Application /p:Configuration=Release
+
+    - name: Build Installer
+      # Finds 'devenv.exe' and uses this to compile the .msi file; .vdproj files are NOT supported by MSBuild
+      run: |
+        $devenv = & vswhere.exe '-property' productPath
+        Start-Process -FilePath $devenv -ArgumentList '$env:Solution_Name /build Release /project $env:Project_Installer'
+
+    - name: Generate Auto-Update files and Deploy
+      run: |
+        cd ./scripts/
+        ./BuildAndDeploy.ps1     
+      
+      
+# run: devenv $env:Solution_Name /build Release /project $env:Project_Installer

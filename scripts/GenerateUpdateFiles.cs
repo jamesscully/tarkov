@@ -28,7 +28,7 @@ namespace TarkovAssistantWPF.scripts
         private static string XML_OUT_PATH = Path.GetFullPath(DIR_OUTPUT + "update_info.xml");
 
 
-        private static void Main(string[] args)
+        private static int Main(string[] args)
         {
             WriteLog("Beginning construction of update files");
 
@@ -43,7 +43,11 @@ namespace TarkovAssistantWPF.scripts
 
             // create output folder if we dont have it
             if (!Directory.Exists(DIR_OUTPUT))
+            {
+                WriteLog("No output folder found, creating");
                 Directory.CreateDirectory(DIR_OUTPUT);
+            }
+                
 
             try
             {
@@ -80,32 +84,38 @@ namespace TarkovAssistantWPF.scripts
                     if (result > version)
                     {
                         WriteError("Remote version is greater than our version; change minor version?");
-                        return;
+                        return -1;
                     }
                 }
 
                 // build the zip file first, then we can reference this in our .xml 
                 // to easily send to AWS S3
-                GenerateZipFile(PATH_EXE);
-                GenerateXMLFile(version.ToString());
+                // if either of these fail, we need to terminate!
+                if (GenerateZipFile(PATH_EXE) != 0 || GenerateXMLFile(version.ToString()) != 0)
+                    return -1;
+
+
                 AddChangeEntry(version);
             }
             catch (Exception e)
             {
                 WriteError("Could not find assembly file!");
                 WriteError(e.ToString());
+                return -1;
             }
 
+            return 0;
         }
 
         // Generates and outputs update.xml file for AutoUpdater.NET to $root/updates/
-        private static void GenerateXMLFile(string version)
+        private static int GenerateXMLFile(string version)
         {
 
             // if we have no zip name, then we cannot append this to the url
             if (!(ZIP_NAME.Length > 0))
             {
                 WriteError("No zip name has been found! Can't append to XML");
+                return -1;
             }
 
             string DOWNLOAD_URL = "https://s3.eu-west-2.amazonaws.com/jwscully.uk/tarkov-assistant/" + ZIP_NAME;
@@ -122,12 +132,21 @@ namespace TarkovAssistantWPF.scripts
                 writer.WriteEndElement();
                 writer.Flush();
             }
+
+            return 0;
         }
 
-        private static void GenerateZipFile(string executable_path)
+        private static int GenerateZipFile(string executable_path)
         {
 
-            WriteLog("GenerateZipFile: Executable path: " + executable_path);
+            if (!File.Exists(executable_path))
+            {
+                WriteError("GenerateZipFile: Could not locate executable at: " + executable_path);
+            }
+            else
+            {
+                WriteLog("GenerateZipFile: Found executable: " + executable_path, true);
+            }
 
             // we will put our exe here to be zipped up; only the .exe needs to be distributed to the user
             // note: ZipFile does not seem to allow just one file to be zipped, so we'll use this folder
@@ -142,6 +161,8 @@ namespace TarkovAssistantWPF.scripts
                 if (!Directory.Exists(STAGING_DIR))
                     Directory.CreateDirectory(STAGING_DIR);
 
+                
+                // append timestamp to basic name
                 ZIP_NAME = "update.zip";
 
                 // the end destination of our update zip 
@@ -160,14 +181,15 @@ namespace TarkovAssistantWPF.scripts
             catch (Exception e)
             {
                 WriteError(e.ToString());
-                return;
+                return -1;
             }
             finally
             {
                 // clean up staging folder
                 Directory.Delete(STAGING_DIR + "/", true);
             }
-            
+
+            return 0;
         }
 
         private static void AddChangeEntry(Version version)
@@ -176,40 +198,34 @@ namespace TarkovAssistantWPF.scripts
 
             WriteLog("AddChangeEntry: Opening " + changelog_path);
 
-            FileStream stream = null;
-
             if (!File.Exists(changelog_path))
             {
                 WriteLog("AddChangeEntry: Changelog not found, creating: " + changelog_path);
-                stream = File.Create(changelog_path);
+                File.Create(changelog_path);
             }
 
             try
             {
-                if (stream == null)
-                {
-                    WriteError("Stream could not be acquired for changes.txt");
-                    return;
-                }
-
-                StreamWriter writer = new StreamWriter(stream);
+                StreamWriter writer = new StreamWriter(File.Open(changelog_path, FileMode.Open));
                 writer.WriteLine("-------------------------------");
                 writer.WriteLine("Changes for version " + version);
-                writer.Write("\n\n\n");
-                writer.Flush();
-                writer.Close();
+                writer.Write("\n\n\n"); 
             }
             catch (IOException e)
             {
-                WriteError("Error writing to changes.txt: ");
-                WriteError(e.ToString());
+                WriteError("Error writing to changes.txt: " + e.ToString());
             }
+            
 
         }
 
-        private static void WriteLog(string message)
+        private static void WriteLog(string message, bool highlight = false)
         {
             Console.ForegroundColor = ConsoleColor.Blue;
+
+            if (highlight)
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+
             Console.Out.WriteLine(message);
             Console.ResetColor();
         }
