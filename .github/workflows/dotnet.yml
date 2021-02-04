@@ -44,10 +44,20 @@ jobs:
     - name: Setup csc.exe (C# compiler)
       uses: yoavain/Setup-CSC@v7
 
-    - name: Generate Auto-Update files and Deploy
+    - name: Generate Auto-Update files
       run: |
         cd ./scripts/
         ./BuildAndDeploy.ps1     
+
+    - name: Deploy Auto-Update files
+      uses: shallwefootball/upload-s3-action@v1.1.3
+      with:
+        aws_key_id: ${{ secrets.S3_ACCESS_KEY }}
+        aws_secret_access_key: $ {{ S3_SECRET_ACCESS_KEY }}
+        aws_bucket: 'jwscully.uk'
+        source_dir: 'updates/'
+        destination_dir: 'tarkov-assistant/'
+
       
       
 # run: devenv $env:Solution_Name /build Release /project $env:Project_Installer

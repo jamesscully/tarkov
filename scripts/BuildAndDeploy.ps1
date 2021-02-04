@@ -43,18 +43,12 @@ foreach ($f in $files) {
 	# If on my computer, use AWS tokens from ~/.aws/
 	if($env:UserName -eq 'yames') {
 		Write-S3Object -BucketName "$BUCKET_NAME" -Key "tarkov-assistant/$f" -File "$f"
-	} else {
-		Write-S3Object -AccessKey $env:ACCESS_KEY -SecretKey = $env:SECRET_KEY -BucketName "$BUCKET_NAME" -Key "tarkov-assistant/$f" -File "$f"
-	}
-
-
+		if($?) {
+			echo "Successfully uploaded $f to AWS"
+		}
+	} 
 	
-
-
-	if($?) {
-		echo "Successfully uploaded $f to AWS"
-	}
 }
 
 # return to original place of execution
-cd ../scripts/
+cd ../
