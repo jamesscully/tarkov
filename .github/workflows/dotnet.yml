@@ -13,6 +13,8 @@ jobs:
 
     env:
           Solution_Name: 'TarkovAssistantWPF.sln'
+          Project_Application: 'TarkovAssistantWPF'
+          Project_Installer: 'TarkovAssistantSetup'
 
     steps:
     - uses: actions/checkout@v2
@@ -26,5 +28,10 @@ jobs:
 
     - name: Restore dependencies
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=Release
-    - name: Build
-      run: msbuild /p:Configuration=Release
+
+        # Build actual application
+    - name: Build Application
+      run: msbuild $env:Solution_Name /t:$env:Project_Application /p:Configuration=Release
+
+    - name: Build Installer
+      run: devenv $env:Solution_Name /build Release /project $env:Project_Installer
