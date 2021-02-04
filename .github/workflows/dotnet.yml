@@ -54,9 +54,9 @@ jobs:
       with:
         aws_key_id: ${{ secrets.S3_ACCESS_KEY }}
         aws_secret_access_key: ${{ secrets.S3_SECRET_ACCESS_KEY }}
-        aws_bucket: 'jwscully.uk'
+        aws_bucket: 'jwscully.uk/'
         source_dir: 'updates/'
-        destination_dir: 'tarkov-assistant'
+        destination_dir: 'tarkov-assistant/'
 
       
       
