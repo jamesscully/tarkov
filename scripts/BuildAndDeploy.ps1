@@ -1,10 +1,28 @@
-﻿$BUCKET_NAME = 'jwscully.uk'
+﻿# This file will build the project and our compile our GenerateUpdateScript
+# GenerateUpdateScript will generate the .XML and .ZIP files needed for the auto-updater
 
-# call our build-script
-./BuildScript.ps1
+$REF_FS = "C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.IO.Compression.FileSystem.dll"
+$BUCKET_NAME = 'jwscully.uk'
 
+$XML_PATH = 'C:\Users\yames\source\repos\TarkovAssistantWPF\updates\update_info.xml'
+$ZIP_PATH = '../updates/update.zip'
+
+
+# Compile our project
+MSBuild.exe ../TarkovAssistantWPF.csproj
+
+# Compile and run our update files script
+csc.exe -reference:"$REF_FS" .\GenerateUpdateFiles.cs
 if(!$?) {
-	echo "Error occured during build phase"
+	echo "Error occured during compilation of script"
+	exit
+}
+
+echo "Running GenerateUpdateFiles.exe"
+.\GenerateUpdateFiles.exe
+if(!$?) {
+	echo "Error occurred when running GenerateUpdateFiles.exe"
+	Exit
 }
 
 # move to the output of our C# script
