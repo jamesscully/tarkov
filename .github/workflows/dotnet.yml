@@ -6,10 +6,13 @@ on:
   pull_request:
     branches: [ main ]
 
+
 jobs:
   build:
-
     runs-on: windows-latest
+
+  env:
+        Solution_Name: TarkovAssistantWPF.sln
 
     steps:
     - uses: actions/checkout@v2
@@ -17,7 +20,11 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
+
     - name: Restore dependencies
-      run: msbuild /t:Restore
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=Debug
     - name: Build
       run: msbuild /p:Configuration=Release
