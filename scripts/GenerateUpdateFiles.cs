@@ -215,8 +215,6 @@ namespace TarkovAssistantWPF.scripts
             {
                 WriteError("Error writing to changes.txt: " + e.ToString());
             }
-            
-
         }
 
         private static void WriteLog(string message, bool highlight = false)
