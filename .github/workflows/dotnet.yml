@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ cicd_testing ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -41,6 +41,10 @@ jobs:
         $devenv = & vswhere.exe '-property' productPath
         Start-Process -FilePath $devenv -ArgumentList '$env:Solution_Name /build Release /project $env:Project_Installer'
 
+    - name: Copy Installer to Update staging area
+      run: |
+        cp .\TarkovAssistantSetup\Release\TarkovAssistantSetup.msi .\updates\ 
+
     - name: Setup csc.exe (C# compiler)
       uses: yoavain/Setup-CSC@v7
 
@@ -49,14 +53,14 @@ jobs:
         cd ./scripts/
         ./BuildAndDeploy.ps1     
 
-    - name: Deploy Auto-Update files
+    - name: Deploy Auto-Update files to S3
       uses:  anshulrgoyal/upload-s3-action@master
       with:
         aws_key_id: ${{ secrets.S3_ACCESS_KEY }}
         aws_secret_access_key: ${{ secrets.S3_SECRET_ACCESS_KEY }}
         aws_bucket: 'jwscully.uk'
         source_dir: 'updates/'
-        destination_dir: "jwscully.uk/tarkov-assistant"
+        destination_dir: "tarkov-assistant"
 
       
       
