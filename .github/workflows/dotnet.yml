@@ -26,8 +26,8 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
 
-    - name: Restore dependencies
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=Release
+    - name: Restore dependencies for Application
+      run: msbuild -t:restore .\TarkovAssistantWPF.csproj
 
         # Build actual application
     - name: Build Application
