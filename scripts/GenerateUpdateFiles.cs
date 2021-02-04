@@ -209,7 +209,7 @@ namespace TarkovAssistantWPF.scripts
                 StreamWriter writer = new StreamWriter(File.Open(changelog_path, FileMode.Open));
                 writer.WriteLine("-------------------------------");
                 writer.WriteLine("Changes for version " + version);
-                writer.Write("\n\n\n");
+                writer.Write("\n\n\n"); 
             }
             catch (IOException e)
             {

@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ main ]
+    branches: [ cicd_testing ]
   pull_request:
     branches: [ main ]
 
@@ -40,9 +40,9 @@ jobs:
         Start-Process -FilePath $devenv -ArgumentList '$env:Solution_Name /build Release /project $env:Project_Installer'
 
     - name: Generate Auto-Update files and Deploy
-        run: |
-          cd ./scripts/
-          ./BuildAndDeploy.ps1     
+      run: |
+        cd ./scripts/
+        ./BuildAndDeploy.ps1     
       
       
 # run: devenv $env:Solution_Name /build Release /project $env:Project_Installer
