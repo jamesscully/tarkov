@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-latest
 
   env:
-        Solution_Name: TarkovAssistantWPF.sln
+        Solution_Name: 'TarkovAssistantWPF.sln'
 
     steps:
     - uses: actions/checkout@v2
