@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		maps\woods.png = maps\woods.png
 	EndProjectSection
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TarkovAssistantSetup", "TarkovAssistantSetup\TarkovAssistantSetup.vdproj", "{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,26 +47,6 @@ Global
 		{720D5C05-51DF-418C-842E-159268591857}.Release|x64.Build.0 = Release|Any CPU
 		{720D5C05-51DF-418C-842E-159268591857}.Release|x86.ActiveCfg = Release|Any CPU
 		{720D5C05-51DF-418C-842E-159268591857}.Release|x86.Build.0 = Release|Any CPU
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Debug|Any CPU.ActiveCfg = Debug
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Debug|Any CPU.Build.0 = Debug
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Debug|ARM.ActiveCfg = Debug
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Debug|ARM.Build.0 = Debug
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Debug|ARM64.ActiveCfg = Debug
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Debug|ARM64.Build.0 = Debug
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Debug|x64.ActiveCfg = Debug
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Debug|x64.Build.0 = Debug
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Debug|x86.ActiveCfg = Debug
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Debug|x86.Build.0 = Debug
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Release|Any CPU.ActiveCfg = Release
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Release|Any CPU.Build.0 = Release
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Release|ARM.ActiveCfg = Release
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Release|ARM.Build.0 = Release
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Release|ARM64.ActiveCfg = Release
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Release|ARM64.Build.0 = Release
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Release|x64.ActiveCfg = Release
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Release|x64.Build.0 = Release
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Release|x86.ActiveCfg = Release
-		{D00F8ECE-4C18-4DFC-A7C5-321B547CBDE5}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
