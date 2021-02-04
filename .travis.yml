@@ -2,4 +2,4 @@ language: csharp
 solution: TarkovAssistantWPF.sln 
 script:
   - msbuild /t:Restore
-  - msbuild /p:Configuration=Release
+  - msbuild /p:Configuration=Release 
