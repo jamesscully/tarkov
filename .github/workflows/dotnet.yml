@@ -43,7 +43,7 @@ jobs:
 
     - name: Copy Installer to Update staging area
       run: |
-        echo $pwd
+        echo "$PATH"
         cp .\TarkovAssistantSetup\Release\TarkovAssistantSetup.msi .\updates\ 
 
     - name: Setup csc.exe (C# compiler)
