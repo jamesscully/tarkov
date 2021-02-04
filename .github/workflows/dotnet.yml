@@ -43,8 +43,8 @@ jobs:
     steps:
       - name: Generate Auto-Update files and Deploy
         run: |
-        cd ./scripts/
-        ./BuildAndDeploy.ps1
+          cd ./scripts/
+          ./BuildAndDeploy.ps1
       
       
 # run: devenv $env:Solution_Name /build Release /project $env:Project_Installer
