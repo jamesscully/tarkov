@@ -38,6 +38,8 @@ namespace TarkovAssistantWPF.controls
         {
             InitializeComponent();
 
+            Debug.WriteLine("This is a test to ensure that CI is building this, and uploading properly.");
+
             //todo: refactor reg. values to a separate class
             bool enabled = ((int) Registry.GetValue(keyName, "EnableGlobalHotkeys", 0)) == 1;
 
