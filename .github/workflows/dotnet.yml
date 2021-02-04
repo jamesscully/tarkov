@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ cicd_testing ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
