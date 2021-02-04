@@ -37,11 +37,20 @@ $files = Get-ChildItem "." -Filter *.*
 
 echo "Found files: $files"
 
+# Upload files
 foreach ($f in $files) {
 	
-	# Upload file (requires my AWS tokens)
-	Write-S3Object -BucketName "$BUCKET_NAME" -Key "tarkov-assistant/$f" -File "$f"
+	# If on my computer, use AWS tokens from ~/.aws/
+	if($env:UserName -eq 'yames') {
+		Write-S3Object -BucketName "$BUCKET_NAME" -Key "tarkov-assistant/$f" -File "$f"
+	} else {
+		Write-S3Object -AccessKey $env:ACCESS_KEY -SecretKey = $env:SECRET_KEY -BucketName "$BUCKET_NAME" -Key "tarkov-assistant/$f" -File "$f"
+	}
+
+
 	
+
+
 	if($?) {
 		echo "Successfully uploaded $f to AWS"
 	}
