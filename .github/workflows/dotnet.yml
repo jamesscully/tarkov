@@ -38,13 +38,11 @@ jobs:
       run: |
         $devenv = & vswhere.exe '-property' productPath
         Start-Process -FilePath $devenv -ArgumentList '$env:Solution_Name /build Release /project $env:Project_Installer'
-  
-  deploy:
-    steps:
-      - name: Generate Auto-Update files and Deploy
+
+    - name: Generate Auto-Update files and Deploy
         run: |
           cd ./scripts/
-          ./BuildAndDeploy.ps1
+          ./BuildAndDeploy.ps1     
       
       
 # run: devenv $env:Solution_Name /build Release /project $env:Project_Installer
