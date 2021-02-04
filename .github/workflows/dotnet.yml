@@ -34,4 +34,9 @@ jobs:
       run: msbuild $env:Solution_Name /t:$env:Project_Application /p:Configuration=Release
 
     - name: Build Installer
-      run: devenv $env:Solution_Name /build Release /project $env:Project_Installer
+      run: |
+        $devenv = & vswhere.exe '-property' productPath
+        Start-Process -FilePath $devenv -ArgumentList $env:Solution_Name /build Release /project $env:Project_Installer
+      
+      
+# run: devenv $env:Solution_Name /build Release /project $env:Project_Installer
