@@ -142,9 +142,7 @@ namespace TarkovAssistantWPF.scripts
                 if (!Directory.Exists(STAGING_DIR))
                     Directory.CreateDirectory(STAGING_DIR);
 
-                
-                // append timestamp to basic name
-                ZIP_NAME = "update-" + DateTime.Now.ToString("yyyy-MM-ddHHmmss") + ".zip";
+                ZIP_NAME = "update.zip";
 
                 // the end destination of our update zip 
                 ZIP_OUT_PATH = Path.GetFullPath("../updates/" + ZIP_NAME);
@@ -178,16 +176,34 @@ namespace TarkovAssistantWPF.scripts
 
             WriteLog("AddChangeEntry: Opening " + changelog_path);
 
+            FileStream stream = null;
+
             if (!File.Exists(changelog_path))
             {
                 WriteLog("AddChangeEntry: Changelog not found, creating: " + changelog_path);
-                File.Create(changelog_path);
-            } 
+                stream = File.Create(changelog_path);
+            }
 
-            StreamWriter writer = new StreamWriter(File.Open(changelog_path, FileMode.Open));
-            writer.WriteLine("-------------------------------");
-            writer.WriteLine("Changes for version " + version);
-            writer.Write("\n\n\n");
+            try
+            {
+                if (stream == null)
+                {
+                    WriteError("Stream could not be acquired for changes.txt");
+                    return;
+                }
+
+                StreamWriter writer = new StreamWriter(stream);
+                writer.WriteLine("-------------------------------");
+                writer.WriteLine("Changes for version " + version);
+                writer.Write("\n\n\n");
+                writer.Flush();
+                writer.Close();
+            }
+            catch (IOException e)
+            {
+                WriteError("Error writing to changes.txt: ");
+                WriteError(e.ToString());
+            }
 
         }
 

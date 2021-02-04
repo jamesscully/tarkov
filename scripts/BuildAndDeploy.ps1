@@ -5,6 +5,7 @@
 
 if(!$?) {
 	echo "Error occured during build phase"
+	exit
 }
 
 # move to the output of our C# script
@@ -19,7 +20,7 @@ echo "Found files: $files"
 foreach ($f in $files) {
 	
 	# Upload file (requires my AWS tokens)
-	Write-S3Object -BucketName "$BUCKET_NAME" -Key "tarkov-assistant/$f" -File "$f"
+	# Write-S3Object -BucketName "$BUCKET_NAME" -Key "tarkov-assistant/$f" -File "$f"
 	
 	if($?) {
 		echo "Successfully uploaded $f to AWS"
