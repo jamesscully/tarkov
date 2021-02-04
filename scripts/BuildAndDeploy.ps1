@@ -8,9 +8,11 @@ $XML_PATH = 'C:\Users\yames\source\repos\TarkovAssistantWPF\updates\update_info.
 $ZIP_PATH = '../updates/update.zip'
 
 
+echo "##### Compiling TarkovAssistantWPF.csproj"
 # Compile our project
 MSBuild.exe ../TarkovAssistantWPF.csproj
 
+echo "##### Compiling GenerateUpdateFiles.cs"
 # Compile and run our update files script
 csc.exe -reference:"$REF_FS" .\GenerateUpdateFiles.cs
 if(!$?) {
@@ -18,13 +20,14 @@ if(!$?) {
 	exit
 }
 
-echo "Running GenerateUpdateFiles.exe"
+echo "##### Running GenerateUpdateFiles.exe"
 .\GenerateUpdateFiles.exe
 if(!$?) {
 	echo "Error occurred when running GenerateUpdateFiles.exe"
 	Exit
 }
 
+echo "##### Moving to ../updates/"
 # move to the output of our C# script
 cd ../updates/
 

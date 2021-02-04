@@ -39,6 +39,9 @@ jobs:
         $devenv = & vswhere.exe '-property' productPath
         Start-Process -FilePath $devenv -ArgumentList '$env:Solution_Name /build Release /project $env:Project_Installer'
 
+    - name: Setup csc.exe (C# compiler)
+      uses: yoavain/Setup-CSC@v5
+
     - name: Generate Auto-Update files and Deploy
       run: |
         cd ./scripts/
