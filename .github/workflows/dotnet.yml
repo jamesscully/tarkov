@@ -37,6 +37,15 @@ jobs:
 
     - name: Check paths
       run: 'Write-Host $pwd'
+
+
+    - name: Workaround for OutOfProc build
+      run: |
+        $OLD_PATH=$pwd
+        cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\VSI\DisableOutOfProcBuild\"
+        ./DisableOutOfProcBuild.exe
+        cd $OLD_PATH
+
       
     - name: Build Installer
       # Finds 'devenv.exe' path, uses '.com' version of program;
