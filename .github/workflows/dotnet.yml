@@ -43,7 +43,17 @@ jobs:
       # .exe seems to build asynchronously, whereas .com will wait for build finish and output.
       run: |
         $devenv = & vswhere.exe '-property' productPath
+        $devenv = $devenv -replace '.exe', '.com'
+
+        Write-Host "Using devenv: $devenv"
+
+        Write-Host "Building using project specification... "
         Start-Process -FilePath $devenv -ArgumentList '$env:Solution_Name /Build Release /Project $env:Project_Installer'
+
+        Write-Host "Building using global project switch"
+        Start-Process -FilePath $devenv -ArgumentList './$env:Solution_Name /build'
+
+
         Write-Host "Sleeping for 30 seconds, see if we've built!"
         Start-Sleep -s 30
 
