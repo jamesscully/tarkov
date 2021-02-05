@@ -25,15 +25,16 @@ jobs:
       with:
         dotnet-version: 5.0.x
 
-    # - name: Setup MSBuild.exe
-    #   uses: microsoft/setup-msbuild@v1.0.2
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
 
-    # - name: Install application dependencies
-    #   run: msbuild -t:restore .\TarkovAssistantWPF.csproj
+    - name: Install application dependencies
+      run: msbuild -t:restore .\TarkovAssistantWPF.csproj
 
-    #   # Build actual application
-    # - name: Build Application
-    #   run: msbuild $env:Solution_Name /t:$env:Project_Application /p:Configuration=Release
+      # Build actual application
+    - name: Build Application
+      run: msbuild $env:Solution_Name /t:$env:Project_Application /p:Configuration=Release
+
     - name: Check paths
       run: 'Write-Host $pwd'
       
@@ -52,7 +53,7 @@ jobs:
 
     - name: Copy Installer to Update staging area
       run: |
-        echo "$PATH"
+        ls .\TarkovAssistantSetup\
         cp .\TarkovAssistantSetup\Release\TarkovAssistantSetup.msi .\updates\ 
 
     # - name: Setup csc.exe (C# compiler)
