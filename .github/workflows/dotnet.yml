@@ -46,14 +46,19 @@ jobs:
         ./DisableOutOfProcBuild.exe
         cd $OLD_PATH
 
-      
-    - name: Build Installer
-      # Finds 'devenv.exe' path, uses '.com' version of program;
-      # .exe seems to build asynchronously, whereas .com will wait for build finish and output.
+    - name: Setup devenv
       run: |
         $devenv = & vswhere.exe '-property' productPath
         $devenv = $devenv -replace '.exe', '.com'
 
+    - name: Workaround for slow devenv init
+      run: |
+        & $devenv /updateconfiguration
+
+    - name: Build Installer
+      # Finds 'devenv.exe' path, uses '.com' version of program;
+      # .exe seems to build asynchronously, whereas .com will wait for build finish and output.
+      run: |
         Write-Host "Using devenv: $devenv"
         Write-Host "Building Installer..."
         & $devenv ./$env:Solution_Name /build Release /project $env:Project_Installer
