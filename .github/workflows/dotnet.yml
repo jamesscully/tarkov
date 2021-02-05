@@ -56,32 +56,26 @@ jobs:
 
         Write-Host "Using devenv: $devenv"
 
-        Write-Host "Building using project specification... "
-        Start-Process -FilePath $devenv -ArgumentList '$env:Solution_Name /Build Release /Project $env:Project_Installer'
-
         Write-Host "Building using global project switch"
-        & $devenv ./$env:Solution_Name /build Release
-
-
-        Write-Host "Sleeping for 30 seconds, see if we've built!"
-        Start-Sleep -s 30
+        & $devenv ./$env:Solution_Name /build Release /project TarkovAssistantSetup
 
 
     - name: Write tree
       run: 'tree'
+
+    - name: Setup csc.exe (C# compiler)
+      uses: yoavain/Setup-CSC@v7
+
+    - name: Generate Auto-Update files
+      run: |
+        cd ./scripts/
+        ./BuildAndDeploy.ps1     
 
     - name: Copy Installer to Update staging area
       run: |
         ls .\TarkovAssistantSetup\
         cp .\TarkovAssistantSetup\Release\TarkovAssistantSetup.msi .\updates\ 
 
-    # - name: Setup csc.exe (C# compiler)
-    #   uses: yoavain/Setup-CSC@v7
-
-    # - name: Generate Auto-Update files
-    #   run: |
-    #     cd ./scripts/
-    #     ./BuildAndDeploy.ps1     
 
     # - name: Deploy Auto-Update files to S3
     #   uses:  anshulrgoyal/upload-s3-action@master
