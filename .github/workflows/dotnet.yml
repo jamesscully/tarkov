@@ -51,7 +51,7 @@ jobs:
         Start-Process -FilePath $devenv -ArgumentList '$env:Solution_Name /Build Release /Project $env:Project_Installer'
 
         Write-Host "Building using global project switch"
-        & $devenv ./$env:Solution_Name /build
+        & $devenv ./$env:Solution_Name /build Release
 
 
         Write-Host "Sleeping for 30 seconds, see if we've built!"
