@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ cicd_testing ]
+    branches: [ main, cicd_testing ]
   pull_request:
     branches: [ main ]
 
@@ -31,22 +31,30 @@ jobs:
     - name: Install application dependencies
       run: msbuild -t:restore .\TarkovAssistantWPF.csproj
 
-      # Build actual application
     - name: Build Application
       run: msbuild $env:Solution_Name /t:$env:Project_Application /p:Configuration=Release
+
+    - name: Check paths
+      run: 'Write-Host $pwd'
+
+
+    - name: Workaround for OutOfProc build
+      run: |
+        $OLD_PATH=$pwd
+        cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\VSI\DisableOutOfProcBuild\"
+        ./DisableOutOfProcBuild.exe
+        cd $OLD_PATH
 
     - name: Build Installer
       # Finds 'devenv.exe' path, uses '.com' version of program;
       # .exe seems to build asynchronously, whereas .com will wait for build finish and output.
       run: |
         $devenv = & vswhere.exe '-property' productPath
-        $devenv = $devenv -replace 'exe', 'com'
-        Start-Process -FilePath $devenv -ArgumentList '$env:Solution_Name /build Release /project $env:Project_Installer'
+        $devenv = $devenv -replace '.exe', '.com'
 
-    - name: Copy Installer to Update staging area
-      run: |
-        echo "$PATH"
-        cp .\TarkovAssistantSetup\Release\TarkovAssistantSetup.msi .\updates\ 
+        Write-Host "Using devenv: $devenv"
+        Write-Host "Building Installer..."
+        & $devenv ./$env:Solution_Name /build Release /project $env:Project_Installer
 
     - name: Setup csc.exe (C# compiler)
       uses: yoavain/Setup-CSC@v7
@@ -56,6 +64,11 @@ jobs:
         cd ./scripts/
         ./BuildAndDeploy.ps1     
 
+    - name: Copy Installer to Update staging area
+      run: |
+        ls .\TarkovAssistantSetup\
+        cp .\TarkovAssistantSetup\Release\TarkovAssistantSetup.msi .\updates\ 
+
     - name: Deploy Auto-Update files to S3
       uses:  anshulrgoyal/upload-s3-action@master
       with:
@@ -64,7 +77,3 @@ jobs:
         aws_bucket: 'jwscully.uk'
         source_dir: 'updates/'
         destination_dir: "tarkov-assistant"
-
-      
-      
-# run: devenv $env:Solution_Name /build Release /project $env:Project_Installer
