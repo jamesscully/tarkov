@@ -36,13 +36,16 @@ jobs:
       run: msbuild $env:Solution_Name /t:$env:Project_Application /p:Configuration=Release
 
     - name: Build Installer
-      # Finds 'devenv.exe' and uses this to compile the .msi file; .vdproj files are NOT supported by MSBuild
+      # Finds 'devenv.exe' path, uses '.com' version of program;
+      # .exe seems to build asynchronously, whereas .com will wait for build finish and output.
       run: |
         $devenv = & vswhere.exe '-property' productPath
+        $devenv = $devenv -replace 'exe', 'com'
         Start-Process -FilePath $devenv -ArgumentList '$env:Solution_Name /build Release /project $env:Project_Installer'
 
     - name: Copy Installer to Update staging area
       run: |
+        echo "$PATH"
         cp .\TarkovAssistantSetup\Release\TarkovAssistantSetup.msi .\updates\ 
 
     - name: Setup csc.exe (C# compiler)
