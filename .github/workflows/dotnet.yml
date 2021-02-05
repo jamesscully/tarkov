@@ -25,15 +25,15 @@ jobs:
       with:
         dotnet-version: 5.0.x
 
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
+    # - name: Setup MSBuild.exe
+    #   uses: microsoft/setup-msbuild@v1.0.2
 
-    - name: Install application dependencies
-      run: msbuild -t:restore .\TarkovAssistantWPF.csproj
+    # - name: Install application dependencies
+    #   run: msbuild -t:restore .\TarkovAssistantWPF.csproj
 
-      # Build actual application
-    - name: Build Application
-      run: msbuild $env:Solution_Name /t:$env:Project_Application /p:Configuration=Release
+    #   # Build actual application
+    # - name: Build Application
+    #   run: msbuild $env:Solution_Name /t:$env:Project_Application /p:Configuration=Release
 
     - name: Build Installer
       # Finds 'devenv.exe' path, uses '.com' version of program;
@@ -43,27 +43,30 @@ jobs:
         $devenv = $devenv -replace 'exe', 'com'
         Start-Process -FilePath $devenv -ArgumentList '$env:Solution_Name /build Release /project $env:Project_Installer'
 
+    - name: Check paths
+      run: 'Write-Host $pwd'
+
     - name: Copy Installer to Update staging area
       run: |
         echo "$PATH"
         cp .\TarkovAssistantSetup\Release\TarkovAssistantSetup.msi .\updates\ 
 
-    - name: Setup csc.exe (C# compiler)
-      uses: yoavain/Setup-CSC@v7
+    # - name: Setup csc.exe (C# compiler)
+    #   uses: yoavain/Setup-CSC@v7
 
-    - name: Generate Auto-Update files
-      run: |
-        cd ./scripts/
-        ./BuildAndDeploy.ps1     
+    # - name: Generate Auto-Update files
+    #   run: |
+    #     cd ./scripts/
+    #     ./BuildAndDeploy.ps1     
 
-    - name: Deploy Auto-Update files to S3
-      uses:  anshulrgoyal/upload-s3-action@master
-      with:
-        aws_key_id: ${{ secrets.S3_ACCESS_KEY }}
-        aws_secret_access_key: ${{ secrets.S3_SECRET_ACCESS_KEY }}
-        aws_bucket: 'jwscully.uk'
-        source_dir: 'updates/'
-        destination_dir: "tarkov-assistant"
+    # - name: Deploy Auto-Update files to S3
+    #   uses:  anshulrgoyal/upload-s3-action@master
+    #   with:
+    #     aws_key_id: ${{ secrets.S3_ACCESS_KEY }}
+    #     aws_secret_access_key: ${{ secrets.S3_SECRET_ACCESS_KEY }}
+    #     aws_bucket: 'jwscully.uk'
+    #     source_dir: 'updates/'
+    #     destination_dir: "tarkov-assistant"
 
       
       
