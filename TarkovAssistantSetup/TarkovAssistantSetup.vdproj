@@ -27,6 +27,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_27D58FECB81D76FB04BC3372788C0757"
+        "OwnerKey" = "8:_91B3E8949DB6423DBA8496BD257FC786"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_2817809DED9848EC953AFE22749F4C6C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -40,12 +46,6 @@
         "Entry"
         {
         "MsmKey" = "8:_39E298DF53DDAA929F9200B0DBCC91D1"
-        "OwnerKey" = "8:_91B3E8949DB6423DBA8496BD257FC786"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3DBD2571B9E9961415307E7282AC62CB"
         "OwnerKey" = "8:_91B3E8949DB6423DBA8496BD257FC786"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -75,7 +75,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_A9E3D0479FA7EE7753251CCD062F374E"
+        "MsmKey" = "8:_C28EC4CE71D5CEC25FF5BD359E7AC35D"
         "OwnerKey" = "8:_91B3E8949DB6423DBA8496BD257FC786"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -100,13 +100,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3DBD2571B9E9961415307E7282AC62CB"
+        "OwnerKey" = "8:_C28EC4CE71D5CEC25FF5BD359E7AC35D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A9E3D0479FA7EE7753251CCD062F374E"
+        "OwnerKey" = "8:_27D58FECB81D76FB04BC3372788C0757"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -267,6 +267,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_27D58FECB81D76FB04BC3372788C0757"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AutoUpdater.NET, Version=1.6.4.0, Culture=neutral, PublicKeyToken=501435c91b35f4bc, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_27D58FECB81D76FB04BC3372788C0757"
+                    {
+                    "Name" = "8:AutoUpdater.NET.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AutoUpdater.NET.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_015C74988AD04A16A25EB90EF88BD908"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2817809DED9848EC953AFE22749F4C6C"
             {
             "SourcePath" = "8:..\\maps\\interchange.png"
@@ -338,37 +369,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3DBD2571B9E9961415307E7282AC62CB"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Gma.System.MouseKeyHook, Version=5.6.130.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_3DBD2571B9E9961415307E7282AC62CB"
-                    {
-                    "Name" = "8:Gma.System.MouseKeyHook.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Gma.System.MouseKeyHook.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_015C74988AD04A16A25EB90EF88BD908"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_78962CB7D9C34F0AB10877AA919BC419"
             {
             "SourcePath" = "8:..\\maps\\customs.png"
@@ -429,20 +429,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A9E3D0479FA7EE7753251CCD062F374E"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C28EC4CE71D5CEC25FF5BD359E7AC35D"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AutoUpdater.NET, Version=1.6.4.0, Culture=neutral, PublicKeyToken=501435c91b35f4bc, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Gma.System.MouseKeyHook, Version=5.6.130.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_A9E3D0479FA7EE7753251CCD062F374E"
+                    "_C28EC4CE71D5CEC25FF5BD359E7AC35D"
                     {
-                    "Name" = "8:AutoUpdater.NET.dll"
+                    "Name" = "8:Gma.System.MouseKeyHook.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:AutoUpdater.NET.dll"
+            "SourcePath" = "8:Gma.System.MouseKeyHook.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_015C74988AD04A16A25EB90EF88BD908"
@@ -510,7 +510,7 @@
             {
             "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
-            "AlwaysCreate" = "11:FALSE"
+            "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:TARGETDIR"
@@ -519,7 +519,7 @@
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_1F92586792B3429C9A6E2E871C9D33CB"
                     {
                     "Name" = "8:maps"
-                    "AlwaysCreate" = "11:FALSE"
+                    "AlwaysCreate" = "11:TRUE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
                     "Property" = "8:_5D75D20FF04A433C95531F00770D40E9"
@@ -532,7 +532,7 @@
             "{1525181F-901A-416C-8A58-119130FE478E}:_B9150BBD5D814EE48923C33893EA86C7"
             {
             "Name" = "8:#1919"
-            "AlwaysCreate" = "11:FALSE"
+            "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:ProgramMenuFolder"
