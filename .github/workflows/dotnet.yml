@@ -36,9 +36,6 @@ jobs:
     #   run: msbuild $env:Solution_Name /t:$env:Project_Application /p:Configuration=Release
     - name: Check paths
       run: 'Write-Host $pwd'
-
-    - name: Write tree
-      run: 'tree'
       
     - name: Build Installer
       # Finds 'devenv.exe' path, uses '.com' version of program;
@@ -48,7 +45,8 @@ jobs:
         $devenv = $devenv -replace 'exe', 'com'
         Start-Process -FilePath $devenv -ArgumentList '$env:Solution_Name /build Release /project $env:Project_Installer'
 
-
+    - name: Write tree
+      run: 'tree'
 
     - name: Copy Installer to Update staging area
       run: |
