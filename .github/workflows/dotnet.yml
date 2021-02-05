@@ -31,7 +31,6 @@ jobs:
     - name: Install application dependencies
       run: msbuild -t:restore .\TarkovAssistantWPF.csproj
 
-      # Build actual application
     - name: Build Application
       run: msbuild $env:Solution_Name /t:$env:Project_Application /p:Configuration=Release
 
@@ -52,7 +51,7 @@ jobs:
       run: |
         $devenv = & vswhere.exe '-property' productPath
         $devenv = $devenv -replace '.exe', '.com'
-        
+
         Write-Host "Using devenv: $devenv"
         Write-Host "Building Installer..."
         & $devenv ./$env:Solution_Name /build Release /project $env:Project_Installer
@@ -78,7 +77,3 @@ jobs:
         aws_bucket: 'jwscully.uk'
         source_dir: 'updates/'
         destination_dir: "tarkov-assistant"
-
-      
-      
-# run: devenv $env:Solution_Name /build Release /project $env:Project_Installer
