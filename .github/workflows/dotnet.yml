@@ -55,13 +55,8 @@ jobs:
         $devenv = $devenv -replace '.exe', '.com'
 
         Write-Host "Using devenv: $devenv"
-
-        Write-Host "Building using global project switch"
-        & $devenv ./$env:Solution_Name /build Release /project TarkovAssistantSetup
-
-
-    - name: Write tree
-      run: 'tree'
+        Write-Host "Building Installer..."
+        & $devenv ./$env:Solution_Name /build Release /project $env:Project_Installer
 
     - name: Setup csc.exe (C# compiler)
       uses: yoavain/Setup-CSC@v7
@@ -76,15 +71,14 @@ jobs:
         ls .\TarkovAssistantSetup\
         cp .\TarkovAssistantSetup\Release\TarkovAssistantSetup.msi .\updates\ 
 
-
-    # - name: Deploy Auto-Update files to S3
-    #   uses:  anshulrgoyal/upload-s3-action@master
-    #   with:
-    #     aws_key_id: ${{ secrets.S3_ACCESS_KEY }}
-    #     aws_secret_access_key: ${{ secrets.S3_SECRET_ACCESS_KEY }}
-    #     aws_bucket: 'jwscully.uk'
-    #     source_dir: 'updates/'
-    #     destination_dir: "tarkov-assistant"
+    - name: Deploy Auto-Update files to S3
+      uses:  anshulrgoyal/upload-s3-action@master
+      with:
+        aws_key_id: ${{ secrets.S3_ACCESS_KEY }}
+        aws_secret_access_key: ${{ secrets.S3_SECRET_ACCESS_KEY }}
+        aws_bucket: 'jwscully.uk'
+        source_dir: 'updates/'
+        destination_dir: "tarkov-assistant"
 
       
       
