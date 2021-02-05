@@ -52,8 +52,7 @@ jobs:
       run: |
         $devenv = & vswhere.exe '-property' productPath
         $devenv = $devenv -replace '.exe', '.com'
-        & $devenv /updateconfiguration
-
+        
         Write-Host "Using devenv: $devenv"
         Write-Host "Building Installer..."
         & $devenv ./$env:Solution_Name /build Release /project $env:Project_Installer
