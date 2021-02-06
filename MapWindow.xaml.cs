@@ -27,6 +27,8 @@ using Size = System.Windows.Size;
 using TextBox = System.Windows.Controls.TextBox;
 using AutoUpdaterDotNET;
 using Microsoft.Win32;
+using TarkovAssistantWPF.enums;
+using TarkovAssistantWPF.keybinding;
 
 namespace TarkovAssistantWPF
 {
@@ -57,6 +59,9 @@ namespace TarkovAssistantWPF
             // check our remote update file, see if we need an update!
             AutoUpdater.Start(Properties.Resources.update_xml_url);
 
+
+            Debug.WriteLine(HotkeyEnum.CYCLE_MAP.ToString());
+
             keyHook = Hook.GlobalEvents();
             keyHook.KeyUp += KeyHookOnKeyUp;
 
@@ -73,6 +78,7 @@ namespace TarkovAssistantWPF
         {
             if (!_isGlobalKeysEnabled)
                 return;
+            var fac = new KeybindFacade();
 
             Debug.WriteLine(e.KeyCode);
 

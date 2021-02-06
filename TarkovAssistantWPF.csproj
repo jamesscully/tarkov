@@ -110,12 +110,15 @@
     <Compile Include="controls\MapWindowMenu.xaml.cs">
       <DependentUpon>MapWindowMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="enums\HotkeyEnum.cs" />
     <Compile Include="enums\MapEnum.cs" />
     <Compile Include="controls\MapControl.xaml.cs">
       <DependentUpon>MapControl.xaml</DependentUpon>
     </Compile>
     <None Include="scripts\BuildAndDeploy.ps1" />
     <None Include="scripts\BuildScript.ps1" />
+    <Compile Include="keybinding\KeybindFacade.cs" />
+    <Compile Include="keybinding\KeybindFile.cs" />
     <Compile Include="scripts\GenerateUpdateFiles.cs" />
     <Compile Include="wiki_parser\ParseWikiPage.cs" />
     <Page Include="controls\MapControl.xaml">
