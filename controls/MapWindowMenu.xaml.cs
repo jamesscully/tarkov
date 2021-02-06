@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AutoUpdaterDotNET;
 using Microsoft.Win32;
 
 namespace TarkovAssistantWPF.controls
@@ -38,10 +39,40 @@ namespace TarkovAssistantWPF.controls
         {
             InitializeComponent();
 
+            AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
             //todo: refactor reg. values to a separate class
             bool enabled = ((int) Registry.GetValue(keyName, "EnableGlobalHotkeys", 0)) == 1;
 
             menuItem_EnableGlobalKeys.IsChecked = enabled;
+        }
+
+        private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)
+        {
+            Debug.WriteLine("\n\n Checking for update \n\n");
+
+            if (args.IsUpdateAvailable)
+            {
+                Debug.WriteLine("\n\n FOUND UPDATE \n\n");
+                menuItem_UpdateAvailableButton.Header = "Update Available!";
+
+                menuItem_UpdateAvailableButton.Click += (s, e) =>
+                {
+                    var result = MessageBox.Show(
+                        $"A new update ({args.CurrentVersion}) is available.\n\nDo you wish to update now? (requires restart)",
+                        "Update",
+                        MessageBoxButton.YesNoCancel, 
+                        MessageBoxImage.Question
+                    );
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        if (AutoUpdater.DownloadUpdate(args))
+                        {
+                            Application.Current.Shutdown();
+                        }
+                    }
+                };
+            }
         }
 
 
@@ -69,6 +100,14 @@ namespace TarkovAssistantWPF.controls
 
 
             OnGlobalHotkeyToggle?.Invoke(item.IsChecked);
+        }
+
+        private void SetUpdateAvailable(bool available)
+        {
+            if (available)
+            {
+                menuItem_UpdateAvailableButton.Header = "Update available!";
+            }
         }
 
 

@@ -1,11 +1,18 @@
-﻿<UserControl x:Class="TarkovAssistantWPF.controls.MapWindowMenu"
+﻿<UserControl x:Name="userControl" x:Class="TarkovAssistantWPF.controls.MapWindowMenu"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Menu x:Name="menuBar" VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="0" Panel.ZIndex="1" Padding="0" VerticalContentAlignment="Stretch">
+    <Menu x:Name="menuBar" VerticalAlignment="Top" Panel.ZIndex="1" Padding="0" VerticalContentAlignment="Stretch" Width="{Binding ActualWidth, ElementName=userControl, Mode=Default}">
+
+        <Menu.ItemsPanel>
+            <ItemsPanelTemplate>
+                <DockPanel HorizontalAlignment="Stretch"/>
+            </ItemsPanelTemplate>
+        </Menu.ItemsPanel>
+
         <MenuItem Header="Select Map" Margin="0,0,0,0">
             <MenuItem Click="MapButtonPressed"  Header="Customs" HorizontalAlignment="Left" Tag="customs"/>
             <MenuItem Click="MapButtonPressed"  Header="Shoreline" HorizontalAlignment="Left" Tag="shoreline"/>
@@ -18,6 +25,8 @@
         <MenuItem Header="Options" Margin="0,0,0,0">
             <MenuItem x:Name="menuItem_EnableGlobalKeys" Click="ToggleGlobalHotkeys"  Header="Enable global key hooks" HorizontalAlignment="Left"/>
         </MenuItem>
+
+        <MenuItem Name="menuItem_UpdateAvailableButton" Header="" HorizontalContentAlignment="Right" HorizontalAlignment="Right"  />
 
     </Menu>
 </UserControl>
