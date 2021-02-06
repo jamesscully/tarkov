@@ -54,6 +54,7 @@ namespace TarkovAssistantWPF.controls
             {
                 Debug.WriteLine("\n\n FOUND UPDATE \n\n");
                 menuItem_UpdateAvailableButton.Header = "Update Available!";
+                menuItem_UpdateAvailableButton.Visibility = Visibility.Visible;
 
                 menuItem_UpdateAvailableButton.Click += (s, e) =>
                 {

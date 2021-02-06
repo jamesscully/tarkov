@@ -52,11 +52,13 @@ namespace TarkovAssistantWPF
 
             InitializeComponent();
 
+            AutoUpdater.RunUpdateAsAdmin = false;
+
             // check our remote update file, see if we need an update!
             AutoUpdater.Start(Properties.Resources.update_xml_url);
 
             keyHook = Hook.GlobalEvents();
-            keyHook.KeyPress += GlobalHookKeyPress;
+            keyHook.KeyUp += KeyHookOnKeyUp;
 
             // map menu buttons to needed functions
             menuBar.OnMapButtonPress += mapControl.SetMap;
@@ -67,19 +69,22 @@ namespace TarkovAssistantWPF
             _isGlobalKeysEnabled = enabled;
         }
 
-        private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
+        private void KeyHookOnKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            // do nothing if the user does not want global keys enabled
             if (!_isGlobalKeysEnabled)
                 return;
 
-            Debug.WriteLine("Global KeyPress: " + e.KeyChar);
+            Debug.WriteLine(e.KeyCode);
 
-            if (e.KeyChar == '9')
+            switch (e.KeyCode)
             {
-                mapControl.CycleSubMap();
+                case Keys.NumPad9:
+                    mapControl.CycleSubMap();
+                    break;
             }
+
         }
+
 
         private bool _fullscreen = false;
 
