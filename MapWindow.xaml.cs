@@ -72,13 +72,14 @@ namespace TarkovAssistantWPF
             bool enabled = ((int) Registry.GetValue(keyName, "EnableGlobalHotkeys", 0)) == 1;
 
             _isGlobalKeysEnabled = enabled;
+
+            var fac = new KeybindFacade();
         }
 
         private void KeyHookOnKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (!_isGlobalKeysEnabled)
                 return;
-            var fac = new KeybindFacade();
 
             Debug.WriteLine(e.KeyCode);
 

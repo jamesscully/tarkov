@@ -8,6 +8,7 @@ namespace TarkovAssistantWPF.enums
 {
     enum HotkeyEnum
     {
+        NO_OP,
         CYCLE_SUB_MAP,
         CYCLE_MAP,
         NEXT_MAP,

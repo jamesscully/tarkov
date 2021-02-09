@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TarkovAssistantWPF", "Tarko
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TarkovAssistantSetup", "TarkovAssistantSetup\TarkovAssistantSetup.vdproj", "{41D29823-AE00-4638-AE51-F37E273250FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TarkovAssistantTests", "TarkovAssistantTests\TarkovAssistantTests.csproj", "{AC656470-2501-46F2-8950-67823DB6BB57}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,26 @@ Global
 		{41D29823-AE00-4638-AE51-F37E273250FC}.Release|ARM64.ActiveCfg = Release
 		{41D29823-AE00-4638-AE51-F37E273250FC}.Release|x64.ActiveCfg = Release
 		{41D29823-AE00-4638-AE51-F37E273250FC}.Release|x86.ActiveCfg = Release
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Debug|ARM.Build.0 = Debug|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Debug|x64.Build.0 = Debug|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Debug|x86.Build.0 = Debug|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Release|ARM.ActiveCfg = Release|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Release|ARM.Build.0 = Release|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Release|ARM64.Build.0 = Release|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Release|x64.ActiveCfg = Release|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Release|x64.Build.0 = Release|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Release|x86.ActiveCfg = Release|Any CPU
+		{AC656470-2501-46F2-8950-67823DB6BB57}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
