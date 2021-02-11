@@ -101,14 +101,7 @@ namespace TarkovAssistantWPF
                     switch (hotkeyAction)
                     {
 
-                        case HotkeyEnum.CLEAR:
-                            x.OnClear();
-                            break;
-
-                        case HotkeyEnum.RESET:
-                            x.OnReset();
-                            break;
-
+                        // Map selection
                         case HotkeyEnum.CYCLE_SUB_MAP:
                             x.OnCycleSubMap();
                             break;
@@ -125,6 +118,7 @@ namespace TarkovAssistantWPF
                             x.OnPrevMap();
                             break;
 
+                        // Zoom
                         case HotkeyEnum.ZOOM_IN:
                             x.OnZoomIn();
                             break;
@@ -133,7 +127,30 @@ namespace TarkovAssistantWPF
                             x.OnZoomOut();
                             break;
 
+                        // Panning
+                        case HotkeyEnum.PAN_LEFT:
+                            x.OnPan(1, 0);
+                            break;
+
+                        case HotkeyEnum.PAN_RIGHT:
+                            x.OnPan(-1, 0);
+                            break;
+
+                        case HotkeyEnum.PAN_UP:
+                            x.OnPan(0, 1);
+                            break;
+
+                        case HotkeyEnum.PAN_DOWN:
+                            x.OnPan(0, -1);
+                            break;
+
+                        // Do nothing (no operation)
                         case HotkeyEnum.NO_OP: break;
+                        
+                        // these should not be handled when coming from outside the form;
+                        // they are commonly bound in-game by default
+                        case HotkeyEnum.CLEAR: break;
+                        case HotkeyEnum.RESET: break;
 
                         default:
                             if (Map.TryParse(hotkeyAction.ToString(), true, out Map mapToSet))
@@ -159,6 +176,22 @@ namespace TarkovAssistantWPF
                 this.WindowState = (_fullscreen) ? WindowState.Normal : WindowState.Maximized;
                 this.WindowStyle = (_fullscreen) ? WindowStyle.SingleBorderWindow : WindowStyle.None;
                 _fullscreen = !_fullscreen;
+            }
+
+            if (JsonKeybinds.GetInstance().HasKeyBound(e.Key))
+            {
+                var hotkeyAction = JsonKeybinds.GetInstance().GetHotkeyForBind(e.Key);
+
+                if (hotkeyAction == HotkeyEnum.RESET)
+                {
+                    mapControl.OnReset();
+                }
+
+                if (hotkeyAction == HotkeyEnum.CLEAR)
+                {
+                    mapControl.OnClear();
+                }
+
             }
         }
     }

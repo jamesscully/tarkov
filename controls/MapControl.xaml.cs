@@ -291,17 +291,29 @@ namespace TarkovAssistantWPF
 
         public void OnCycleMap()
         {
-            throw new NotImplementedException();
+            OnNextMap();
         }
 
         public void OnZoomIn()
         {
-            throw new NotImplementedException();
+            var amount = 1.1;
+
+            var mX = mapImage.ActualWidth/ 2;
+            var mY = mapImage.ActualHeight / 2;
+
+            ScaleLayer(ref mapTransform, amount, amount, mX, mY);
+            ScaleLayer(ref mapCanvasTransform, amount, amount, mX, mY);
         }
 
         public void OnZoomOut()
         {
-            throw new NotImplementedException();
+            var amount = 1 / 1.1;
+
+            var mX = mapImage.ActualWidth / 2;
+            var mY = mapImage.ActualHeight / 2;
+
+            ScaleLayer(ref mapTransform, amount, amount, mX, mY);
+            ScaleLayer(ref mapCanvasTransform, amount, amount, mX, mY);
         }
 
         public void OnNextMap()
@@ -343,6 +355,20 @@ namespace TarkovAssistantWPF
         public void OnSetMap(Map mapToSet)
         {
             SetMap(mapToSet);
+        }
+
+        public void OnPan(int x, int y)
+        {
+
+            // todo add this to customizable settings
+            var speed = 50;
+
+            x *= speed;
+            y *= speed;
+
+            // translate both the image and the canvas
+            TranslateLayer(ref mapTransform, x, y);
+            TranslateLayer(ref mapCanvasTransform, x, y);
         }
 
         #endregion

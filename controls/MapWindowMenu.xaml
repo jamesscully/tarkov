@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Menu x:Name="menuBar" VerticalAlignment="Top" Panel.ZIndex="1" Padding="0" VerticalContentAlignment="Stretch" Width="{Binding ActualWidth, ElementName=userControl, Mode=Default}">
+    <Menu x:Name="menuBar" VerticalAlignment="Top" Panel.ZIndex="256" Padding="0" VerticalContentAlignment="Stretch" Width="{Binding ActualWidth, ElementName=userControl, Mode=Default}">
 
         <Menu.ItemsPanel>
             <ItemsPanelTemplate>
