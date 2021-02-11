@@ -44,6 +44,9 @@ namespace TarkovAssistantWPF.forms
             // create a row for each Hotkey available
             foreach (HotkeyEnum e in allHotkeys)
             {
+                if(e == HotkeyEnum.NO_OP)
+                    continue;
+                
                 Key? boundKey = JsonKeybinds.GetInstance().GetBindForHotkey(e);
 
                 Debug.WriteLine("Found non-null keybind: " + boundKey);
@@ -58,11 +61,37 @@ namespace TarkovAssistantWPF.forms
             text.Text = hotkey.ToString();
 
             var input = new KeybindTextBox(hotkey, initialBound);
-
-            var panel = new WrapPanel();
+            var panel = new DockPanel();
 
             panel.Children.Add(text);
             panel.Children.Add(input);
+
+            panel.MinWidth = 200;
+            panel.Margin = new Thickness(0, 0, 0, 10);
+
+            text.HorizontalAlignment = HorizontalAlignment.Left;
+            input.HorizontalAlignment = HorizontalAlignment.Right;
+
+            var clearButton = new Button();
+            clearButton.Content = "X";
+
+            clearButton.Click += (sender, args) =>
+            {
+                JsonKeybinds.GetInstance().ClearBind(hotkey);
+                input.Clear();
+            };
+
+            clearButton.MinWidth = 25;
+            clearButton.HorizontalAlignment = HorizontalAlignment.Right;
+
+            clearButton.SetValue(DockPanel.DockProperty, Dock.Right);
+            // input.SetValue(DockPanel.DockProperty, Dock.);
+            text.SetValue(DockPanel.DockProperty, Dock.Left);
+
+            text.MinWidth = 200;
+
+            panel.Children.Add(clearButton);
+            panel.LastChildFill = false;
 
             FormHotkeys_Table.Children.Add(panel);
         }
@@ -73,7 +102,7 @@ namespace TarkovAssistantWPF.forms
             private bool isFocused = false;
 
             private string initialText = "";
-            private Key initialKey = Key.D0;
+            private Key initialKey;
             private HotkeyEnum pair;
             private Key selectedKey;
             
@@ -83,6 +112,7 @@ namespace TarkovAssistantWPF.forms
                 if (initialKey == null)
                 {
                     this.initialText = "Unbound";
+                    SetWarning(true);
                 }
                 else
                 {
@@ -94,19 +124,46 @@ namespace TarkovAssistantWPF.forms
 
                 this.Content = initialText;
 
+                this.MinWidth = 100;
             }
 
+            public void Clear()
+            {
+                SetWarning(true);
+            }
+
+            // Resets to initial state
             private void Reset()
             {
                 this.Content = initialText;
                 this.isFocused = false;
             }
 
+            // Highlights the button if we're unbounded, else normal
+            private void SetWarning(bool warn, string message = "Unbound")
+            {
+                if (warn)
+                {
+                    this.Content = message;
+                    this.BorderBrush = new SolidColorBrush(Colors.Red);
+                }
+                else
+                {
+                    this.ClearValue(Button.BorderBrushProperty);
+                }
+            }
 
+            // Determine if the key is valid (valid key, already bound, etc go here)
             private bool IsKeyValid(Key key)
             {
+                Debug.WriteLine("Testing for duplicate: " + key);
+
                 // we don't want duplicate binds
                 var isKeyAlreadyBound = JsonKeybinds.GetInstance().HasKeyBound(key);
+
+                if(isKeyAlreadyBound)
+                    Debug.WriteLine("Binding duplicate key? " + key);
+
                 return !(isKeyAlreadyBound);
             }
 
@@ -127,7 +184,10 @@ namespace TarkovAssistantWPF.forms
                     this.Content = selectedKey.ToString();
 
                     JsonKeybinds.GetInstance().SetBind(this.pair, e.Key);
+
+                    SetWarning(false);
                 }
+                
             }
 
             protected override void OnClick()

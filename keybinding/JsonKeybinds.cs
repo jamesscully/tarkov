@@ -158,6 +158,11 @@ namespace TarkovAssistantWPF.keybinding
 
         public HotkeyEnum? GetHotkeyForBind(string key)
         {
+
+            // this will prevent us from activating binds whilst editing them
+            if (!EnableBinds)
+                return null;
+
             HotkeyEnum hotkey = HotkeyEnum.NO_OP;
 
             // Debug.WriteLine($"Getting bind for {key}, raw output: ");
@@ -182,10 +187,6 @@ namespace TarkovAssistantWPF.keybinding
 
         public bool HasKeyBound(string key)
         {
-
-            // this will prevent us from activating binds whilst editing them
-            if (!EnableBinds)
-                return false;
 
             string bindValue = "";
 
