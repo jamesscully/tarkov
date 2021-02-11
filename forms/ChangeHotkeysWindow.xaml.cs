@@ -26,8 +26,22 @@ namespace TarkovAssistantWPF.forms
         {
             InitializeComponent();
 
-            HotkeyEnum[] allHotkeys = (HotkeyEnum[]) Enum.GetValues(typeof(HotkeyEnum));
+            LoadHotkeysToForm();
 
+            // disable binds in this form
+            JsonKeybinds.GetInstance().EnableBinds = false;
+
+            // when we close the window, enable binds again
+            this.Closed += (sender, args) => JsonKeybinds.GetInstance().EnableBinds = true;
+        }
+
+        private void LoadHotkeysToForm()
+        {
+            FormHotkeys_Table.Children.Clear();
+
+            HotkeyEnum[] allHotkeys = (HotkeyEnum[])Enum.GetValues(typeof(HotkeyEnum));
+
+            // create a row for each Hotkey available
             foreach (HotkeyEnum e in allHotkeys)
             {
                 Key? boundKey = JsonKeybinds.GetInstance().GetBindForHotkey(e);
@@ -35,10 +49,9 @@ namespace TarkovAssistantWPF.forms
                 Debug.WriteLine("Found non-null keybind: " + boundKey);
                 AddHotkeyRow(e, boundKey);
             }
-
         }
 
-
+        // encapsulates each row entry
         private void AddHotkeyRow(HotkeyEnum hotkey, Key? initialBound)
         {
             var text = new TextBlock();
@@ -54,6 +67,7 @@ namespace TarkovAssistantWPF.forms
             FormHotkeys_Table.Children.Add(panel);
         }
 
+        // encapsulates our button behaviour
         class KeybindTextBox : Button
         {
             private bool isFocused = false;
@@ -88,6 +102,14 @@ namespace TarkovAssistantWPF.forms
                 this.isFocused = false;
             }
 
+
+            private bool IsKeyValid(Key key)
+            {
+                // we don't want duplicate binds
+                var isKeyAlreadyBound = JsonKeybinds.GetInstance().HasKeyBound(key);
+                return !(isKeyAlreadyBound);
+            }
+
             protected override void OnKeyDown(KeyEventArgs e)
             {
                 if (e.Key == Key.Escape)
@@ -96,11 +118,16 @@ namespace TarkovAssistantWPF.forms
                     return;
                 }
 
-                selectedKey = e.Key;
+                if (IsKeyValid(e.Key))
+                {
+                    e.Handled = true;
 
-                this.Content = selectedKey.ToString();
+                    selectedKey = e.Key;
 
-                e.Handled = true;
+                    this.Content = selectedKey.ToString();
+
+                    JsonKeybinds.GetInstance().SetBind(this.pair, e.Key);
+                }
             }
 
             protected override void OnClick()
@@ -116,6 +143,18 @@ namespace TarkovAssistantWPF.forms
 
                 this.isFocused = !this.isFocused;
             }
+        }
+
+        private void FormHotkeys_SaveChangesButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            JsonKeybinds.GetInstance().SaveBinds();
+        }
+
+        private void FormHotkeys_ResetBindingsButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            JsonKeybinds.GetInstance().ResetToDefault();
+
+            LoadHotkeysToForm();
         }
     }
 }

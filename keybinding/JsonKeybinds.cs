@@ -30,6 +30,8 @@ namespace TarkovAssistantWPF.keybinding
 
         private static JsonKeybinds instance;
 
+        public bool EnableBinds = true;
+
         public static JsonKeybinds GetInstance(bool testFile = false)
         {
             if (instance == null)
@@ -101,6 +103,20 @@ namespace TarkovAssistantWPF.keybinding
         public void SetBind(HotkeyEnum hotkey, Key keyToBind)
         {
             Debug.WriteLine($"Writing Bind ({hotkey}, {keyToBind})");
+
+
+            // if this is null, then we don't have a duplicate
+            Key? foundBind = GetBindForHotkey(hotkey);
+
+            if (GetBindForHotkey(hotkey) != null)
+            {
+                Debug.WriteLine("Attempt to double-bind a hotkey");
+
+                // if a hotkey bind already exists, remove then later add
+                // to prevent duplicate binding
+                binds.Binds.Remove(foundBind.ToString());
+            }
+
             binds.Binds[keyToBind.ToString()] = hotkey.ToString();
         }
 
@@ -166,6 +182,10 @@ namespace TarkovAssistantWPF.keybinding
 
         public bool HasKeyBound(string key)
         {
+
+            // this will prevent us from activating binds whilst editing them
+            if (!EnableBinds)
+                return false;
 
             string bindValue = "";
 

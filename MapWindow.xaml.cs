@@ -100,8 +100,47 @@ namespace TarkovAssistantWPF
                 {
                     switch (hotkeyAction)
                     {
+
+                        case HotkeyEnum.CLEAR:
+                            x.OnClear();
+                            break;
+
+                        case HotkeyEnum.RESET:
+                            x.OnReset();
+                            break;
+
                         case HotkeyEnum.CYCLE_SUB_MAP:
                             x.OnCycleSubMap();
+                            break;
+
+                        case HotkeyEnum.CYCLE_MAP:
+                            x.OnCycleMap();
+                            break;
+
+                        case HotkeyEnum.NEXT_MAP:
+                            x.OnNextMap();
+                            break;
+
+                        case HotkeyEnum.PREV_MAP:
+                            x.OnPrevMap();
+                            break;
+
+                        case HotkeyEnum.ZOOM_IN:
+                            x.OnZoomIn();
+                            break;
+
+                        case HotkeyEnum.ZOOM_OUT:
+                            x.OnZoomOut();
+                            break;
+
+                        case HotkeyEnum.NO_OP: break;
+
+                        default:
+                            if (Map.TryParse(hotkeyAction.ToString(), true, out Map mapToSet))
+                            {
+                                x.OnSetMap(mapToSet);
+                            }
+
                             break;
 
                     }
@@ -120,16 +159,6 @@ namespace TarkovAssistantWPF
                 this.WindowState = (_fullscreen) ? WindowState.Normal : WindowState.Maximized;
                 this.WindowStyle = (_fullscreen) ? WindowStyle.SingleBorderWindow : WindowStyle.None;
                 _fullscreen = !_fullscreen;
-            }
-
-            if (e.Key == Key.C)
-            {
-                mapControl.ClearCanvas();
-            }
-
-            if (e.Key == Key.R)
-            {
-                mapControl.ResetTransforms();
             }
         }
     }

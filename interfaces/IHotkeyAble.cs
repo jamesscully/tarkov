@@ -17,5 +17,9 @@ namespace TarkovAssistantWPF.interfaces
         void OnNextMap();
         void OnPrevMap();
         void OnReset();
+
+        void OnSetMap(Map mapToSet);
+
+        void OnClear();
     }
 }

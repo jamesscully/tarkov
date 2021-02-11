@@ -306,17 +306,43 @@ namespace TarkovAssistantWPF
 
         public void OnNextMap()
         {
-            throw new NotImplementedException();
+            int mapValue = (int)_selectedMap;
+            int mapCount = Enum.GetValues(typeof(Map)).Length;
+
+            if (--mapValue < 0)
+            {
+                mapValue = mapCount - 1;
+            }
+
+            SetMap((Map)mapValue);
         }
 
         public void OnPrevMap()
         {
-            throw new NotImplementedException();
+            int mapValue = (int) _selectedMap;
+            int mapCount = Enum.GetValues(typeof(Map)).Length;
+            
+            if (++mapValue > mapCount - 1)
+            {
+                mapValue = 0;
+            }
+
+            SetMap((Map) mapValue);
         }
 
         public void OnReset()
         {
-            throw new NotImplementedException();
+            this.ResetTransforms();
+        }
+
+        public void OnClear()
+        {
+            this.ClearCanvas();
+        }
+
+        public void OnSetMap(Map mapToSet)
+        {
+            SetMap(mapToSet);
         }
 
         #endregion

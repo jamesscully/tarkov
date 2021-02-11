@@ -7,7 +7,12 @@
         mc:Ignorable="d"
         Title="Tarkov Assistant - Change Hotkeys" Height="450" Width="800">
     <Grid>
-        <StackPanel x:Name="FormHotkeys_Table" Margin="10,10,0,0"/>
+        <StackPanel x:Name="FormHotkeys_Table" Margin="10,10,10,40" CanVerticallyScroll="True"/>
+        
+        <WrapPanel Height="35" VerticalAlignment="Bottom">
+            <Button x:Name="FormHotkeys_SaveChangesButton" Click="FormHotkeys_SaveChangesButton_OnClick" Content="Save" Width="100" Height="25"  VerticalAlignment="Bottom" Margin="10,0"></Button>
 
+            <Button x:Name="FormHotkeys_ResetBindingsButton" Click="FormHotkeys_ResetBindingsButton_OnClick" Content="Reset" Width="100" Height="25" VerticalAlignment="Bottom"/>
+        </WrapPanel>
     </Grid>
 </Window>

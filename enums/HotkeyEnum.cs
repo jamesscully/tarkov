@@ -15,6 +15,14 @@ namespace TarkovAssistantWPF.enums
         PREV_MAP,
         ZOOM_IN,
         ZOOM_OUT,
-        RESET
+        CLEAR,
+        RESET,
+        WOODS,
+        SHORELINE,
+        CUSTOMS,
+        RESERVE,
+        RESERVE_TUNNELS,
+        INTERCHANGE,
+        FACTORY
     }
 }
