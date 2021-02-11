@@ -28,6 +28,7 @@ using TextBox = System.Windows.Controls.TextBox;
 using AutoUpdaterDotNET;
 using Microsoft.Win32;
 using TarkovAssistantWPF.enums;
+using TarkovAssistantWPF.interfaces;
 using TarkovAssistantWPF.keybinding;
 
 namespace TarkovAssistantWPF
@@ -79,15 +80,33 @@ namespace TarkovAssistantWPF
             if (!_isGlobalKeysEnabled)
                 return;
 
-            Debug.WriteLine(e.KeyCode);
 
-            switch (e.KeyCode)
+
+            // ignore if we can't parse it
+            if (!Keys.TryParse(e.KeyCode.ToString(), true, out Key key))
             {
-                case Keys.NumPad9:
-                    mapControl.CycleSubMap();
-                    break;
+                return;
             }
 
+            IHotkeyAble[] controls = { mapControl };
+
+            HotkeyEnum? hotkeyAction = HotkeyEnum.NO_OP;
+
+            if (JsonKeybinds.GetInstance().HasKeyBound(key))
+            {
+                hotkeyAction = JsonKeybinds.GetInstance().GetHotkeyForBind(key);
+
+                foreach(IHotkeyAble x in controls)
+                {
+                    switch (hotkeyAction)
+                    {
+                        case HotkeyEnum.CYCLE_SUB_MAP:
+                            x.OnCycleSubMap();
+                            break;
+
+                    }
+                }
+            }
         }
 
 

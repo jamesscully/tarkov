@@ -117,6 +117,7 @@
     </Compile>
     <None Include="scripts\BuildAndDeploy.ps1" />
     <None Include="scripts\BuildScript.ps1" />
+    <Compile Include="interfaces\IHotkeyAble.cs" />
     <Compile Include="keybinding\JsonKeybinds.cs" />
     <Compile Include="keybinding\JsonKeybindsObject.cs" />
     <Compile Include="scripts\GenerateUpdateFiles.cs" />

@@ -143,11 +143,11 @@ namespace TarkovAssistantWPF.keybinding
         {
             HotkeyEnum hotkey = HotkeyEnum.NO_OP;
 
-            Debug.WriteLine($"Getting bind for {key}, raw output: ");
+            // Debug.WriteLine($"Getting bind for {key}, raw output: ");
 
             if (HasKeyBound(key))
             {
-                Debug.WriteLine($"Key is bound, returning hotkey for {key}");
+                // Debug.WriteLine($"Key is bound, returning hotkey for {key}");
                 Key.TryParse(binds.Binds[key] as string, true, out hotkey);
             }
 
@@ -177,10 +177,10 @@ namespace TarkovAssistantWPF.keybinding
                 bindIsEmpty = String.IsNullOrEmpty(bindValue);
 
                 if(!bindIsEmpty)
-                    Debug.WriteLine($"Found bind ({bindValue}) for key {key}");
+                    // Debug.WriteLine($"Found bind ({bindValue}) for key {key}");
             }
 
-            Debug.WriteLine($"HasKeyBound: {bindValue} {key}, {(bindFound && !bindIsEmpty)} ");
+            // Debug.WriteLine($"HasKeyBound: {bindValue} {key}, {(bindFound && !bindIsEmpty)} ");
 
             return (bindFound && !bindIsEmpty);
         }

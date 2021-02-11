@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TarkovAssistantWPF.interfaces;
 using Brushes = System.Windows.Media.Brushes;
 using Image = System.Windows.Controls.Image;
 using Point = System.Windows.Point;
@@ -24,7 +25,7 @@ namespace TarkovAssistantWPF
     /// <summary>
     /// Interaction logic for MapControl.xaml
     /// </summary>
-    public partial class MapControl : UserControl
+    public partial class MapControl : UserControl, IHotkeyAble
     {
         // allows a marker to be added; this is false if we are panning image (_flagPanGrab)
         private bool _flagAddMarker = true;
@@ -34,7 +35,7 @@ namespace TarkovAssistantWPF
         private Map _selectedMap = Map.CUSTOMS;
 
         private int _subMapIndex = 0;
-        private Map[] _subMaps = new Map[8];
+        private Map[] _subMaps = { };
 
         double mapScale = 1;
 
@@ -87,18 +88,6 @@ namespace TarkovAssistantWPF
         }
 
 
-        // Cycles the submaps (i.e. tunnel view on Reserve)
-        public void CycleSubMap()
-        {
-            _subMapIndex++;
-
-            // prevent outofindex
-            if (_subMapIndex >= _subMaps.Length)
-                _subMapIndex = 0;
-
-            SetMap(_subMaps[_subMapIndex]);
-        }
-
         // Handles translating a layer, i.e. the Image or Canvas
         private void TranslateLayer(
                 ref MatrixTransform transform,
@@ -134,8 +123,6 @@ namespace TarkovAssistantWPF
         }
 
         #endregion
-
-
 
 
         #region CanvasControls
@@ -282,6 +269,55 @@ namespace TarkovAssistantWPF
         #region KeyboardEvents
 
         #endregion
+
+        #endregion
+
+        #region HotkeyBindings
+
+        public void OnCycleSubMap()
+        {
+
+            if(_subMaps.Length == 0) 
+                return;
+
+            _subMapIndex++;
+
+            // prevent outofindex
+            if (_subMapIndex >= _subMaps.Length)
+                _subMapIndex = 0;
+
+            SetMap(_subMaps[_subMapIndex]);
+        }
+
+        public void OnCycleMap()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnZoomIn()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnZoomOut()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnNextMap()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnPrevMap()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnReset()
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
     }
