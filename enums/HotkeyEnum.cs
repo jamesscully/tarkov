@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TarkovAssistantWPF.enums
 {
-    enum HotkeyEnum
+    public enum HotkeyEnum
     {
         NO_OP,
         CYCLE_SUB_MAP,
