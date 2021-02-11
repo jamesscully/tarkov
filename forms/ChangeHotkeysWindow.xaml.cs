@@ -151,11 +151,13 @@ namespace TarkovAssistantWPF.forms
                 if (warn)
                 {
                     this.Content = message;
+                    this.Background = new SolidColorBrush(Colors.DarkSalmon);
                     this.BorderBrush = new SolidColorBrush(Colors.Red);
                 }
                 else
                 {
                     this.ClearValue(Button.BorderBrushProperty);
+                    this.ClearValue(Button.BackgroundProperty);
                 }
             }
 
@@ -210,9 +212,18 @@ namespace TarkovAssistantWPF.forms
 
         private void FormHotkeys_ResetBindingsButton_OnClick(object sender, RoutedEventArgs e)
         {
-            JsonKeybinds.GetInstance().ResetToDefault();
+            var result = MessageBox.Show(
+                "This will revert all of your keybinds. Are you sure?",
+                "Restore default keybinds",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning
+            );
 
-            LoadHotkeysToForm();
+            if (result == MessageBoxResult.Yes)
+            {
+                JsonKeybinds.GetInstance().ResetToDefault();
+                LoadHotkeysToForm();
+            }
         }
     }
 }

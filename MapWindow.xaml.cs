@@ -107,7 +107,7 @@ namespace TarkovAssistantWPF
 
         private void KeyHookOnKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            if (!_isGlobalKeysEnabled)
+            if (!_isGlobalKeysEnabled || !JsonKeybinds.GetInstance().EnableBinds)
                 return;
 
             // ignore if we can't parse it
@@ -186,12 +186,20 @@ namespace TarkovAssistantWPF
                         default:
 
                             // enum is format of SETMAP_(MAPNAME), so use after _
-                            var mapName = hotkeyAction.ToString().Split('_')[1];
 
-                            if (Enum.TryParse(mapName, true, out Map mapToSet))
+                            try
                             {
-                                x.OnSetMap(mapToSet);
+                                var mapName = hotkeyAction.ToString().Split('_')[1];
+                                if (Enum.TryParse(mapName, true, out Map mapToSet))
+                                {
+                                    x.OnSetMap(mapToSet);
+                                }
                             }
+                            catch (Exception ex)
+                            {
+
+                            }
+
                             break;
                     }
                 }
