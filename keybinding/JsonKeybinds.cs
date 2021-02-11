@@ -65,6 +65,7 @@ namespace TarkovAssistantWPF.keybinding
             {
                 Debug.WriteLine("Empty Keybinds file found");
                 binds = new JsonKeybindsObject(true);
+                SaveBinds();
             }
             else
             {
@@ -176,7 +177,7 @@ namespace TarkovAssistantWPF.keybinding
                 bindValue = binds.Binds[key] as string;
                 bindIsEmpty = String.IsNullOrEmpty(bindValue);
 
-                if(!bindIsEmpty)
+                // if(!bindIsEmpty)
                     // Debug.WriteLine($"Found bind ({bindValue}) for key {key}");
             }
 
@@ -189,6 +190,23 @@ namespace TarkovAssistantWPF.keybinding
         public bool HasKeyBound(Key key)
         {
             return HasKeyBound(key.ToString());
+        }
+
+
+        public Key? GetBindForHotkey(HotkeyEnum hotkey)
+        {
+            foreach (DictionaryEntry entry in binds.Binds)
+            {
+                if (entry.Value as string == hotkey.ToString())
+                {
+                    if (Key.TryParse(entry.Key.ToString(), true, out Key parsedKey))
+                    {
+                        return parsedKey;
+                    }
+                }
+            }
+
+            return null;
         }
 
         #endregion

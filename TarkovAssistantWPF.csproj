@@ -90,6 +90,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -117,6 +119,9 @@
     </Compile>
     <None Include="scripts\BuildAndDeploy.ps1" />
     <None Include="scripts\BuildScript.ps1" />
+    <Compile Include="forms\ChangeHotkeysWindow.xaml.cs">
+      <DependentUpon>ChangeHotkeysWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="interfaces\IHotkeyAble.cs" />
     <Compile Include="keybinding\JsonKeybinds.cs" />
     <Compile Include="keybinding\JsonKeybindsObject.cs" />
@@ -127,6 +132,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="controls\MapWindowMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="forms\ChangeHotkeysWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,9 +223,7 @@
   <ItemGroup>
     <Resource Include="icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="forms\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="Autoupdater.NET.Official">
       <Version>1.6.4</Version>

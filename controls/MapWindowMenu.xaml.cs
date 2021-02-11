@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AutoUpdaterDotNET;
 using Microsoft.Win32;
+using TarkovAssistantWPF.forms;
 
 namespace TarkovAssistantWPF.controls
 {
@@ -111,5 +112,10 @@ namespace TarkovAssistantWPF.controls
         }
 
 
+        private void ShowHotkeysWindow(object sender, RoutedEventArgs e)
+        {
+            var window = new ChangeHotkeysWindow();
+            window.Show();
+        }
     }
 }

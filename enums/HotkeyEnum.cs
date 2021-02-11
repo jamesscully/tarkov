@@ -15,6 +15,6 @@ namespace TarkovAssistantWPF.enums
         PREV_MAP,
         ZOOM_IN,
         ZOOM_OUT,
-        RESET,
+        RESET
     }
 }
