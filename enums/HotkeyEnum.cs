@@ -21,12 +21,12 @@ namespace TarkovAssistantWPF.enums
         PAN_RIGHT,
         PAN_UP,
         PAN_DOWN,
-        WOODS,
-        SHORELINE,
-        CUSTOMS,
-        RESERVE,
-        RESERVE_TUNNELS,
-        INTERCHANGE,
-        FACTORY
+        SETMAP_WOODS,
+        SETMAP_SHORELINE,
+        SETMAP_CUSTOMS,
+        SETMAP_RESERVE,
+        SETMAP_RESERVE_TUNNELS,
+        SETMAP_INTERCHANGE,
+        SETMAP_FACTORY
     }
 }

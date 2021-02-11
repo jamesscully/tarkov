@@ -50,6 +50,7 @@ namespace TarkovAssistantWPF.forms
                 Key? boundKey = JsonKeybinds.GetInstance().GetBindForHotkey(e);
 
                 Debug.WriteLine("Found non-null keybind: " + boundKey);
+
                 AddHotkeyRow(e, boundKey);
             }
         }
@@ -58,7 +59,9 @@ namespace TarkovAssistantWPF.forms
         private void AddHotkeyRow(HotkeyEnum hotkey, Key? initialBound)
         {
             var text = new TextBlock();
-            text.Text = hotkey.ToString();
+
+            string description = Properties.Resources.ResourceManager.GetString(hotkey.ToString());
+            text.Text = description;
 
             var input = new KeybindTextBox(hotkey, initialBound);
             var panel = new DockPanel();
@@ -72,6 +75,8 @@ namespace TarkovAssistantWPF.forms
             text.HorizontalAlignment = HorizontalAlignment.Left;
             input.HorizontalAlignment = HorizontalAlignment.Right;
 
+
+            // clear button
             var clearButton = new Button();
             clearButton.Content = "X";
 
@@ -84,10 +89,11 @@ namespace TarkovAssistantWPF.forms
             clearButton.MinWidth = 25;
             clearButton.HorizontalAlignment = HorizontalAlignment.Right;
 
-            clearButton.SetValue(DockPanel.DockProperty, Dock.Right);
-            // input.SetValue(DockPanel.DockProperty, Dock.);
+            // dock controls to their needed sides
             text.SetValue(DockPanel.DockProperty, Dock.Left);
+            clearButton.SetValue(DockPanel.DockProperty, Dock.Right);
 
+            // make all text even
             text.MinWidth = 200;
 
             panel.Children.Add(clearButton);
@@ -117,7 +123,7 @@ namespace TarkovAssistantWPF.forms
                 else
                 {
                     this.initialText = initialKey.ToString();
-                    this.initialKey = (Key)initialKey;
+                    this.initialKey = (Key) initialKey;
                 }
 
                 this.pair = pair;
@@ -156,8 +162,6 @@ namespace TarkovAssistantWPF.forms
             // Determine if the key is valid (valid key, already bound, etc go here)
             private bool IsKeyValid(Key key)
             {
-                Debug.WriteLine("Testing for duplicate: " + key);
-
                 // we don't want duplicate binds
                 var isKeyAlreadyBound = JsonKeybinds.GetInstance().HasKeyBound(key);
 
@@ -180,26 +184,20 @@ namespace TarkovAssistantWPF.forms
                     e.Handled = true;
 
                     selectedKey = e.Key;
-
                     this.Content = selectedKey.ToString();
 
                     JsonKeybinds.GetInstance().SetBind(this.pair, e.Key);
-
                     SetWarning(false);
                 }
-                
+
             }
 
             protected override void OnClick()
             {
                 if (this.isFocused)
-                {
                     this.Content = initialKey.ToString();
-                }
                 else
-                {
                     this.Content = "Press any key... (ESC to Cancel)";
-                }
 
                 this.isFocused = !this.isFocused;
             }

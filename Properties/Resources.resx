@@ -117,15 +117,92 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CLEAR" xml:space="preserve">
+    <value>Clear drawings</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="CYCLE_MAP" xml:space="preserve">
+    <value>Cycle between all maps</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="CYCLE_SUB_MAP" xml:space="preserve">
+    <value>Cycle between sub maps</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="NEXT_MAP" xml:space="preserve">
+    <value>Next map</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="PAN_DOWN" xml:space="preserve">
+    <value>Pan down</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="PAN_LEFT" xml:space="preserve">
+    <value>Pan map left</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="PAN_RIGHT" xml:space="preserve">
+    <value>Pan map right</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="PAN_UP" xml:space="preserve">
+    <value>Pan map up</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="PREV_MAP" xml:space="preserve">
+    <value>Previous map</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="RESET" xml:space="preserve">
+    <value>Reset map</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="SETMAP_CUSTOMS" xml:space="preserve">
+    <value>Switch to Customs</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="SETMAP_FACTORY" xml:space="preserve">
+    <value>Switch to Factory</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="SETMAP_INTERCHANGE" xml:space="preserve">
+    <value>Switch to Interchange</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="SETMAP_RESERVE" xml:space="preserve">
+    <value>Switch to Reserve (Overview)</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="SETMAP_RESERVE_TUNNELS" xml:space="preserve">
+    <value>Switch to Reserve (Bunker)</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="SETMAP_SHORELINE" xml:space="preserve">
+    <value>Switch to Shoreline</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="SETMAP_WOODS" xml:space="preserve">
+    <value>Switch to Woods</value>
+    <comment>Description for Keybindings</comment>
+  </data>
   <data name="str_searchhint" xml:space="preserve">
     <value>Search for an item...</value>
     <comment>Search box hint</comment>
   </data>
   <data name="update_data_url" xml:space="preserve">
     <value>https://s3.eu-west-2.amazonaws.com/jwscully.uk/tarkov-assistant/update.zip</value>
+    <comment>ZIP file location for AutoUpdater.NET</comment>
   </data>
   <data name="update_xml_url" xml:space="preserve">
     <value>https://s3.eu-west-2.amazonaws.com/jwscully.uk/tarkov-assistant/update_info.xml</value>
     <comment>XML file location for AutoUpdater.NET</comment>
+  </data>
+  <data name="ZOOM_IN" xml:space="preserve">
+    <value>Zoom in</value>
+    <comment>Description for Keybindings</comment>
+  </data>
+  <data name="ZOOM_OUT" xml:space="preserve">
+    <value>Zoom out</value>
+    <comment>Description for Keybindings</comment>
   </data>
 </root>

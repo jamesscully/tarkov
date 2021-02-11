@@ -75,12 +75,40 @@ namespace TarkovAssistantWPF
             _isGlobalKeysEnabled = enabled;
         }
 
+
+        private bool _fullscreen = false;
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            // fullscreen
+            if (e.Key == Key.F || e.Key == Key.F11)
+            {
+                this.WindowState = (_fullscreen) ? WindowState.Normal : WindowState.Maximized;
+                this.WindowStyle = (_fullscreen) ? WindowStyle.SingleBorderWindow : WindowStyle.None;
+                _fullscreen = !_fullscreen;
+            }
+
+            if (JsonKeybinds.GetInstance().HasKeyBound(e.Key))
+            {
+                var hotkeyAction = JsonKeybinds.GetInstance().GetHotkeyForBind(e.Key);
+
+                if (hotkeyAction == HotkeyEnum.RESET)
+                {
+                    mapControl.OnReset();
+                }
+
+                if (hotkeyAction == HotkeyEnum.CLEAR)
+                {
+                    mapControl.OnClear();
+                }
+
+            }
+        }
+
         private void KeyHookOnKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (!_isGlobalKeysEnabled)
                 return;
-
-
 
             // ignore if we can't parse it
             if (!Keys.TryParse(e.KeyCode.ToString(), true, out Key key))
@@ -145,53 +173,28 @@ namespace TarkovAssistantWPF
                             break;
 
                         // Do nothing (no operation)
-                        case HotkeyEnum.NO_OP: break;
+                        case HotkeyEnum.NO_OP: 
+                            break;
                         
                         // these should not be handled when coming from outside the form;
                         // they are commonly bound in-game by default
-                        case HotkeyEnum.CLEAR: break;
-                        case HotkeyEnum.RESET: break;
+                        case HotkeyEnum.CLEAR:
+                        case HotkeyEnum.RESET: 
+                            break;
 
+                        // only map commands should be left now
                         default:
-                            if (Map.TryParse(hotkeyAction.ToString(), true, out Map mapToSet))
+
+                            // enum is format of SETMAP_(MAPNAME), so use after _
+                            var mapName = hotkeyAction.ToString().Split('_')[1];
+
+                            if (Enum.TryParse(mapName, true, out Map mapToSet))
                             {
                                 x.OnSetMap(mapToSet);
                             }
-
                             break;
-
                     }
                 }
-            }
-        }
-
-
-        private bool _fullscreen = false;
-
-        private void OnKeyDown(object sender, KeyEventArgs e)
-        {
-            // fullscreen
-            if (e.Key == Key.F || e.Key == Key.F11)
-            {
-                this.WindowState = (_fullscreen) ? WindowState.Normal : WindowState.Maximized;
-                this.WindowStyle = (_fullscreen) ? WindowStyle.SingleBorderWindow : WindowStyle.None;
-                _fullscreen = !_fullscreen;
-            }
-
-            if (JsonKeybinds.GetInstance().HasKeyBound(e.Key))
-            {
-                var hotkeyAction = JsonKeybinds.GetInstance().GetHotkeyForBind(e.Key);
-
-                if (hotkeyAction == HotkeyEnum.RESET)
-                {
-                    mapControl.OnReset();
-                }
-
-                if (hotkeyAction == HotkeyEnum.CLEAR)
-                {
-                    mapControl.OnClear();
-                }
-
             }
         }
     }
