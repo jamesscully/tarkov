@@ -13,7 +13,7 @@ using TarkovAssistantWPF.enums;
 
 namespace TarkovAssistantWPF.keybinding
 {
-    public class JsonKeybinds
+    public class KeybindManager
     {
         private XDocument config;
 
@@ -28,21 +28,21 @@ namespace TarkovAssistantWPF.keybinding
             }
         }
 
-        private static JsonKeybinds instance;
+        private static KeybindManager instance;
 
         public bool EnableBinds = true;
 
-        public static JsonKeybinds GetInstance(bool testFile = false)
+        public static KeybindManager GetInstance(bool testFile = false)
         {
             if (instance == null)
-                instance = new JsonKeybinds(testFile);
+                instance = new KeybindManager(testFile);
 
             return instance;
         }
 
-        private JsonKeybindsObject binds;
+        private KeybindFileObject binds;
 
-        private JsonKeybinds(bool testFile = false)
+        private KeybindManager(bool testFile = false)
         {
 
             if (testFile)
@@ -51,13 +51,13 @@ namespace TarkovAssistantWPF.keybinding
             if (!File.Exists(CONFIG_PATH))
                 File.Create(CONFIG_PATH).Close();
 
-            LoadBinds();
+            LoadFromFile();
         }
 
 
         #region ModifyState
 
-        private void LoadBinds()
+        private void LoadFromFile()
         {
             var json = File.ReadAllText(CONFIG_PATH);
 
@@ -66,24 +66,24 @@ namespace TarkovAssistantWPF.keybinding
             if (String.IsNullOrEmpty(json))
             {
                 Debug.WriteLine("Empty Keybinds file found");
-                binds = new JsonKeybindsObject(true);
-                SaveBinds();
+                binds = new KeybindFileObject(true);
+                SaveToFile();
             }
             else
             {
-                binds = JsonConvert.DeserializeObject<JsonKeybindsObject>(json);
+                binds = JsonConvert.DeserializeObject<KeybindFileObject>(json);
             }
         }
 
         public void Reload()
         {
-            LoadBinds();
+            LoadFromFile();
         }
 
         public void ResetToDefault()
         {
-            binds = new JsonKeybindsObject(true);
-            SaveBinds();
+            binds = new KeybindFileObject(true);
+            SaveToFile();
         }
 
         #endregion
@@ -91,7 +91,7 @@ namespace TarkovAssistantWPF.keybinding
 
         #region CRUD
 
-        public void SaveBinds()
+        public void SaveToFile()
         {
             var json = JsonConvert.SerializeObject(binds);
 
@@ -100,15 +100,15 @@ namespace TarkovAssistantWPF.keybinding
             File.WriteAllText(CONFIG_PATH, json);
         }
 
-        public void SetBind(Keybind keybind, Key keyToBind)
+        public void SetKeybind(Keybind keybind, Key keyToBind)
         {
             Debug.WriteLine($"Writing Bind ({keybind}, {keyToBind})");
 
 
             // if this is null, then we don't have a duplicate
-            Key? foundBind = GetBindForHotkey(keybind);
+            Key? foundBind = GetKeyForKeybind(keybind);
 
-            if (GetBindForHotkey(keybind) != null)
+            if (GetKeyForKeybind(keybind) != null)
             {
                 Debug.WriteLine("Attempt to double-bind a keybind");
 
@@ -121,7 +121,7 @@ namespace TarkovAssistantWPF.keybinding
         }
 
 
-        public void ClearBind(string key)
+        private void ClearBind(string key)
         {
             if (HasKeyBound(key))
             {
@@ -129,12 +129,12 @@ namespace TarkovAssistantWPF.keybinding
                 binds.BindMap.Remove(key);
             }
         }
-        public void ClearBind(Key key)
+        public void ClearKey(Key key)
         {
             ClearBind(key.ToString());
         }
 
-        public void ClearBind(Keybind keybind)
+        public void ClearKeybind(Keybind keybind)
         {
             foreach (DictionaryEntry entry in binds.BindMap) {
                 if (Enum.TryParse(entry.Value as string, true, out Keybind hk))
@@ -145,7 +145,6 @@ namespace TarkovAssistantWPF.keybinding
                         // then wipe and return
                         ClearBind(entry.Key as string);
                         return;
-
                     }
                 }
             }
@@ -156,7 +155,7 @@ namespace TarkovAssistantWPF.keybinding
 
         #region Accessors
 
-        public Keybind? GetHotkeyForBind(string key)
+        private Keybind? GetKeybindForKey(string key)
         {
 
             // this will prevent us from activating binds whilst editing them
@@ -180,12 +179,12 @@ namespace TarkovAssistantWPF.keybinding
         }
 
         // Overload for above
-        public Keybind? GetHotkeyForBind(Key key)
+        public Keybind? GetKeybindForKey(Key key)
         {
-            return GetHotkeyForBind(key.ToString());
+            return GetKeybindForKey(key.ToString());
         }
 
-        public bool HasKeyBound(string key)
+        private bool HasKeyBound(string key)
         {
 
             string bindValue = "";
@@ -214,7 +213,7 @@ namespace TarkovAssistantWPF.keybinding
         }
 
 
-        public Key? GetBindForHotkey(Keybind keybind)
+        public Key? GetKeyForKeybind(Keybind keybind)
         {
             foreach (DictionaryEntry entry in binds.BindMap)
             {

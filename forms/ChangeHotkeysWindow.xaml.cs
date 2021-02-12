@@ -29,13 +29,13 @@ namespace TarkovAssistantWPF.forms
             LoadHotkeysToForm();
 
             // disable binds in this form
-            JsonKeybinds.GetInstance().EnableBinds = false;
+            KeybindManager.GetInstance().EnableBinds = false;
 
             // when we close the window, enable binds again
             this.Closed += (sender, args) =>
             {
-                JsonKeybinds.GetInstance().EnableBinds = true;
-                JsonKeybinds.GetInstance().Reload();
+                KeybindManager.GetInstance().EnableBinds = true;
+                KeybindManager.GetInstance().Reload();
             };
         }
 
@@ -51,7 +51,7 @@ namespace TarkovAssistantWPF.forms
                 if(e == Keybind.None)
                     continue;
                 
-                Key? boundKey = JsonKeybinds.GetInstance().GetBindForHotkey(e);
+                Key? boundKey = KeybindManager.GetInstance().GetKeyForKeybind(e);
 
                 AddHotkeyRow(e, boundKey);
             }
@@ -84,7 +84,7 @@ namespace TarkovAssistantWPF.forms
 
             clearButton.Click += (sender, args) =>
             {
-                JsonKeybinds.GetInstance().ClearBind(keybind);
+                KeybindManager.GetInstance().ClearKeybind(keybind);
                 input.Clear();
             };
 
@@ -167,7 +167,7 @@ namespace TarkovAssistantWPF.forms
             private bool IsKeyValid(Key key)
             {
                 // we don't want duplicate binds
-                var isKeyAlreadyBound = JsonKeybinds.GetInstance().HasKeyBound(key);
+                var isKeyAlreadyBound = KeybindManager.GetInstance().HasKeyBound(key);
 
                 if(isKeyAlreadyBound)
                     Debug.WriteLine("Binding duplicate key? " + key);
@@ -190,7 +190,7 @@ namespace TarkovAssistantWPF.forms
                     selectedKey = e.Key;
                     this.Content = selectedKey.ToString();
 
-                    JsonKeybinds.GetInstance().SetBind(this.pair, e.Key);
+                    KeybindManager.GetInstance().SetKeybind(this.pair, e.Key);
                     SetWarning(false);
                 }
 
@@ -209,7 +209,7 @@ namespace TarkovAssistantWPF.forms
 
         private void FormHotkeys_SaveChangesButton_OnClick(object sender, RoutedEventArgs e)
         {
-            JsonKeybinds.GetInstance().SaveBinds();
+            KeybindManager.GetInstance().SaveToFile();
         }
 
         private void FormHotkeys_ResetBindingsButton_OnClick(object sender, RoutedEventArgs e)
@@ -223,7 +223,7 @@ namespace TarkovAssistantWPF.forms
 
             if (result == MessageBoxResult.Yes)
             {
-                JsonKeybinds.GetInstance().ResetToDefault();
+                KeybindManager.GetInstance().ResetToDefault();
                 LoadHotkeysToForm();
             }
         }

@@ -88,16 +88,16 @@ namespace TarkovAssistantWPF
                 _fullscreen = !_fullscreen;
             }
 
-            if (JsonKeybinds.GetInstance().HasKeyBound(e.Key))
+            if (KeybindManager.GetInstance().HasKeyBound(e.Key))
             {
-                var hotkeyAction = JsonKeybinds.GetInstance().GetHotkeyForBind(e.Key);
+                var keybind = KeybindManager.GetInstance().GetKeybindForKey(e.Key);
 
-                if (hotkeyAction == Keybind.Reset)
+                if (keybind == Keybind.Reset)
                 {
                     mapControl.OnReset();
                 }
 
-                if (hotkeyAction == Keybind.Clear)
+                if (keybind == Keybind.Clear)
                 {
                     mapControl.OnClear();
                 }
@@ -107,7 +107,7 @@ namespace TarkovAssistantWPF
 
         private void KeyHookOnKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            if (!_isGlobalKeysEnabled || !JsonKeybinds.GetInstance().EnableBinds)
+            if (!_isGlobalKeysEnabled || !KeybindManager.GetInstance().EnableBinds)
                 return;
 
             // ignore if we can't parse it
@@ -120,9 +120,9 @@ namespace TarkovAssistantWPF
 
             Keybind? hotkeyAction = Keybind.None;
 
-            if (JsonKeybinds.GetInstance().HasKeyBound(key))
+            if (KeybindManager.GetInstance().HasKeyBound(key))
             {
-                hotkeyAction = JsonKeybinds.GetInstance().GetHotkeyForBind(key);
+                hotkeyAction = KeybindManager.GetInstance().GetKeybindForKey(key);
 
                 foreach(IHotkeyAble x in controls)
                 {

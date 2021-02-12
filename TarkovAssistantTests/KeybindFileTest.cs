@@ -15,14 +15,14 @@ namespace TarkovAssistantTests
     [TestClass]
     public class KeybindFileTest
     {
-        private JsonKeybinds binds;
+        private KeybindManager binds;
 
 
         [TestInitialize]
         public void Setup()
         {
             Debug.WriteLine("---- START OF TEST ----");
-            binds = JsonKeybinds.GetInstance(true);
+            binds = KeybindManager.GetInstance(true);
         }
 
 
@@ -39,11 +39,11 @@ namespace TarkovAssistantTests
         [TestMethod]
         public void TestDefaultConfig()
         {
-            var returnedKey = binds.GetHotkeyForBind(Key.R);
+            var returnedKey = binds.GetKeybindForKey(Key.R);
 
             Assert.AreEqual(returnedKey, Keybind.Reset);
 
-            returnedKey = binds.GetHotkeyForBind(Key.NumPad9);
+            returnedKey = binds.GetKeybindForKey(Key.NumPad9);
 
             Assert.AreEqual(returnedKey, Keybind.CycleSubMap);
         }
@@ -52,12 +52,12 @@ namespace TarkovAssistantTests
         [TestMethod]
         public void TestAddKeybind()
         {
-            binds.SetBind(Keybind.CycleSubMap, Key.A);
-            binds.SaveBinds();
+            binds.SetKeybind(Keybind.CycleSubMap, Key.A);
+            binds.SaveToFile();
             binds.Reload();
 
 
-            var cycleKey = binds.GetHotkeyForBind(Key.A);
+            var cycleKey = binds.GetKeybindForKey(Key.A);
 
             binds.Debug_WriteBindsDictionary();
 
@@ -69,10 +69,10 @@ namespace TarkovAssistantTests
         public void TestClearingByKey()
         {
             // Test clearing by Key
-            binds.SetBind(Keybind.NextMap, Key.A);
-            binds.ClearBind(Key.A);
+            binds.SetKeybind(Keybind.NextMap, Key.A);
+            binds.ClearKey(Key.A);
 
-            var hotkey = binds.GetHotkeyForBind(Key.A);
+            var hotkey = binds.GetKeybindForKey(Key.A);
 
             Assert.IsNull(hotkey);
         }
@@ -84,20 +84,20 @@ namespace TarkovAssistantTests
             binds.Debug_WriteBindsDictionary();
 
             Debug.WriteLine("Test: Setting bind for NEXTMAP to A");
-            binds.SetBind(Keybind.NextMap, Key.A);
+            binds.SetKeybind(Keybind.NextMap, Key.A);
 
             Debug.WriteLine("Test: Saving bind for NEXTMAP to A");
-            binds.SaveBinds();
+            binds.SaveToFile();
 
             binds.Debug_WriteBindsDictionary();
 
             Debug.WriteLine("Test: Clearing bind for NEXTMAP to A");
-            binds.ClearBind(Keybind.NextMap);
+            binds.ClearKeybind(Keybind.NextMap);
 
             binds.Debug_WriteBindsDictionary();
 
 
-            var hotkey = binds.GetHotkeyForBind(Key.A);
+            var hotkey = binds.GetKeybindForKey(Key.A);
 
             Debug.WriteLine("Found key: " + hotkey);
             Assert.IsNull(hotkey);

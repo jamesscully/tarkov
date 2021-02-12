@@ -123,8 +123,8 @@
       <DependentUpon>ChangeHotkeysWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="interfaces\IHotkeyAble.cs" />
-    <Compile Include="keybinding\JsonKeybinds.cs" />
-    <Compile Include="keybinding\JsonKeybindsObject.cs" />
+    <Compile Include="keybinding\KeybindManager.cs" />
+    <Compile Include="keybinding\KeybindFileObject.cs" />
     <Compile Include="scripts\GenerateUpdateFiles.cs" />
     <Compile Include="wiki_parser\ParseWikiPage.cs" />
     <Page Include="controls\MapControl.xaml">

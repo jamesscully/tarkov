@@ -12,11 +12,11 @@ using TarkovAssistantWPF.enums;
 
 namespace TarkovAssistantWPF.keybinding
 {
-    public class JsonKeybindsObject 
+    public class KeybindFileObject 
     {
 
         public OrderedDictionary BindMap = new OrderedDictionary();
-        public JsonKeybindsObject(bool loadDefault = false)
+        public KeybindFileObject(bool loadDefault = false)
         {
             if(loadDefault)
                 SetDefaults();
