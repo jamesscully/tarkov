@@ -15,7 +15,7 @@ namespace TarkovAssistantWPF.keybinding
     public class JsonKeybindsObject 
     {
 
-        public OrderedDictionary Binds = new OrderedDictionary();
+        public OrderedDictionary BindMap = new OrderedDictionary();
         public JsonKeybindsObject(bool loadDefault = false)
         {
             if(loadDefault)
@@ -24,16 +24,16 @@ namespace TarkovAssistantWPF.keybinding
 
         public void SetDefaults()
         {
-            Binds.Add("NumPad9", HotkeyEnum.CYCLE_SUB_MAP.ToString());
-            Binds.Add("R", HotkeyEnum.RESET.ToString());
-            Binds.Add("NumPad4", HotkeyEnum.PAN_LEFT.ToString());
-            Binds.Add("NumPad6", HotkeyEnum.PAN_RIGHT.ToString());
-            Binds.Add("NumPad8", HotkeyEnum.PAN_UP.ToString());
-            Binds.Add("NumPad2", HotkeyEnum.PAN_DOWN.ToString());
-            Binds.Add("C", HotkeyEnum.CLEAR.ToString());
-            Binds.Add("Subtract", HotkeyEnum.ZOOM_OUT.ToString());
-            Binds.Add("Add", HotkeyEnum.ZOOM_IN.ToString());
-            Binds.Add("Multiply", HotkeyEnum.CYCLE_MAP.ToString());
+            BindMap.Add("NumPad9", Keybind.CycleSubMap.ToString());
+            BindMap.Add("R", Keybind.Reset.ToString());
+            BindMap.Add("NumPad4", Keybind.PanLeft.ToString());
+            BindMap.Add("NumPad6", Keybind.PanRight.ToString());
+            BindMap.Add("NumPad8", Keybind.PanUp.ToString());
+            BindMap.Add("NumPad2", Keybind.PanDown.ToString());
+            BindMap.Add("C", Keybind.Clear.ToString());
+            BindMap.Add("Subtract", Keybind.ZoomOut.ToString());
+            BindMap.Add("Add", Keybind.ZoomIn.ToString());
+            BindMap.Add("Multiply", Keybind.CycleMap.ToString());
         }
 
     }

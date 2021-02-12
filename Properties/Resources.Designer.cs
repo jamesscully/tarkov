@@ -63,153 +63,153 @@ namespace TarkovAssistantWPF.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Clear drawings.
         /// </summary>
-        internal static string CLEAR {
+        internal static string Clear {
             get {
-                return ResourceManager.GetString("CLEAR", resourceCulture);
+                return ResourceManager.GetString("Clear", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Cycle between all maps.
         /// </summary>
-        internal static string CYCLE_MAP {
+        internal static string CycleMap {
             get {
-                return ResourceManager.GetString("CYCLE_MAP", resourceCulture);
+                return ResourceManager.GetString("CycleMap", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Cycle between sub maps.
         /// </summary>
-        internal static string CYCLE_SUB_MAP {
+        internal static string CycleSubMap {
             get {
-                return ResourceManager.GetString("CYCLE_SUB_MAP", resourceCulture);
+                return ResourceManager.GetString("CycleSubMap", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Next map.
         /// </summary>
-        internal static string NEXT_MAP {
+        internal static string NextMap {
             get {
-                return ResourceManager.GetString("NEXT_MAP", resourceCulture);
+                return ResourceManager.GetString("NextMap", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Pan down.
         /// </summary>
-        internal static string PAN_DOWN {
+        internal static string PanDown {
             get {
-                return ResourceManager.GetString("PAN_DOWN", resourceCulture);
+                return ResourceManager.GetString("PanDown", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Pan map left.
         /// </summary>
-        internal static string PAN_LEFT {
+        internal static string PanLeft {
             get {
-                return ResourceManager.GetString("PAN_LEFT", resourceCulture);
+                return ResourceManager.GetString("PanLeft", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Pan map right.
         /// </summary>
-        internal static string PAN_RIGHT {
+        internal static string PanRight {
             get {
-                return ResourceManager.GetString("PAN_RIGHT", resourceCulture);
+                return ResourceManager.GetString("PanRight", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Pan map up.
         /// </summary>
-        internal static string PAN_UP {
+        internal static string PanUp {
             get {
-                return ResourceManager.GetString("PAN_UP", resourceCulture);
+                return ResourceManager.GetString("PanUp", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Previous map.
         /// </summary>
-        internal static string PREV_MAP {
+        internal static string PrevMap {
             get {
-                return ResourceManager.GetString("PREV_MAP", resourceCulture);
+                return ResourceManager.GetString("PrevMap", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Reset map.
         /// </summary>
-        internal static string RESET {
+        internal static string Reset {
             get {
-                return ResourceManager.GetString("RESET", resourceCulture);
+                return ResourceManager.GetString("Reset", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Switch to Customs.
         /// </summary>
-        internal static string SETMAP_CUSTOMS {
+        internal static string SetMapCustoms {
             get {
-                return ResourceManager.GetString("SETMAP_CUSTOMS", resourceCulture);
+                return ResourceManager.GetString("SetMapCustoms", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Switch to Factory.
         /// </summary>
-        internal static string SETMAP_FACTORY {
+        internal static string SetMapFactory {
             get {
-                return ResourceManager.GetString("SETMAP_FACTORY", resourceCulture);
+                return ResourceManager.GetString("SetMapFactory", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Switch to Interchange.
         /// </summary>
-        internal static string SETMAP_INTERCHANGE {
+        internal static string SetMapInterchange {
             get {
-                return ResourceManager.GetString("SETMAP_INTERCHANGE", resourceCulture);
+                return ResourceManager.GetString("SetMapInterchange", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Switch to Reserve (Overview).
         /// </summary>
-        internal static string SETMAP_RESERVE {
+        internal static string SetMapReserve {
             get {
-                return ResourceManager.GetString("SETMAP_RESERVE", resourceCulture);
+                return ResourceManager.GetString("SetMapReserve", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Switch to Reserve (Bunker).
         /// </summary>
-        internal static string SETMAP_RESERVE_TUNNELS {
+        internal static string SetMapReserveTunnels {
             get {
-                return ResourceManager.GetString("SETMAP_RESERVE_TUNNELS", resourceCulture);
+                return ResourceManager.GetString("SetMapReserveTunnels", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Switch to Shoreline.
         /// </summary>
-        internal static string SETMAP_SHORELINE {
+        internal static string SetMapShoreline {
             get {
-                return ResourceManager.GetString("SETMAP_SHORELINE", resourceCulture);
+                return ResourceManager.GetString("SetMapShoreline", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Switch to Woods.
         /// </summary>
-        internal static string SETMAP_WOODS {
+        internal static string SetMapWoods {
             get {
-                return ResourceManager.GetString("SETMAP_WOODS", resourceCulture);
+                return ResourceManager.GetString("SetMapWoods", resourceCulture);
             }
         }
         
@@ -243,18 +243,18 @@ namespace TarkovAssistantWPF.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Zoom in.
         /// </summary>
-        internal static string ZOOM_IN {
+        internal static string ZoomIn {
             get {
-                return ResourceManager.GetString("ZOOM_IN", resourceCulture);
+                return ResourceManager.GetString("ZoomIn", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Zoom out.
         /// </summary>
-        internal static string ZOOM_OUT {
+        internal static string ZoomOut {
             get {
-                return ResourceManager.GetString("ZOOM_OUT", resourceCulture);
+                return ResourceManager.GetString("ZoomOut", resourceCulture);
             }
         }
     }

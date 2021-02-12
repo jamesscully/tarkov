@@ -112,7 +112,7 @@
     <Compile Include="controls\MapWindowMenu.xaml.cs">
       <DependentUpon>MapWindowMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="enums\HotkeyEnum.cs" />
+    <Compile Include="enums\Keybind.cs" />
     <Compile Include="enums\MapEnum.cs" />
     <Compile Include="controls\MapControl.xaml.cs">
       <DependentUpon>MapControl.xaml</DependentUpon>

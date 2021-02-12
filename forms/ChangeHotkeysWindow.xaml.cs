@@ -32,38 +32,40 @@ namespace TarkovAssistantWPF.forms
             JsonKeybinds.GetInstance().EnableBinds = false;
 
             // when we close the window, enable binds again
-            this.Closed += (sender, args) => JsonKeybinds.GetInstance().EnableBinds = true;
+            this.Closed += (sender, args) =>
+            {
+                JsonKeybinds.GetInstance().EnableBinds = true;
+                JsonKeybinds.GetInstance().Reload();
+            };
         }
 
         private void LoadHotkeysToForm()
         {
             FormHotkeys_Table.Children.Clear();
 
-            HotkeyEnum[] allHotkeys = (HotkeyEnum[])Enum.GetValues(typeof(HotkeyEnum));
+            Keybind[] allHotkeys = (Keybind[])Enum.GetValues(typeof(Keybind));
 
-            // create a row for each Hotkey available
-            foreach (HotkeyEnum e in allHotkeys)
+            // create a row for each Keybind available
+            foreach (Keybind e in allHotkeys)
             {
-                if(e == HotkeyEnum.NO_OP)
+                if(e == Keybind.None)
                     continue;
                 
                 Key? boundKey = JsonKeybinds.GetInstance().GetBindForHotkey(e);
-
-                Debug.WriteLine("Found non-null keybind: " + boundKey);
 
                 AddHotkeyRow(e, boundKey);
             }
         }
 
         // encapsulates each row entry
-        private void AddHotkeyRow(HotkeyEnum hotkey, Key? initialBound)
+        private void AddHotkeyRow(Keybind keybind, Key? initialBound)
         {
             var text = new TextBlock();
 
-            string description = Properties.Resources.ResourceManager.GetString(hotkey.ToString());
+            string description = Properties.Resources.ResourceManager.GetString(keybind.ToString());
             text.Text = description;
 
-            var input = new KeybindTextBox(hotkey, initialBound);
+            var input = new KeybindTextBox(keybind, initialBound);
             var panel = new DockPanel();
 
             panel.Children.Add(text);
@@ -82,7 +84,7 @@ namespace TarkovAssistantWPF.forms
 
             clearButton.Click += (sender, args) =>
             {
-                JsonKeybinds.GetInstance().ClearBind(hotkey);
+                JsonKeybinds.GetInstance().ClearBind(keybind);
                 input.Clear();
             };
 
@@ -109,10 +111,10 @@ namespace TarkovAssistantWPF.forms
 
             private string initialText = "";
             private Key initialKey;
-            private HotkeyEnum pair;
+            private Keybind pair;
             private Key selectedKey;
             
-            public KeybindTextBox(HotkeyEnum pair, Key? initialKey = null)
+            public KeybindTextBox(Keybind pair, Key? initialKey = null)
             {
 
                 if (initialKey == null)

@@ -61,7 +61,7 @@ namespace TarkovAssistantWPF
             AutoUpdater.Start(Properties.Resources.update_xml_url);
 
 
-            Debug.WriteLine(HotkeyEnum.CYCLE_MAP.ToString());
+            Debug.WriteLine(Keybind.CycleMap.ToString());
 
             keyHook = Hook.GlobalEvents();
             keyHook.KeyUp += KeyHookOnKeyUp;
@@ -92,12 +92,12 @@ namespace TarkovAssistantWPF
             {
                 var hotkeyAction = JsonKeybinds.GetInstance().GetHotkeyForBind(e.Key);
 
-                if (hotkeyAction == HotkeyEnum.RESET)
+                if (hotkeyAction == Keybind.Reset)
                 {
                     mapControl.OnReset();
                 }
 
-                if (hotkeyAction == HotkeyEnum.CLEAR)
+                if (hotkeyAction == Keybind.Clear)
                 {
                     mapControl.OnClear();
                 }
@@ -118,7 +118,7 @@ namespace TarkovAssistantWPF
 
             IHotkeyAble[] controls = { mapControl };
 
-            HotkeyEnum? hotkeyAction = HotkeyEnum.NO_OP;
+            Keybind? hotkeyAction = Keybind.None;
 
             if (JsonKeybinds.GetInstance().HasKeyBound(key))
             {
@@ -130,56 +130,56 @@ namespace TarkovAssistantWPF
                     {
 
                         // Map selection
-                        case HotkeyEnum.CYCLE_SUB_MAP:
+                        case Keybind.CycleSubMap:
                             x.OnCycleSubMap();
                             break;
 
-                        case HotkeyEnum.CYCLE_MAP:
+                        case Keybind.CycleMap:
                             x.OnCycleMap();
                             break;
 
-                        case HotkeyEnum.NEXT_MAP:
+                        case Keybind.NextMap:
                             x.OnNextMap();
                             break;
 
-                        case HotkeyEnum.PREV_MAP:
+                        case Keybind.PrevMap:
                             x.OnPrevMap();
                             break;
 
                         // Zoom
-                        case HotkeyEnum.ZOOM_IN:
+                        case Keybind.ZoomIn:
                             x.OnZoomIn();
                             break;
 
-                        case HotkeyEnum.ZOOM_OUT:
+                        case Keybind.ZoomOut:
                             x.OnZoomOut();
                             break;
 
                         // Panning
-                        case HotkeyEnum.PAN_LEFT:
+                        case Keybind.PanLeft:
                             x.OnPan(1, 0);
                             break;
 
-                        case HotkeyEnum.PAN_RIGHT:
+                        case Keybind.PanRight:
                             x.OnPan(-1, 0);
                             break;
 
-                        case HotkeyEnum.PAN_UP:
+                        case Keybind.PanUp:
                             x.OnPan(0, 1);
                             break;
 
-                        case HotkeyEnum.PAN_DOWN:
+                        case Keybind.PanDown:
                             x.OnPan(0, -1);
                             break;
 
                         // Do nothing (no operation)
-                        case HotkeyEnum.NO_OP: 
+                        case Keybind.None: 
                             break;
                         
                         // these should not be handled when coming from outside the form;
                         // they are commonly bound in-game by default
-                        case HotkeyEnum.CLEAR:
-                        case HotkeyEnum.RESET: 
+                        case Keybind.Clear:
+                        case Keybind.Reset: 
                             break;
 
                         // only map commands should be left now

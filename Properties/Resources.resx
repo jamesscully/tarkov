@@ -117,71 +117,71 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CLEAR" xml:space="preserve">
+  <data name="Clear" xml:space="preserve">
     <value>Clear drawings</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="CYCLE_MAP" xml:space="preserve">
+  <data name="CycleMap" xml:space="preserve">
     <value>Cycle between all maps</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="CYCLE_SUB_MAP" xml:space="preserve">
+  <data name="CycleSubMap" xml:space="preserve">
     <value>Cycle between sub maps</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="NEXT_MAP" xml:space="preserve">
+  <data name="NextMap" xml:space="preserve">
     <value>Next map</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="PAN_DOWN" xml:space="preserve">
+  <data name="PanDown" xml:space="preserve">
     <value>Pan down</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="PAN_LEFT" xml:space="preserve">
+  <data name="PanLeft" xml:space="preserve">
     <value>Pan map left</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="PAN_RIGHT" xml:space="preserve">
+  <data name="PanRight" xml:space="preserve">
     <value>Pan map right</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="PAN_UP" xml:space="preserve">
+  <data name="PanUp" xml:space="preserve">
     <value>Pan map up</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="PREV_MAP" xml:space="preserve">
+  <data name="PrevMap" xml:space="preserve">
     <value>Previous map</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="RESET" xml:space="preserve">
+  <data name="Reset" xml:space="preserve">
     <value>Reset map</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="SETMAP_CUSTOMS" xml:space="preserve">
+  <data name="SetMapCustoms" xml:space="preserve">
     <value>Switch to Customs</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="SETMAP_FACTORY" xml:space="preserve">
+  <data name="SetMapFactory" xml:space="preserve">
     <value>Switch to Factory</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="SETMAP_INTERCHANGE" xml:space="preserve">
+  <data name="SetMapInterchange" xml:space="preserve">
     <value>Switch to Interchange</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="SETMAP_RESERVE" xml:space="preserve">
+  <data name="SetMapReserve" xml:space="preserve">
     <value>Switch to Reserve (Overview)</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="SETMAP_RESERVE_TUNNELS" xml:space="preserve">
+  <data name="SetMapReserveTunnels" xml:space="preserve">
     <value>Switch to Reserve (Bunker)</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="SETMAP_SHORELINE" xml:space="preserve">
+  <data name="SetMapShoreline" xml:space="preserve">
     <value>Switch to Shoreline</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="SETMAP_WOODS" xml:space="preserve">
+  <data name="SetMapWoods" xml:space="preserve">
     <value>Switch to Woods</value>
     <comment>Description for Keybindings</comment>
   </data>
@@ -197,11 +197,11 @@
     <value>https://s3.eu-west-2.amazonaws.com/jwscully.uk/tarkov-assistant/update_info.xml</value>
     <comment>XML file location for AutoUpdater.NET</comment>
   </data>
-  <data name="ZOOM_IN" xml:space="preserve">
+  <data name="ZoomIn" xml:space="preserve">
     <value>Zoom in</value>
     <comment>Description for Keybindings</comment>
   </data>
-  <data name="ZOOM_OUT" xml:space="preserve">
+  <data name="ZoomOut" xml:space="preserve">
     <value>Zoom out</value>
     <comment>Description for Keybindings</comment>
   </data>

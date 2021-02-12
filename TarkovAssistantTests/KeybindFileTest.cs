@@ -41,18 +41,18 @@ namespace TarkovAssistantTests
         {
             var returnedKey = binds.GetHotkeyForBind(Key.R);
 
-            Assert.AreEqual(returnedKey, HotkeyEnum.RESET);
+            Assert.AreEqual(returnedKey, Keybind.Reset);
 
             returnedKey = binds.GetHotkeyForBind(Key.NumPad9);
 
-            Assert.AreEqual(returnedKey, HotkeyEnum.CYCLE_SUB_MAP);
+            Assert.AreEqual(returnedKey, Keybind.CycleSubMap);
         }
 
 
         [TestMethod]
         public void TestAddKeybind()
         {
-            binds.SetBind(HotkeyEnum.CYCLE_SUB_MAP, Key.A);
+            binds.SetBind(Keybind.CycleSubMap, Key.A);
             binds.SaveBinds();
             binds.Reload();
 
@@ -62,14 +62,14 @@ namespace TarkovAssistantTests
             binds.Debug_WriteBindsDictionary();
 
             Debug.WriteLine($"Testing {cycleKey} is == ");
-            Assert.IsTrue(cycleKey == HotkeyEnum.CYCLE_SUB_MAP);
+            Assert.IsTrue(cycleKey == Keybind.CycleSubMap);
         }
 
         [TestMethod]
         public void TestClearingByKey()
         {
             // Test clearing by Key
-            binds.SetBind(HotkeyEnum.NEXT_MAP, Key.A);
+            binds.SetBind(Keybind.NextMap, Key.A);
             binds.ClearBind(Key.A);
 
             var hotkey = binds.GetHotkeyForBind(Key.A);
@@ -80,11 +80,11 @@ namespace TarkovAssistantTests
         [TestMethod]
         public void TestClearingByHotkey()
         {
-            // Test clearing by HotkeyEnum
+            // Test clearing by Keybind
             binds.Debug_WriteBindsDictionary();
 
             Debug.WriteLine("Test: Setting bind for NEXTMAP to A");
-            binds.SetBind(HotkeyEnum.NEXT_MAP, Key.A);
+            binds.SetBind(Keybind.NextMap, Key.A);
 
             Debug.WriteLine("Test: Saving bind for NEXTMAP to A");
             binds.SaveBinds();
@@ -92,7 +92,7 @@ namespace TarkovAssistantTests
             binds.Debug_WriteBindsDictionary();
 
             Debug.WriteLine("Test: Clearing bind for NEXTMAP to A");
-            binds.ClearBind(HotkeyEnum.NEXT_MAP);
+            binds.ClearBind(Keybind.NextMap);
 
             binds.Debug_WriteBindsDictionary();
 

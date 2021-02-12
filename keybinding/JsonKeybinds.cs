@@ -100,24 +100,24 @@ namespace TarkovAssistantWPF.keybinding
             File.WriteAllText(CONFIG_PATH, json);
         }
 
-        public void SetBind(HotkeyEnum hotkey, Key keyToBind)
+        public void SetBind(Keybind keybind, Key keyToBind)
         {
-            Debug.WriteLine($"Writing Bind ({hotkey}, {keyToBind})");
+            Debug.WriteLine($"Writing Bind ({keybind}, {keyToBind})");
 
 
             // if this is null, then we don't have a duplicate
-            Key? foundBind = GetBindForHotkey(hotkey);
+            Key? foundBind = GetBindForHotkey(keybind);
 
-            if (GetBindForHotkey(hotkey) != null)
+            if (GetBindForHotkey(keybind) != null)
             {
-                Debug.WriteLine("Attempt to double-bind a hotkey");
+                Debug.WriteLine("Attempt to double-bind a keybind");
 
-                // if a hotkey bind already exists, remove then later add
+                // if a keybind bind already exists, remove then later add
                 // to prevent duplicate binding
-                binds.Binds.Remove(foundBind.ToString());
+                binds.BindMap.Remove(foundBind.ToString());
             }
 
-            binds.Binds[keyToBind.ToString()] = hotkey.ToString();
+            binds.BindMap[keyToBind.ToString()] = keybind.ToString();
         }
 
 
@@ -126,7 +126,7 @@ namespace TarkovAssistantWPF.keybinding
             if (HasKeyBound(key))
             {
                 Debug.WriteLine($"Unbinding key: {key}");
-                binds.Binds.Remove(key);
+                binds.BindMap.Remove(key);
             }
         }
         public void ClearBind(Key key)
@@ -134,13 +134,13 @@ namespace TarkovAssistantWPF.keybinding
             ClearBind(key.ToString());
         }
 
-        public void ClearBind(HotkeyEnum hotkey)
+        public void ClearBind(Keybind keybind)
         {
-            foreach (DictionaryEntry entry in binds.Binds) {
-                if (Enum.TryParse(entry.Value as string, true, out HotkeyEnum hk))
+            foreach (DictionaryEntry entry in binds.BindMap) {
+                if (Enum.TryParse(entry.Value as string, true, out Keybind hk))
                 {
-                    // if we hit the hotkey we need to clear
-                    if (hk == hotkey)
+                    // if we hit the keybind we need to clear
+                    if (hk == keybind)
                     {
                         // then wipe and return
                         ClearBind(entry.Key as string);
@@ -156,31 +156,31 @@ namespace TarkovAssistantWPF.keybinding
 
         #region Accessors
 
-        public HotkeyEnum? GetHotkeyForBind(string key)
+        public Keybind? GetHotkeyForBind(string key)
         {
 
             // this will prevent us from activating binds whilst editing them
             if (!EnableBinds)
                 return null;
 
-            HotkeyEnum hotkey = HotkeyEnum.NO_OP;
+            Keybind keybind = Keybind.None;
 
             // Debug.WriteLine($"Getting bind for {key}, raw output: ");
 
             if (HasKeyBound(key))
             {
-                // Debug.WriteLine($"Key is bound, returning hotkey for {key}");
-                Key.TryParse(binds.Binds[key] as string, true, out hotkey);
+                // Debug.WriteLine($"Key is bound, returning keybind for {key}");
+                Key.TryParse(binds.BindMap[key] as string, true, out keybind);
             }
 
-            if (hotkey == HotkeyEnum.NO_OP)
+            if (keybind == Keybind.None)
                 return null;
 
-            return hotkey;
+            return keybind;
         }
 
         // Overload for above
-        public HotkeyEnum? GetHotkeyForBind(Key key)
+        public Keybind? GetHotkeyForBind(Key key)
         {
             return GetHotkeyForBind(key.ToString());
         }
@@ -191,11 +191,11 @@ namespace TarkovAssistantWPF.keybinding
             string bindValue = "";
 
             bool bindIsEmpty = true;
-            bool bindFound = binds.Binds.Contains(key);
+            bool bindFound = binds.BindMap.Contains(key);
 
             if (bindFound)
             {
-                bindValue = binds.Binds[key] as string;
+                bindValue = binds.BindMap[key] as string;
                 bindIsEmpty = String.IsNullOrEmpty(bindValue);
 
                 // if(!bindIsEmpty)
@@ -214,11 +214,11 @@ namespace TarkovAssistantWPF.keybinding
         }
 
 
-        public Key? GetBindForHotkey(HotkeyEnum hotkey)
+        public Key? GetBindForHotkey(Keybind keybind)
         {
-            foreach (DictionaryEntry entry in binds.Binds)
+            foreach (DictionaryEntry entry in binds.BindMap)
             {
-                if (entry.Value as string == hotkey.ToString())
+                if (entry.Value as string == keybind.ToString())
                 {
                     if (Key.TryParse(entry.Key.ToString(), true, out Key parsedKey))
                     {
@@ -237,14 +237,14 @@ namespace TarkovAssistantWPF.keybinding
 
         public void Debug_WriteBindsDictionary()
         {
-            if (binds.Binds == null || binds.Binds.Count <= 0)
+            if (binds.BindMap == null || binds.BindMap.Count <= 0)
             {
                 return;
             }
 
             Debug.WriteLine($"---- Loaded Keybinds ----");
 
-            foreach (DictionaryEntry entry in binds.Binds)
+            foreach (DictionaryEntry entry in binds.BindMap)
             {
                 Debug.WriteLine($"{entry.Key} - {entry.Value}");
             }
