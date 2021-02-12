@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using System.IO.Compression;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 
@@ -23,6 +24,7 @@ namespace TarkovAssistantWPF.scripts
 
         private static string DIR_OUTPUT = "../updates/";
         private static string PATH_EXE = Path.GetFullPath("../bin/Debug/TarkovAssistant.exe");
+        private static string DIR_EXE = Path.GetFullPath("../bin/Debug/");
         private static string ZIP_NAME = "";
         private static string ZIP_OUT_PATH = "";
         private static string XML_OUT_PATH = Path.GetFullPath(DIR_OUTPUT + "update_info.xml");
@@ -173,6 +175,21 @@ namespace TarkovAssistantWPF.scripts
                 // copy our executable to staging area
                 WriteLog("GenerateZipFile: Copying exe to: " + STAGING_DIR);
                 File.Copy(executable_path, STAGING_DIR + "/" + "TarkovAssistant.exe", true);
+
+                
+
+
+                // find any libraries included with the build
+                var libraries = Directory.EnumerateFiles(DIR_EXE).Where(f => f.EndsWith(".dll"));
+
+                foreach (var dll in libraries)
+                {
+                    var fileName = Path.GetFileName(dll);
+                    WriteLog("Copying dll: " +  dll, true);
+
+                    // copy them to our staging area
+                    File.Copy(dll, STAGING_DIR + "/" + fileName, true);
+                }
 
                 // zip the staging dir
                 WriteLog("GenerateZipFile: Writing archive to: " + ZIP_OUT_PATH);
