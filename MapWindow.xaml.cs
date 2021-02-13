@@ -55,8 +55,6 @@ namespace TarkovAssistantWPF
 
             InitializeComponent();
 
-            AutoUpdater.RunUpdateAsAdmin = false;
-
             // check our remote update file, see if we need an update!
             AutoUpdater.Start(Properties.Resources.update_xml_url);
 
