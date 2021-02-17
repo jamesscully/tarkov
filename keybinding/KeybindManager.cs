@@ -17,7 +17,7 @@ namespace TarkovAssistantWPF.keybinding
     {
         private XDocument config;
 
-        private static string CONFIG_FOLDER = "config/";
+        private static string CONFIG_FOLDER = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/ScullyApps/Tarkov Assistant/" + "config/";
         private static string CONFIG_NAME = "keybinds.json";
 
         private static string CONFIG_PATH
@@ -48,8 +48,21 @@ namespace TarkovAssistantWPF.keybinding
             if (testFile)
                 CONFIG_NAME = "keybinds.test.json";
 
-            if (!File.Exists(CONFIG_PATH))
-                File.Create(CONFIG_PATH).Close();
+            try
+            {
+                if (!Directory.Exists(CONFIG_FOLDER))
+                {
+                    Directory.CreateDirectory(CONFIG_FOLDER);
+                }
+
+                if (!File.Exists(CONFIG_PATH))
+                    File.Create(CONFIG_PATH).Close();
+            }
+            catch (IOException e)
+            {
+                Debug.WriteLine(e);
+            }
+
 
             LoadFromFile();
         }

@@ -27,7 +27,7 @@
             <MenuItem x:Name="menuItem_ShowHotkeysWindow" Click="ShowHotkeysWindow" IsCheckable="False"  Header="Edit Hotkeys"/>
         </MenuItem>
 
-        <MenuItem Name="menuItem_UpdateAvailableButton" Visibility="Hidden" />
+        <MenuItem Name="menuItem_UpdateAvailableButton" HorizontalAlignment="Right" />
 
     </Menu>
 </UserControl>
