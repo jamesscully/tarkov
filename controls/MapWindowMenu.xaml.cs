@@ -41,9 +41,19 @@ namespace TarkovAssistantWPF.controls
 
             AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
             //todo: refactor reg. values to a separate class
-            bool enabled = ((int) Registry.GetValue(keyName, "EnableGlobalHotkeys", 0)) == 1;
+
+            bool enabled = false;
+            try
+            {
+                enabled = ((int) Registry.GetValue(keyName, "EnableGlobalHotkeys", 0)) == 1;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
 
             menuItem_EnableGlobalKeys.IsChecked = enabled;
+
         }
 
         private void AutoUpdaterOnCheckForUpdateEvent(UpdateInfoEventArgs args)

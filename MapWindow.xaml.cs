@@ -50,7 +50,7 @@ namespace TarkovAssistantWPF
         public MapWindow()
         {
             Debug.WriteLine("################\n");
-            Debug.WriteLine($"Launched, Assembly Version {Assembly.GetEntryAssembly().GetName().Version}\n ");
+            Debug.WriteLine($"Launched, Assembly Version {Assembly.GetEntryAssembly().GetName().Version}");
             Debug.WriteLine("################\n");
 
             InitializeComponent();
@@ -68,7 +68,16 @@ namespace TarkovAssistantWPF
             menuBar.OnMapButtonPress += mapControl.SetMap;
             menuBar.OnGlobalHotkeyToggle += enableHotkeys => _isGlobalKeysEnabled = enableHotkeys;
 
-            bool enabled = ((int) Registry.GetValue(keyName, "EnableGlobalHotkeys", 0)) == 1;
+            bool enabled = false;
+
+            try
+            {
+                enabled = ((int) Registry.GetValue(keyName, "EnableGlobalHotkeys", 0)) == 1;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
 
             _isGlobalKeysEnabled = enabled;
         }
