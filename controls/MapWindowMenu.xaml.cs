@@ -113,15 +113,6 @@ namespace TarkovAssistantWPF.controls
             OnGlobalHotkeyToggle?.Invoke(item.IsChecked);
         }
 
-        private void SetUpdateAvailable(bool available)
-        {
-            if (available)
-            {
-                menuItem_UpdateAvailableButton.Header = "Update available!";
-            }
-        }
-
-
         private void ShowHotkeysWindow(object sender, RoutedEventArgs e)
         {
             var window = new ChangeHotkeysWindow();

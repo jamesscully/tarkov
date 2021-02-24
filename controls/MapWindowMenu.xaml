@@ -13,16 +13,19 @@
             </ItemsPanelTemplate>
         </Menu.ItemsPanel>
 
-        <MenuItem Header="Select Map" Margin="0,0,0,0" >
-            <MenuItem Click="MapButtonPressed"  Header="Customs" HorizontalAlignment="Left" Tag="customs"/>
-            <MenuItem Click="MapButtonPressed"  Header="Shoreline" HorizontalAlignment="Left" Tag="shoreline"/>
-            <MenuItem Click="MapButtonPressed"  Header="Woods" HorizontalAlignment="Left" Tag="woods"/>
-            <MenuItem Click="MapButtonPressed"  Header="Interchange" HorizontalAlignment="Left" Tag="interchange"/>
-            <MenuItem Click="MapButtonPressed"  Header="Factory" HorizontalAlignment="Left" Tag="factory"/>
-            <MenuItem Click="MapButtonPressed"  Header="Reserve" HorizontalAlignment="Left" Tag="reserve"/>
+        <MenuItem Header="File" Margin="0,0,0,0">
+            <MenuItem Header="Select Map">
+                <MenuItem Click="MapButtonPressed"  Header="Customs" HorizontalAlignment="Left" Tag="customs"/>
+                <MenuItem Click="MapButtonPressed"  Header="Shoreline" HorizontalAlignment="Left" Tag="shoreline"/>
+                <MenuItem Click="MapButtonPressed"  Header="Woods" HorizontalAlignment="Left" Tag="woods"/>
+                <MenuItem Click="MapButtonPressed"  Header="Interchange" HorizontalAlignment="Left" Tag="interchange"/>
+                <MenuItem Click="MapButtonPressed"  Header="Factory" HorizontalAlignment="Left" Tag="factory"/>
+                <MenuItem Click="MapButtonPressed"  Header="Reserve" HorizontalAlignment="Left" Tag="reserve"/>
+            </MenuItem>
         </MenuItem>
 
-        <MenuItem Header="Settings">
+
+        <MenuItem Header="Options">
             <MenuItem x:Name="menuItem_EnableGlobalKeys" Click="ToggleGlobalHotkeys"  Header="Enable Global Hotkeys"/>
             <MenuItem x:Name="menuItem_ShowHotkeysWindow" Click="ShowHotkeysWindow" IsCheckable="False"  Header="Edit Hotkeys"/>
         </MenuItem>

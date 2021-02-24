@@ -160,6 +160,7 @@ namespace TarkovAssistantWPF.forms
                 {
                     this.ClearValue(Button.BorderBrushProperty);
                     this.ClearValue(Button.BackgroundProperty);
+                    this.isFocused = false;
                 }
             }
 
@@ -187,10 +188,15 @@ namespace TarkovAssistantWPF.forms
                 {
                     e.Handled = true;
 
+                    var oldKey = selectedKey;
+
                     selectedKey = e.Key;
+
                     this.Content = selectedKey.ToString();
 
                     KeybindManager.GetInstance().SetKeybind(this.pair, e.Key);
+                    KeybindManager.GetInstance().ClearKey(oldKey);
+
                     SetWarning(false);
                 }
 
@@ -199,9 +205,9 @@ namespace TarkovAssistantWPF.forms
             protected override void OnClick()
             {
                 if (this.isFocused)
-                    this.Content = initialKey.ToString();
+                    this.Content = selectedKey.ToString();
                 else
-                    this.Content = "Press any key... (ESC to Cancel)";
+                    this.Content = "Press key... (ESC to Cancel)";
 
                 this.isFocused = !this.isFocused;
             }
