@@ -118,5 +118,11 @@ namespace TarkovAssistantWPF.controls
             var window = new ChangeHotkeysWindow();
             window.Show();
         }
+
+        private void ShowAboutWindow(object sender, RoutedEventArgs e)
+        {
+            var window = new AboutWindow();
+            window.Show();
+        }
     }
 }

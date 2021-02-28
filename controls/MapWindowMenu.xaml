@@ -28,6 +28,7 @@
         <MenuItem Header="Options">
             <MenuItem x:Name="menuItem_EnableGlobalKeys" Click="ToggleGlobalHotkeys"  Header="Enable Global Hotkeys"/>
             <MenuItem x:Name="menuItem_ShowHotkeysWindow" Click="ShowHotkeysWindow" IsCheckable="False"  Header="Edit Hotkeys"/>
+            <MenuItem x:Name="menuItem_ShowAboutWindow" Click="ShowAboutWindow" IsCheckable="False"  Header="About"/>
         </MenuItem>
 
         <MenuItem Name="menuItem_UpdateAvailableButton" HorizontalAlignment="Right" />

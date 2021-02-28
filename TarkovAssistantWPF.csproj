@@ -121,6 +121,9 @@
     </Compile>
     <None Include="scripts\BuildAndDeploy.ps1" />
     <None Include="scripts\BuildScript.ps1" />
+    <Compile Include="forms\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="forms\ChangeHotkeysWindow.xaml.cs">
       <DependentUpon>ChangeHotkeysWindow.xaml</DependentUpon>
     </Compile>
@@ -134,6 +137,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="controls\MapWindowMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="forms\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
