@@ -29,12 +29,20 @@ namespace TarkovAssistantWPF.forms
             {
                 string buildVersion = Assembly.GetEntryAssembly().GetName().Version.ToString();
                 aboutTxtBuildVersion.Content = "Build Version " + buildVersion;
+
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
             }
             
+        }
+
+        private void OnDeactivated(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            var window = (Window)sender;
+            window.Topmost = true;
+            window.Activate();
         }
     }
 }

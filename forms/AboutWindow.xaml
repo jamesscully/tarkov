@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TarkovAssistantWPF.forms"
         mc:Ignorable="d"
-        Title="Tarkov Assistant - About" Height="450" Width="301.622" MinWidth="350" MinHeight="445">
+        Title="Tarkov Assistant - About" Height="450" Width="301.622" MinWidth="350" MinHeight="445" LostKeyboardFocus="OnDeactivated">
     <Grid>
         <StackPanel HorizontalAlignment="Left" Margin="10,10,0,10" Width="322">
             <Label Content="Tarkov Assistant" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,16"/>

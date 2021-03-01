@@ -1,27 +1,36 @@
 # Tarkov Assistant
 ![.NET](https://github.com/jamesscully/tarkov/workflows/.NET/badge.svg)
 
+![](media/example.gif)
+
 ### Prerequisites 
 
 .NET Framework - v4.7.2
 
-
 ### Dependencies
-
-
+- [AutoUpdater.NET](https://www.nuget.org/packages/Autoupdater.NET.Official/)
+- [Newtonsoft.JSON](https://www.nuget.org/packages/Newtonsoft.Json/)
 
 
 ### Description
-Small .NET project to help with the game *Escape from Tarkov*.
+A small application to assist with viewing maps whilst in-game on *Escape From Tarkov*.
 
-Currently features a simple and all-in-one game map viewer to easily swap out when needed, with the ability to add markers.
 
-Initial development [started](https://github.com/jamesscully/tarkov/tree/8ac63d45bc11dc6ab28db97f0d3e883cb7efa9f2) with WinForms, however has switched to WPF to provide GPU-acceleration on the transformation of images (mapviwer).
+### Features
+
+- GPU-accelerated map viewer
+- Keybinding (local)
+- Keybinding out of focus (in-game, requires '*Enable Global Hotkeys*' to be checked in Options.)
+- Automatic updates
 
 I did not make any of the maps featured in the program.
 
+### Installation
 
-### Pre-installed map maker credits
+You can download the installer for the program [here](http://jwscully.uk/tarkov-assistant/TarkovAssistantSetup.msi)
+
+
+### Map Credits
 **Customs** - MonkiMonkiMonk & Glory4Lyfe
 
 **Interchange** - Alpha_
