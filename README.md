@@ -7,9 +7,11 @@
 
 .NET Framework - v4.7.2
 
+
 ### Dependencies
 - [AutoUpdater.NET](https://www.nuget.org/packages/Autoupdater.NET.Official/)
 - [Newtonsoft.JSON](https://www.nuget.org/packages/Newtonsoft.Json/)
+- [Microsoft Visual Studio Installer Projects](https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2017InstallerProjects) (required to build installer package)
 
 
 ### Description
