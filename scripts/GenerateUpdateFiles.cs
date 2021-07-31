@@ -97,7 +97,7 @@ namespace TarkovAssistantWPF.scripts
                     return -1;
 
 
-                AddChangeEntry(version);
+                // AddChangeEntry(version);
             }
             catch (Exception e)
             {
@@ -192,7 +192,10 @@ namespace TarkovAssistantWPF.scripts
                 }
 
                 // copy over all maps for update
-                var mapFiles = Directory.EnumerateFiles(DIR_EXE + "maps/").Where(f => f.EndsWith(".png"));
+                var mapFiles = Directory.EnumerateFiles(DIR_EXE + "maps\\").Where(f => f.EndsWith(".png"));
+
+                // create maps directory for staging
+                Directory.CreateDirectory(STAGING_DIR + "/maps");
 
                 foreach (var map in mapFiles)
                 {
