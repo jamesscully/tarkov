@@ -12,51 +12,30 @@
             <Label x:Name="aboutTxtBuildVersion" Content="Build Version: x.x.x.x" HorizontalAlignment="Center" Margin="0,0,0,16"/>
             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Label Content="Map makers:"/>
-                <RichTextBox Padding="0,8" >
+                <RichTextBox Padding="0,8" BorderThickness="0" >
                     <FlowDocument PagePadding="0, 8, 0, 8">
-                        <List>
-                            <ListItem>
-                                <Paragraph>
-                                    <Bold>Customs</Bold> - MonkiMonkiMonk + Glory4Lyfe
-                                </Paragraph>
-                            </ListItem>
+                        <Paragraph>
+                            <Bold>Customs</Bold> - MonkiMonkiMonk + Glory4Lyfe
+                            <LineBreak/>
 
-                            <ListItem>
-                                <Paragraph>
-                                    <Bold>Interchange</Bold> - Alpha_
-                                </Paragraph>
-                            </ListItem>
+                            <Bold>Interchange</Bold> - Alpha_
+                            <LineBreak/>
 
-                            <ListItem>
-                                <Paragraph>
-                                    <Bold>Shoreline</Bold> - MonkiMonkiMonk
-                                </Paragraph>
-                            </ListItem>
+                            <Bold>Shoreline</Bold> - MonkiMonkiMonk
+                            <LineBreak/>
 
-                            <ListItem>
-                                <Paragraph>
-                                    <Bold>Woods</Bold> - Jindouz
-                                </Paragraph>
-                            </ListItem>
+                            <Bold>Woods</Bold> - Jindouz
+                            <LineBreak/>
 
-                            <ListItem>
-                                <Paragraph>
-                                    <Bold>Factory</Bold> - Johnny Tushonka
-                                </Paragraph>
-                            </ListItem>
+                            <Bold>Factory</Bold> - Johnny Tushonka
+                            <LineBreak/>
 
-                            <ListItem>
-                                <Paragraph>
-                                    <Bold>Reserve</Bold> - PhotonReady + Roflwoffl
-                                </Paragraph>
-                            </ListItem>
+                            <Bold>Reserve</Bold> - PhotonReady + Roflwoffl
+                            <LineBreak/>
 
-                            <ListItem>
-                                <Paragraph>
-                                    <Bold>Reserve (tunnels)</Bold> - Loweffortsaltbox
-                                </Paragraph>
-                            </ListItem>
-                        </List>
+                            <Bold>Reserve (tunnels)</Bold> - Loweffortsaltbox
+                            <LineBreak/>
+                        </Paragraph>
                     </FlowDocument>
                 </RichTextBox>
             </StackPanel>

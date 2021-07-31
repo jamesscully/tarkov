@@ -191,6 +191,18 @@ namespace TarkovAssistantWPF.scripts
                     File.Copy(dll, STAGING_DIR + "/" + fileName, true);
                 }
 
+                // copy over all maps for update
+                var mapFiles = Directory.EnumerateFiles(DIR_EXE + "maps/").Where(f => f.EndsWith(".png"));
+
+                foreach (var map in mapFiles)
+                {
+                    var fileName = Path.GetFileName(map);
+                    WriteLog("Copying map: " + map, true);
+
+                    // copy them to our staging area
+                    File.Copy(map, STAGING_DIR + "/maps/" + fileName, true);
+                }
+
                 // zip the staging dir
                 WriteLog("GenerateZipFile: Writing archive to: " + ZIP_OUT_PATH);
                 ZipFile.CreateFromDirectory(STAGING_DIR, ZIP_OUT_PATH);

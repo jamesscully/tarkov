@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Tarkov Assistant - Map Viewer" Height="768" Width="1366" KeyDown="OnKeyDown"  >
 
-    <Grid Background="#212121">
+    <Grid Background="#FFE5E5E5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -17,8 +17,20 @@
 
         <controls:MapWindowMenu x:Name="menuBar"/>
 
-        <local:MapControl
+        <TabControl Grid.Row="1" BorderThickness="0">
+            <TabItem Header="Map">
+                <local:MapControl
             x:Name="mapControl" Grid.Row="1">
-        </local:MapControl>
+                </local:MapControl>
+
+            </TabItem>
+            <TabItem Header="Ammos">
+                <Grid Background="Red"/>
+            </TabItem>
+
+            <TabItem Header="Items">
+                <Grid Background="Red"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
