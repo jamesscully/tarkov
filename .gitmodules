@@ -1,0 +1,3 @@
+[submodule "tarkovdata"]
+	path = tarkovdata
+	url = https://github.com/TarkovTracker/tarkovdata/

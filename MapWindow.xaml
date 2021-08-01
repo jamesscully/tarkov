@@ -25,11 +25,11 @@
 
             </TabItem>
             <TabItem Header="Ammos">
-                <Grid Background="Red"/>
+                <Grid Background="#FFE5E5E5"/>
             </TabItem>
 
             <TabItem Header="Items">
-                <Grid Background="Red"/>
+                <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>
     </Grid>
