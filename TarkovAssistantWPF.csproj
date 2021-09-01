@@ -111,6 +111,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="controls\AmmoChartControl.xaml.cs">
+      <DependentUpon>AmmoChartControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="controls\MapWindowMenu.xaml.cs">
       <DependentUpon>MapWindowMenu.xaml</DependentUpon>
     </Compile>
@@ -132,6 +135,10 @@
     <Compile Include="keybinding\KeybindFileObject.cs" />
     <Compile Include="scripts\GenerateUpdateFiles.cs" />
     <Compile Include="wiki_parser\ParseWikiPage.cs" />
+    <Page Include="controls\AmmoChartControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="controls\MapControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -232,7 +239,9 @@
   <ItemGroup>
     <Resource Include="icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="data\" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autoupdater.NET.Official">
       <Version>1.6.4</Version>

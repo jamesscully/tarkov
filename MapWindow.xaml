@@ -25,7 +25,9 @@
 
             </TabItem>
             <TabItem Header="Ammos">
-                <Grid Background="#FFE5E5E5"/>
+                <controls:AmmoChartControl
+                    x:Name="ammoControl" Grid.Row="1">
+                </controls:AmmoChartControl>
             </TabItem>
 
             <TabItem Header="Items">

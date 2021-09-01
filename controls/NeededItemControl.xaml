@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="TarkovAssistantWPF.controls.NeededItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TarkovAssistantWPF.controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="400">
+    <Grid>
+        <Image x:Name="itemImage" HorizontalAlignment="Left" Height="50" Margin="10,0,0,0" VerticalAlignment="Stretch" Width="50" Source="factory.jpg"/>
+        <TextBlock x:Name="itemName" HorizontalAlignment="Left" Margin="65,0,0,0" TextWrapping="Wrap" Width="115" Text="Item Name" VerticalAlignment="Center"/>
+        <TextBlock x:Name="itemAmount" HorizontalAlignment="Left" Margin="192,0,0,0" TextWrapping="Wrap" Width="115" Text="Amount" VerticalAlignment="Center"/>
+        <Button x:Name="itemButtonDone" Content="Done" HorizontalAlignment="Left" Margin="316,0,0,0" Width="74" Click="Button_Click" VerticalAlignment="Center"/>
+
+    </Grid>
+</UserControl>
