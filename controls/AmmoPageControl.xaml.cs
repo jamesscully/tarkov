@@ -18,9 +18,9 @@ namespace TarkovAssistantWPF.controls
     /// <summary>
     /// Interaction logic for AmmoChartControl.xaml
     /// </summary>
-    public partial class AmmoChartControl : UserControl
+    public partial class AmmoPageControl : UserControl
     {
-        public AmmoChartControl()
+        public AmmoPageControl()
         {
             InitializeComponent();
 

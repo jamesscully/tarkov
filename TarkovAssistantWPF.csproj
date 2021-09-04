@@ -111,6 +111,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="controls\AmmoChartControl.xaml.cs">
+      <DependentUpon>AmmoChartControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="controls\AmmoPageControl.xaml.cs">
       <DependentUpon>AmmoPageControl.xaml</DependentUpon>
     </Compile>
@@ -135,6 +138,7 @@
     <Compile Include="keybinding\KeybindFileObject.cs" />
     <Compile Include="scripts\GenerateUpdateFiles.cs" />
     <Compile Include="wiki_parser\ParseWikiPage.cs" />
+    <Page Include="controls\AmmoChartControl.xaml" />
     <Page Include="controls\AmmoPageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

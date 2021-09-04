@@ -25,9 +25,9 @@
 
             </TabItem>
             <TabItem Header="Ammos">
-                <controls:AmmoChartControl
+                <controls:AmmoPageControl
                     x:Name="ammoControl" Grid.Row="1">
-                </controls:AmmoChartControl>
+                </controls:AmmoPageControl>
             </TabItem>
 
             <TabItem Header="Items">
