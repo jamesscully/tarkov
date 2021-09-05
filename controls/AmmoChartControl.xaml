@@ -6,9 +6,13 @@
              xmlns:local="clr-namespace:TarkovAssistantWPF.controls"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="600">
-    <Canvas x:Name="ammoCanvas" Width="800" Height="600">
-        <Line X1="0" X2="800" Y1="0" Y2="800" StrokeThickness="5">
-
-        </Line>
-    </Canvas>
+    
+    <Grid>
+        <Canvas x:Name="ammoCanvas" 
+                VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch"
+                SizeChanged="AmmoCanvas_OnSizeChanged"/>
+    </Grid>
+    
+   
 </UserControl>

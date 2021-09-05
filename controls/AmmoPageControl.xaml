@@ -6,14 +6,19 @@
              xmlns:controls="clr-namespace:TarkovAssistantWPF.controls"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
+    
     <Grid Background="#212121">
-        <StackPanel Margin="16,16,16,13">
-            <controls:AmmoChartControl>
-                </controls:AmmoChartControl>
-            <WrapPanel x:Name="ammoTypeContainer">
-                <Button Content="Test" />
-            </WrapPanel>
-        </StackPanel>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <controls:AmmoChartControl Grid.Row="0" Margin="50"/>
+        
+        <WrapPanel x:Name="ammoTypeContainer" Grid.Row="1">
+            <Button Content="Test" />
+        </WrapPanel>
         
     </Grid>
 </UserControl>
