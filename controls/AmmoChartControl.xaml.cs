@@ -14,11 +14,7 @@ namespace TarkovAssistantWPF.controls
         public AmmoChartControl()
         {
             InitializeComponent();
-
-            if (_showBoundingBox)
-            {
-                DrawBoundingBox();
-            }
+            
         }
         
         private void AmmoCanvas_OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -38,7 +34,7 @@ namespace TarkovAssistantWPF.controls
             Rectangle rectangle = new Rectangle();
             
             rectangle.Stroke = Brushes.Magenta;
-            rectangle.StrokeThickness = 50;
+            rectangle.StrokeThickness = 5;
             rectangle.Width = ammoCanvas.RenderSize.Width;
             rectangle.Height = ammoCanvas.RenderSize.Height;
 
@@ -47,6 +43,12 @@ namespace TarkovAssistantWPF.controls
 
         private void DrawGrid()
         {
+            
+            if (_showBoundingBox)
+            {
+                DrawBoundingBox();
+            }
+            
             var h = ammoCanvas.ActualHeight;
             var w = ammoCanvas.ActualWidth;
             
@@ -59,6 +61,7 @@ namespace TarkovAssistantWPF.controls
 
             DrawGridYLines();
             DrawMainLines();
+            DrawGridDamageLines();
         }
 
         private void DrawMainLines()
@@ -77,6 +80,34 @@ namespace TarkovAssistantWPF.controls
             line.Points.Add(bottomRight);
 
             ammoCanvas.Children.Add(line);
+            
+
+            TextBlock damageHeader = new TextBlock
+            {
+                Text = "DAMAGE",
+                FontWeight = FontWeights.ExtraBold,
+                Foreground = Brushes.White
+            };
+            
+            Canvas.SetTop(damageHeader, ammoCanvas.ActualHeight + 10);
+
+            ammoCanvas.Children.Add(damageHeader);
+            
+            TextBlock penetrationHeader = new TextBlock
+            {
+                Text = "PENETRATION",
+                FontWeight = FontWeights.ExtraBold,
+                Foreground = Brushes.White,
+            };
+
+            Canvas.SetLeft(penetrationHeader, 0 - 25);
+            Canvas.SetTop(penetrationHeader, ammoCanvas.ActualHeight);
+
+            penetrationHeader.RenderTransform = new RotateTransform(270);
+
+            ammoCanvas.Children.Add(penetrationHeader);
+
+
         }
         private void DrawGridYLines()
         {
@@ -133,11 +164,29 @@ namespace TarkovAssistantWPF.controls
             ammoCanvas.Children.Add(textBlock);
         }
 
-        private void DrawGridXLines()
+        private void DrawGridDamageLines()
         {
+            double maxDamage = 260;
+
+            double interval = 260 / 20;
+
+            for (double x = 0; x < ammoCanvas.ActualWidth; x += interval)
+            {
+                Line tick = new Line
+                {
+                    Stroke = Brushes.Green,
+                    StrokeThickness = 1
+                };
+
+                tick.X1 = x;
+                tick.X2 = x;
+
+                tick.Y1 = ammoCanvas.ActualHeight;
+                tick.Y2 = ammoCanvas.ActualHeight - 10;
+
+                ammoCanvas.Children.Add(tick);
+            }
             
         }
-
-
     }
 }
