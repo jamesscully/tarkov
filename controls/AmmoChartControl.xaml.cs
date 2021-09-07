@@ -168,7 +168,9 @@ namespace TarkovAssistantWPF.controls
         {
             double maxDamage = 260;
 
-            double interval = 260 / 20;
+            double interval = (ammoCanvas.ActualWidth / maxDamage) * 20;
+
+            int index = 0;
 
             for (double x = 0; x < ammoCanvas.ActualWidth; x += interval)
             {
@@ -184,7 +186,18 @@ namespace TarkovAssistantWPF.controls
                 tick.Y1 = ammoCanvas.ActualHeight;
                 tick.Y2 = ammoCanvas.ActualHeight - 10;
 
+                TextBlock value = new TextBlock();
+                value.Text = ((x / interval) * 20).ToString();
+                
+                Canvas.SetLeft(value, x);
+                Canvas.SetTop(value, (ammoCanvas.ActualHeight - 40));
+
+                // value.RenderTransform = new RotateTransform(270);
+
                 ammoCanvas.Children.Add(tick);
+                ammoCanvas.Children.Add(value);
+
+                index++;
             }
             
         }
