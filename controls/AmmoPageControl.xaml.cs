@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TarkovAssistantWPF.data;
 
 namespace TarkovAssistantWPF.controls
 {
@@ -23,7 +24,6 @@ namespace TarkovAssistantWPF.controls
         public AmmoPageControl()
         {
             InitializeComponent();
-
             
         }
     }

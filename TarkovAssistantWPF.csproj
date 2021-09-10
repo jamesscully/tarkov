@@ -120,6 +120,7 @@
     <Compile Include="controls\MapWindowMenu.xaml.cs">
       <DependentUpon>MapWindowMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="data\AmmoData.cs" />
     <Compile Include="enums\Keybind.cs" />
     <Compile Include="enums\MapEnum.cs" />
     <Compile Include="controls\MapControl.xaml.cs">
@@ -203,6 +204,27 @@
     <Content Include="maps\factory.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="tarkovdata\.git" />
+    <Content Include="tarkovdata\.gitignore" />
+    <Content Include="tarkovdata\ammunition.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tarkovdata\cli.js" />
+    <Content Include="tarkovdata\hideout.json" />
+    <Content Include="tarkovdata\items.en.json" />
+    <Content Include="tarkovdata\item_presets.json" />
+    <Content Include="tarkovdata\maps.json" />
+    <Content Include="tarkovdata\maps\Customs.svg" />
+    <Content Include="tarkovdata\maps\CustomsSource.ai" />
+    <Content Include="tarkovdata\maps\Interchange.svg" />
+    <Content Include="tarkovdata\maps\InterchangeSource.ai" />
+    <Content Include="tarkovdata\maps\README.md" />
+    <Content Include="tarkovdata\maps\Shoreline.svg" />
+    <Content Include="tarkovdata\maps\ShorelineSource.ai" />
+    <Content Include="tarkovdata\package.json" />
+    <Content Include="tarkovdata\quests.json" />
+    <Content Include="tarkovdata\README.md" />
+    <Content Include="tarkovdata\traders.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="maps\customs.png">

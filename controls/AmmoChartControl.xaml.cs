@@ -164,16 +164,14 @@ namespace TarkovAssistantWPF.controls
             ammoCanvas.Children.Add(textBlock);
         }
 
-        private void DrawGridDamageLines()
+        private void DrawGridDamageLines(double maxDamage = 260)
         {
-            double maxDamage = 260;
-
             double interval = (ammoCanvas.ActualWidth / maxDamage) * 20;
 
-            int index = 0;
-
-            for (double x = 0; x < ammoCanvas.ActualWidth; x += interval)
+            for (double x = interval; x < ammoCanvas.ActualWidth; x += interval)
             {
+                double currentDamageValue = ((x / interval) * 20);
+                
                 Line tick = new Line
                 {
                     Stroke = Brushes.Green,
@@ -188,16 +186,19 @@ namespace TarkovAssistantWPF.controls
 
                 TextBlock value = new TextBlock();
                 value.Text = ((x / interval) * 20).ToString();
+                value.Foreground = Brushes.White;
                 
-                Canvas.SetLeft(value, x);
+                if(currentDamageValue >= maxDamage - 1)
+                    Canvas.SetLeft(value, x - 10);
+                else
+                    Canvas.SetLeft(value, x);
+                
                 Canvas.SetTop(value, (ammoCanvas.ActualHeight - 40));
 
                 // value.RenderTransform = new RotateTransform(270);
 
                 ammoCanvas.Children.Add(tick);
                 ammoCanvas.Children.Add(value);
-
-                index++;
             }
             
         }
