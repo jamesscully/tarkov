@@ -34,5 +34,20 @@ namespace TarkovAssistantTests
                 Debug.WriteLine(s);
             }
         }
+
+        [TestMethod]
+        public void TestFindByCaliber()
+        {
+            AmmoData data = AmmoData.GetInstance();
+
+            var list = data.GetAmmoByCaliber("Caliber57x28");
+
+            foreach (var bullet in list)
+            {
+                Debug.WriteLine("Finding bullets");
+                Debug.WriteLine(bullet.name);
+            }
+            
+        }
     }
 }

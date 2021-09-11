@@ -14,10 +14,15 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         
-        <controls:AmmoChartControl Grid.Row="0" Margin="50"/>
+        <controls:AmmoChartControl x:Name="ammoChart" Grid.Row="0" Margin="50"/>
         
-        <WrapPanel x:Name="ammoTypeContainer" Grid.Row="1">
-            <Button Content="Test" />
+        <WrapPanel 
+            x:Name="ammoTypeContainer" 
+            Grid.Row="1" 
+            Margin="24,24,24,24" 
+            HorizontalAlignment="Center"
+            >
+            
         </WrapPanel>
         
     </Grid>

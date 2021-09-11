@@ -42,20 +42,21 @@ namespace TarkovAssistantWPF.data
 
         private static AmmoData _instance;
 
-        private ArrayList allBullets;
+        private List<Bullet> allBullets;
         private HashSet<string> allCalibers = new HashSet<string>(); 
 
         private AmmoData()
         {
-            allBullets = new ArrayList();
+            allBullets = new List<Bullet>();
             
             var json = JObject.Parse(File.ReadAllText(AMMO_DATA_LOCATION));
             
             
             foreach (JToken child in json.Children().Children())
             {
-                Bullet test = JsonConvert.DeserializeObject<Bullet>(child.ToString());
-                allCalibers.Add(test.caliber);
+                Bullet bullet = JsonConvert.DeserializeObject<Bullet>(child.ToString());
+                allCalibers.Add(bullet.caliber);
+                allBullets.Add(bullet);
             }
         }
         
@@ -67,9 +68,53 @@ namespace TarkovAssistantWPF.data
             return _instance;
         }
 
+
+
         public List<string> GetAllCalibers()
         {
             return allCalibers.ToList();
+        }
+
+        public List<Bullet> GetAmmoByCaliber(string caliber)
+        {
+            foreach (var b in allBullets)
+            {
+                Debug.WriteLine("Bullet " + b.name + " has a caliber of " + b.caliber);
+            }
+            return allBullets.Where(bullet => bullet.caliber.Equals(caliber)).ToList();
+        }
+        
+        public static string NormalizeCaliberName(string caliber)
+        {
+            switch (caliber)
+            {
+                case "Caliber9x18PM": return "9x18PM";
+                case "Caliber762x51": return "7.62x51mm";
+                case "Caliber762x25TT": return "7.62x25TT";
+                case "Caliber9x19PARA": return "9x19mm";
+                case "Caliber556x45NATO": return "5.56x45mm NATO";
+                case "Caliber545x39": return "5.45x39mm";
+                case "Caliber762x54R": return "7.62x54R";
+                case "Caliber46x30": return "46x30mm";
+                case "Caliber366TKM": return ".366 TKM";
+                case "Caliber20g": return "20 gauge";
+                case "Caliber762x39": return "7.62x39mm";
+                case "Caliber127x108": return "12.7x108mm";
+                case "Caliber30x29": return "30x29mm";
+                case "Caliber9x21": return "9x21mm";
+                case "Caliber40mmRU": return "40mmRU";
+                case "Caliber9x39": return "9x39mm";
+                case "Caliber127x55": return "12.7x55mm";
+                case "Caliber12g": return "12 gauge";
+                case "Caliber57x28": return "5.7x28mm";
+                case "Caliber1143x23ACP": return ".45 ACP";
+                case "Caliber23x75": return "23x75mm";
+                case "Caliber40x46": return "40x46mm";
+                case "Caliber762x35": return "7.62x35mm";
+                case "Caliber86x70": return ".338 Lapua";
+                default:
+                    return caliber;
+            }
         }
     }
 }

@@ -1,16 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using TarkovAssistantWPF.data;
 
 namespace TarkovAssistantWPF.controls
 {
     public partial class AmmoChartControl : UserControl
     {
-        private bool _showBoundingBox = true;
+        private bool _showBoundingBox = false;
+        private string _selectedCaliber = "";
+
+        private double maxDamage = 260;
+        
+        
         public AmmoChartControl()
         {
             InitializeComponent();
@@ -26,7 +33,54 @@ namespace TarkovAssistantWPF.controls
             
             ammoCanvas.Children.Clear();
             DrawGrid();
+            DrawCaliberDataPoints(_selectedCaliber);
 
+        }
+
+        public void SetCaliber(string caliber)
+        {
+            _selectedCaliber = caliber;
+            DrawCaliberDataPoints(caliber);
+        }
+
+        private void DrawCaliberDataPoints(string caliber)
+        {
+            AmmoData data = AmmoData.GetInstance();
+            List<Bullet> bullets = data.GetAmmoByCaliber(caliber);
+
+            foreach (Bullet bullet in bullets)
+            {
+                Rectangle point = new Rectangle();
+                
+                
+                
+                point.Fill = Brushes.Chartreuse;
+                point.RadiusX = 10;
+                point.RadiusY = 10;
+                point.Width = 10;
+                point.Height = 10;
+                point.StrokeThickness = 10;
+
+                double posX = (ammoCanvas.ActualWidth / maxDamage) * bullet.damage();
+                double posY = ammoCanvas.ActualHeight - (ammoCanvas.ActualHeight / 70) * bullet.penetrationPower() ;
+                
+                Console.WriteLine("Drawing point for bullet " + bullet.name + " at " + posX  + posY);
+
+                TextBlock label = new TextBlock();
+                label.Text = bullet.shortName;
+                label.Foreground = Brushes.White;
+                
+                
+                Canvas.SetLeft(point, posX - 5);
+                Canvas.SetTop(point, posY - 5);
+                
+                Canvas.SetLeft(label, posX);
+                Canvas.SetTop(label, posY - 25);
+                
+                ammoCanvas.Children.Add(point);
+                ammoCanvas.Children.Add(label);
+
+            }
         }
 
         private void DrawBoundingBox()

@@ -21,9 +21,30 @@ namespace TarkovAssistantWPF.controls
     /// </summary>
     public partial class AmmoPageControl : UserControl
     {
+        private string selectedCaliber = "";
+        
         public AmmoPageControl()
         {
             InitializeComponent();
+            
+            AmmoData data = AmmoData.GetInstance();
+
+            foreach (string c in data.GetAllCalibers())
+            {
+                Button text = new Button();
+
+                text.Content = AmmoData.NormalizeCaliberName(c);
+                
+                text.FontWeight = FontWeights.Bold;
+                text.Margin = new Thickness(6, 0, 6, 0);
+
+                text.Click += (sender, args) =>
+                {
+                    ammoChart.SetCaliber(c);
+                };
+
+                ammoTypeContainer.Children.Add(text);
+            }
             
         }
     }
