@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -114,6 +115,39 @@ namespace TarkovAssistantWPF.data
                 case "Caliber86x70": return ".338 Lapua";
                 default:
                     return caliber;
+            }
+        }
+        
+        public static Brush GetCaliberBrush(string caliber)
+        {
+            switch (caliber)
+            {
+                case "Caliber9x18PM": return Brushes.Aqua;
+                case "Caliber762x51": return Brushes.Beige;
+                case "Caliber762x25TT": return Brushes.Brown;
+                case "Caliber9x19PARA": return Brushes.Fuchsia;
+                case "Caliber556x45NATO": return Brushes.Gold;
+                case "Caliber545x39": return Brushes.Chartreuse;
+                case "Caliber762x54R": return Brushes.Plum;
+                case "Caliber46x30": return Brushes.Red;
+                case "Caliber366TKM": return Brushes.OrangeRed;
+                case "Caliber20g": return Brushes.OliveDrab;
+                case "Caliber762x39": return Brushes.MediumVioletRed;
+                case "Caliber127x108": return Brushes.MediumSpringGreen;
+                case "Caliber30x29": return Brushes.DarkSlateBlue;
+                case "Caliber9x21": return Brushes.Chocolate;
+                case "Caliber40mmRU": return Brushes.Azure;
+                case "Caliber9x39": return Brushes.Indigo;
+                case "Caliber127x55": return Brushes.DarkSalmon;
+                case "Caliber12g": return Brushes.Gainsboro;
+                case "Caliber57x28": return Brushes.Tomato;
+                case "Caliber1143x23ACP": return Brushes.Coral;
+                case "Caliber23x75": return Brushes.Silver;
+                case "Caliber40x46": return Brushes.IndianRed;
+                case "Caliber762x35": return Brushes.DarkKhaki;
+                case "Caliber86x70": return Brushes.Crimson;
+                default:
+                    return Brushes.DarkMagenta;
             }
         }
     }

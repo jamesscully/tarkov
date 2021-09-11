@@ -21,7 +21,8 @@
             Grid.Row="1" 
             Margin="24,24,24,24" 
             HorizontalAlignment="Center"
-            >
+            
+        >
             
         </WrapPanel>
         

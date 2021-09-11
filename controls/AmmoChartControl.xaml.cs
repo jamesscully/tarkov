@@ -13,7 +13,8 @@ namespace TarkovAssistantWPF.controls
     public partial class AmmoChartControl : UserControl
     {
         private bool _showBoundingBox = false;
-        private string _selectedCaliber = "";
+
+        private HashSet<string> _selectedCalibers = new HashSet<string>();
 
         private double maxDamage = 260;
         
@@ -33,54 +34,88 @@ namespace TarkovAssistantWPF.controls
             
             ammoCanvas.Children.Clear();
             DrawGrid();
-            DrawCaliberDataPoints(_selectedCaliber);
-
+            DrawCaliberDataPoints();
         }
 
-        public void SetCaliber(string caliber)
+        public void AddCaliber(string caliber)
         {
-            _selectedCaliber = caliber;
-            DrawCaliberDataPoints(caliber);
+            _selectedCalibers.Add(caliber);
+            ammoCanvas.Children.Clear();
+            DrawGrid();
+            DrawCaliberDataPoints();
+        }
+        
+        public void RemoveCaliber(string caliber)
+        {
+            _selectedCalibers.Remove(caliber);
+            
+            ammoCanvas.Children.Clear();
+            DrawGrid();
+            DrawCaliberDataPoints();
         }
 
-        private void DrawCaliberDataPoints(string caliber)
+        private Color GetRandomColour()
+        {
+            var color = new Color();
+            var rand = new Random();
+
+            byte[] bytes = new byte[3];
+            
+            rand.NextBytes(bytes);
+            
+            Console.WriteLine($"Random colour: {bytes[0]} {bytes[1]} {bytes[2]}" );
+
+
+            color.A = 255; color.R = bytes[0]; color.G = bytes[1]; color.B = bytes[2];
+
+            return color;
+        }
+
+        private void DrawCaliberDataPoints()
         {
             AmmoData data = AmmoData.GetInstance();
-            List<Bullet> bullets = data.GetAmmoByCaliber(caliber);
 
-            foreach (Bullet bullet in bullets)
+            foreach (string caliber in _selectedCalibers)
             {
-                Rectangle point = new Rectangle();
-                
-                
-                
-                point.Fill = Brushes.Chartreuse;
-                point.RadiusX = 10;
-                point.RadiusY = 10;
-                point.Width = 10;
-                point.Height = 10;
-                point.StrokeThickness = 10;
+                List<Bullet> bullets = data.GetAmmoByCaliber(caliber);
 
-                double posX = (ammoCanvas.ActualWidth / maxDamage) * bullet.damage();
-                double posY = ammoCanvas.ActualHeight - (ammoCanvas.ActualHeight / 70) * bullet.penetrationPower() ;
-                
-                Console.WriteLine("Drawing point for bullet " + bullet.name + " at " + posX  + posY);
+                foreach (Bullet bullet in bullets)
+                {
+                    Rectangle point = new Rectangle();
 
-                TextBlock label = new TextBlock();
-                label.Text = bullet.shortName;
-                label.Foreground = Brushes.White;
-                
-                
-                Canvas.SetLeft(point, posX - 5);
-                Canvas.SetTop(point, posY - 5);
-                
-                Canvas.SetLeft(label, posX);
-                Canvas.SetTop(label, posY - 25);
-                
-                ammoCanvas.Children.Add(point);
-                ammoCanvas.Children.Add(label);
+                    point.Fill = AmmoData.GetCaliberBrush(bullet.caliber);
+                    point.RadiusX = 10; point.RadiusY = 10;
+                    point.Width = 10;   point.Height = 10;
+                    point.StrokeThickness = 10;
 
+                    var penetration = bullet.penetrationPower();
+
+                    if (penetration > 70)
+                        penetration = 70;
+
+                    double posX = (ammoCanvas.ActualWidth / maxDamage) * bullet.damage();
+                    double posY = ammoCanvas.ActualHeight - (ammoCanvas.ActualHeight / 70) * penetration;
+                
+                    Console.WriteLine("Drawing point for bullet " + bullet.name + " at " + posX  + posY);
+
+                    TextBlock label = new TextBlock();
+                    label.Text = bullet.shortName;
+                    label.Foreground = Brushes.White;
+                
+                
+                    Canvas.SetLeft(point, posX - 5);
+                    Canvas.SetTop(point, posY - 5);
+                
+                    Canvas.SetLeft(label, posX);
+                    Canvas.SetTop(label, posY - 25);
+
+                    ammoCanvas.Children.Add(point);
+                    ammoCanvas.Children.Add(label);
+
+                }
             }
+            
+
         }
 
         private void DrawBoundingBox()
@@ -114,8 +149,8 @@ namespace TarkovAssistantWPF.controls
             }
 
             DrawGridYLines();
-            DrawMainLines();
             DrawGridDamageLines();
+            DrawMainLines();
         }
 
         private void DrawMainLines()
@@ -228,28 +263,22 @@ namespace TarkovAssistantWPF.controls
                 
                 Line tick = new Line
                 {
-                    Stroke = Brushes.Green,
-                    StrokeThickness = 1
+                    Stroke = Brushes.DarkGray,
+                    StrokeThickness = 1,
+                    Opacity = 0.1
                 };
 
-                tick.X1 = x;
-                tick.X2 = x;
+                tick.X1 = x; tick.X2 = x;
 
-                tick.Y1 = ammoCanvas.ActualHeight;
-                tick.Y2 = ammoCanvas.ActualHeight - 10;
+                tick.Y1 = 0;
+                tick.Y2 = ammoCanvas.ActualHeight + 10;
 
                 TextBlock value = new TextBlock();
                 value.Text = ((x / interval) * 20).ToString();
                 value.Foreground = Brushes.White;
-                
-                if(currentDamageValue >= maxDamage - 1)
-                    Canvas.SetLeft(value, x - 10);
-                else
-                    Canvas.SetLeft(value, x);
-                
-                Canvas.SetTop(value, (ammoCanvas.ActualHeight - 40));
 
-                // value.RenderTransform = new RotateTransform(270);
+                Canvas.SetTop(value, (ammoCanvas.ActualHeight + 20));
+                Canvas.SetLeft(value, x - 10);
 
                 ammoCanvas.Children.Add(tick);
                 ammoCanvas.Children.Add(value);

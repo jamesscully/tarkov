@@ -22,7 +22,7 @@ namespace TarkovAssistantWPF.controls
     public partial class AmmoPageControl : UserControl
     {
         private string selectedCaliber = "";
-        
+
         public AmmoPageControl()
         {
             InitializeComponent();
@@ -35,17 +35,52 @@ namespace TarkovAssistantWPF.controls
 
                 text.Content = AmmoData.NormalizeCaliberName(c);
                 
-                text.FontWeight = FontWeights.Bold;
-                text.Margin = new Thickness(6, 0, 6, 0);
+                text.Margin = new Thickness(6, 6, 6, 6);
+                text.Padding = new Thickness(6, 0, 6, 0);
 
                 text.Click += (sender, args) =>
                 {
-                    ammoChart.SetCaliber(c);
+                    var button = sender as Button;
+                    
+
+                    bool enabled = false;
+                    bool uninitialized = false;
+                    try
+                    {
+                        enabled = (bool) button.Tag;
+                    }
+                    catch (NullReferenceException e)
+                    {
+                        // if we have a null tag, then we haven't yet enabled this button
+                        enabled = true;
+                        uninitialized = true;
+                        button.Tag = true;
+                        button.Background = Brushes.Green;
+                        ammoChart.AddCaliber(c);
+
+                    }
+
+                    if (enabled && !uninitialized)
+                    {
+                        ammoChart.RemoveCaliber(c);
+
+                        button.Tag = false;
+                        button.ClearValue(Button.BackgroundProperty);
+                    }
+                    else if (!enabled && !uninitialized)
+                    {
+                        ammoChart.AddCaliber(c);
+
+                        button.Tag = true;
+                        button.Background = Brushes.Green;
+                    }
                 };
 
                 ammoTypeContainer.Children.Add(text);
             }
-            
+
+            ammoTypeContainer.HorizontalAlignment = HorizontalAlignment.Center;
+
         }
     }
 }
