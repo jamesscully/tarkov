@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using TarkovAssistantWPF.data;
@@ -32,6 +33,11 @@ namespace TarkovAssistantWPF.controls
             Console.WriteLine("Height: " + ammoCanvas.Height + " Width: " + ammoCanvas.Width);
             Console.WriteLine("Height: " + ammoCanvas.ActualHeight + " Width: " + ammoCanvas.ActualWidth);
             
+            ResetCanvas();
+        }
+
+        private void ResetCanvas()
+        {
             ammoCanvas.Children.Clear();
             DrawGrid();
             DrawCaliberDataPoints();
@@ -40,18 +46,13 @@ namespace TarkovAssistantWPF.controls
         public void AddCaliber(string caliber)
         {
             _selectedCalibers.Add(caliber);
-            ammoCanvas.Children.Clear();
-            DrawGrid();
-            DrawCaliberDataPoints();
+            ResetCanvas();
         }
         
         public void RemoveCaliber(string caliber)
         {
             _selectedCalibers.Remove(caliber);
-            
-            ammoCanvas.Children.Clear();
-            DrawGrid();
-            DrawCaliberDataPoints();
+            ResetCanvas();
         }
 
         private Color GetRandomColour()
@@ -101,6 +102,36 @@ namespace TarkovAssistantWPF.controls
                     TextBlock label = new TextBlock();
                     label.Text = bullet.shortName;
                     label.Foreground = Brushes.White;
+                    
+                    
+                    // todo REFACTOR THIS MESS!!
+                    point.MouseEnter += (sender, args) =>
+                    {
+                        AmmoHoverTooltip tooltip = new AmmoHoverTooltip(bullet);
+                        
+                        Canvas.SetLeft(tooltip, posX + 10);
+                        Canvas.SetTop(tooltip, posY - 5);
+                        ammoCanvas.Children.Add(tooltip);
+                    };
+
+                    label.MouseEnter += (sender, args) =>
+                    {
+                        AmmoHoverTooltip tooltip = new AmmoHoverTooltip(bullet);
+                        
+                        Canvas.SetLeft(tooltip, posX + 10);
+                        Canvas.SetTop(tooltip, posY - 5);
+                        ammoCanvas.Children.Add(tooltip);
+                    };
+                    
+                    point.MouseLeave += (sender, args) =>
+                    {
+                        ResetCanvas();
+                    };
+                    
+                    label.MouseLeave += (sender, args) =>
+                    {
+                        ResetCanvas();
+                    };
                 
                 
                     Canvas.SetLeft(point, posX - 5);
