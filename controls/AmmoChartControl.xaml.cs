@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.Remoting.Channels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
@@ -30,7 +31,6 @@ namespace TarkovAssistantWPF.controls
         {
             Console.WriteLine("Resized! New: " + e.NewSize + " Old: " + e.PreviousSize);
             Console.WriteLine("Canvas Sizes: ");
-            Console.WriteLine("Height: " + ammoCanvas.Height + " Width: " + ammoCanvas.Width);
             Console.WriteLine("Height: " + ammoCanvas.ActualHeight + " Width: " + ammoCanvas.ActualWidth);
             
             ResetCanvas();
@@ -55,21 +55,9 @@ namespace TarkovAssistantWPF.controls
             ResetCanvas();
         }
 
-        private Color GetRandomColour()
+        public bool HasCaliber(string caliber)
         {
-            var color = new Color();
-            var rand = new Random();
-
-            byte[] bytes = new byte[3];
-            
-            rand.NextBytes(bytes);
-            
-            Console.WriteLine($"Random colour: {bytes[0]} {bytes[1]} {bytes[2]}" );
-
-
-            color.A = 255; color.R = bytes[0]; color.G = bytes[1]; color.B = bytes[2];
-
-            return color;
+            return _selectedCalibers.Contains(caliber);
         }
 
         private void DrawCaliberDataPoints()
@@ -102,43 +90,33 @@ namespace TarkovAssistantWPF.controls
                     TextBlock label = new TextBlock();
                     label.Text = bullet.shortName;
                     label.Foreground = Brushes.White;
-                    
-                    
-                    // todo REFACTOR THIS MESS!!
-                    point.MouseEnter += (sender, args) =>
-                    {
-                        AmmoHoverTooltip tooltip = new AmmoHoverTooltip(bullet);
-                        
-                        Canvas.SetLeft(tooltip, posX + 10);
-                        Canvas.SetTop(tooltip, posY - 5);
-                        ammoCanvas.Children.Add(tooltip);
-                    };
 
-                    label.MouseEnter += (sender, args) =>
+                    // Mouse Enter, Leave handlers
+                    var mouseEnterHandler = new MouseEventHandler((sender, args) =>
                     {
                         AmmoHoverTooltip tooltip = new AmmoHoverTooltip(bullet);
                         
                         Canvas.SetLeft(tooltip, posX + 10);
                         Canvas.SetTop(tooltip, posY - 5);
                         ammoCanvas.Children.Add(tooltip);
-                    };
+                    });
+
+                    var mouseLeaveHandler = new MouseEventHandler((sender, args) => ResetCanvas());
                     
-                    point.MouseLeave += (sender, args) =>
-                    {
-                        ResetCanvas();
-                    };
-                    
-                    label.MouseLeave += (sender, args) =>
-                    {
-                        ResetCanvas();
-                    };
+                    point.MouseEnter += mouseEnterHandler;
+                    label.MouseEnter += mouseEnterHandler;
+
+                    point.MouseLeave += mouseLeaveHandler;
+                    label.MouseLeave += mouseLeaveHandler;
                 
                 
+                    // Center point onto X, Y coordinates by half of width/height
                     Canvas.SetLeft(point, posX - 5);
                     Canvas.SetTop(point, posY - 5);
                 
-                    Canvas.SetLeft(label, posX);
+                    // Nudge text to align more nicely
                     Canvas.SetTop(label, posY - 25);
+                    Canvas.SetLeft(label, posX);
 
                     ammoCanvas.Children.Add(point);
                     ammoCanvas.Children.Add(label);
@@ -234,8 +212,8 @@ namespace TarkovAssistantWPF.controls
             
             var h = ammoCanvas.ActualHeight;
             var w = ammoCanvas.ActualWidth;
-            
-            
+
+            // 6 classes of armor - 7 will allow for a good padding
             var lineCount = 7;
 
             var interval = h / lineCount;
@@ -284,14 +262,13 @@ namespace TarkovAssistantWPF.controls
             ammoCanvas.Children.Add(textBlock);
         }
 
-        private void DrawGridDamageLines(double maxDamage = 260)
+        private void DrawGridDamageLines()
         {
+            // Interval per 20dmg
             double interval = (ammoCanvas.ActualWidth / maxDamage) * 20;
 
             for (double x = interval; x < ammoCanvas.ActualWidth; x += interval)
             {
-                double currentDamageValue = ((x / interval) * 20);
-                
                 Line tick = new Line
                 {
                     Stroke = Brushes.DarkGray,

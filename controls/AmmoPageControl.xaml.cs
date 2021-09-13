@@ -21,7 +21,6 @@ namespace TarkovAssistantWPF.controls
     /// </summary>
     public partial class AmmoPageControl : UserControl
     {
-        private string selectedCaliber = "";
 
         public AmmoPageControl()
         {
@@ -31,52 +30,31 @@ namespace TarkovAssistantWPF.controls
 
             foreach (string c in data.GetAllCalibers())
             {
-                Button text = new Button();
+                Button caliberButton = new Button();
 
-                text.Content = AmmoData.NormalizeCaliberName(c);
-                
-                text.Margin = new Thickness(6, 6, 6, 6);
-                text.Padding = new Thickness(6, 0, 6, 0);
+                caliberButton.Content = AmmoData.NormalizeCaliberName(c);
 
-                text.Click += (sender, args) =>
+                caliberButton.Margin = new Thickness(6, 6, 6, 6);
+                caliberButton.Padding = new Thickness(6, 6, 6, 6);
+
+                caliberButton.Click += (sender, args) =>
                 {
                     var button = sender as Button;
+                    bool enabled = ammoChart.HasCaliber(c);
                     
-
-                    bool enabled = false;
-                    bool uninitialized = false;
-                    try
-                    {
-                        enabled = (bool) button.Tag;
-                    }
-                    catch (NullReferenceException e)
-                    {
-                        // if we have a null tag, then we haven't yet enabled this button
-                        enabled = true;
-                        uninitialized = true;
-                        button.Tag = true;
-                        button.Background = Brushes.Green;
-                        ammoChart.AddCaliber(c);
-
-                    }
-
-                    if (enabled && !uninitialized)
+                    if (enabled)
                     {
                         ammoChart.RemoveCaliber(c);
-
-                        button.Tag = false;
                         button.ClearValue(Button.BackgroundProperty);
                     }
-                    else if (!enabled && !uninitialized)
+                    else
                     {
                         ammoChart.AddCaliber(c);
-
-                        button.Tag = true;
                         button.Background = Brushes.Green;
                     }
                 };
 
-                ammoTypeContainer.Children.Add(text);
+                ammoTypeContainer.Children.Add(caliberButton);
             }
 
             ammoTypeContainer.HorizontalAlignment = HorizontalAlignment.Center;
