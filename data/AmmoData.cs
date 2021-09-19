@@ -37,14 +37,15 @@ namespace TarkovAssistantWPF.data
         public float initialSpeed()         { return ballistics["initialSpeed"]; }
 
     }
+
     public class AmmoData : BaseDataClass<Bullet>
     {
-        private static string AMMO_DATA_LOCATION = "./tarkovdata/ammunition.json";
-
         private static AmmoData _instance;
         
         private HashSet<string> allCalibers = new HashSet<string>(); 
 
+        
+        
         private AmmoData()
         {
             DATA_LOCATION = "./tarkovdata/ammunition.json";
