@@ -124,6 +124,11 @@
       <DependentUpon>MapWindowMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="data\AmmoData.cs" />
+    <Compile Include="data\BaseDataClass.cs" />
+    <Compile Include="data\HideoutData.cs" />
+    <Compile Include="data\ItemData.cs" />
+    <Compile Include="data\QuestData.cs" />
+    <Compile Include="data\TraderData.cs" />
     <Compile Include="enums\Keybind.cs" />
     <Compile Include="enums\MapEnum.cs" />
     <Compile Include="controls\MapControl.xaml.cs">
@@ -211,13 +216,19 @@
     <Content Include="tarkovdata\.git" />
     <Content Include="tarkovdata\.gitignore" />
     <Content Include="tarkovdata\ammunition.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="tarkovdata\cli.js" />
-    <Content Include="tarkovdata\hideout.json" />
-    <Content Include="tarkovdata\items.en.json" />
+    <Content Include="tarkovdata\hideout.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tarkovdata\items.en.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="tarkovdata\item_presets.json" />
-    <Content Include="tarkovdata\maps.json" />
+    <Content Include="tarkovdata\maps.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="tarkovdata\maps\Customs.svg" />
     <Content Include="tarkovdata\maps\CustomsSource.ai" />
     <Content Include="tarkovdata\maps\Interchange.svg" />
@@ -225,10 +236,16 @@
     <Content Include="tarkovdata\maps\README.md" />
     <Content Include="tarkovdata\maps\Shoreline.svg" />
     <Content Include="tarkovdata\maps\ShorelineSource.ai" />
-    <Content Include="tarkovdata\package.json" />
-    <Content Include="tarkovdata\quests.json" />
+    <Content Include="tarkovdata\package.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tarkovdata\quests.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="tarkovdata\README.md" />
-    <Content Include="tarkovdata\traders.json" />
+    <Content Include="tarkovdata\traders.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="maps\customs.png">
