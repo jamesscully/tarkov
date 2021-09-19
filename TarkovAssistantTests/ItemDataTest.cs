@@ -23,7 +23,7 @@ namespace TarkovAssistantTests
         {
             ItemData data = ItemData.GetInstance();
             
-            data.PrintAllItems();
+            data.PrintAll();
         }
     }
 }

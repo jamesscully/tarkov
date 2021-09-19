@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TarkovAssistantWPF.data;
 
@@ -31,7 +32,7 @@ namespace TarkovAssistantTests
 
             foreach (string s in data.GetAllCalibers())
             {
-                Debug.WriteLine(s);
+                Console.WriteLine(s);
             }
         }
 
@@ -44,9 +45,11 @@ namespace TarkovAssistantTests
 
             foreach (var bullet in list)
             {
-                Debug.WriteLine("Finding bullets");
-                Debug.WriteLine(bullet.name);
+                Console.WriteLine("Finding bullets");
+                Console.WriteLine(bullet.name);
             }
+            
+            
             
         }
     }

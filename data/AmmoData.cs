@@ -37,28 +37,22 @@ namespace TarkovAssistantWPF.data
         public float initialSpeed()         { return ballistics["initialSpeed"]; }
 
     }
-    public class AmmoData
+    public class AmmoData : BaseDataClass<Bullet>
     {
         private static string AMMO_DATA_LOCATION = "./tarkovdata/ammunition.json";
 
         private static AmmoData _instance;
-
-        private List<Bullet> allBullets;
+        
         private HashSet<string> allCalibers = new HashSet<string>(); 
 
         private AmmoData()
         {
-            allBullets = new List<Bullet>();
-            
-            var json = JObject.Parse(File.ReadAllText(AMMO_DATA_LOCATION));
-            
-            
-            foreach (JToken child in json.Children().Children())
+            DATA_LOCATION = "./tarkovdata/ammunition.json";
+            Load(bullet =>
             {
-                Bullet bullet = JsonConvert.DeserializeObject<Bullet>(child.ToString());
                 allCalibers.Add(bullet.caliber);
-                allBullets.Add(bullet);
-            }
+                return true;
+            });
         }
         
         public static AmmoData GetInstance()
@@ -69,8 +63,6 @@ namespace TarkovAssistantWPF.data
             return _instance;
         }
 
-
-
         public List<string> GetAllCalibers()
         {
             return allCalibers.ToList();
@@ -78,11 +70,25 @@ namespace TarkovAssistantWPF.data
 
         public List<Bullet> GetAmmoByCaliber(string caliber)
         {
-            foreach (var b in allBullets)
+            foreach (var b in allData)
             {
-                Debug.WriteLine("Bullet " + b.name + " has a caliber of " + b.caliber);
+                var bullet = b.Value;
+                Debug.WriteLine("Bullet " + bullet.name + " has a caliber of " + bullet.caliber);
             }
-            return allBullets.Where(bullet => bullet.caliber.Equals(caliber)).ToList();
+
+            List<Bullet> output = new List<Bullet>();
+
+            allData.Where(
+                bullet =>
+                {
+                    if (bullet.Value.caliber.Equals(caliber))
+                    {
+                        output.Add(bullet.Value);
+                    }
+                    return true;
+                });
+            
+            return output;
         }
         
         public static string NormalizeCaliberName(string caliber)

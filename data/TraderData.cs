@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -45,26 +46,16 @@ namespace TarkovAssistantWPF.data
         }
     }
     
-    public class TraderData
+    public class TraderData : BaseDataClass<Trader>
     {
         private TraderData _instance;
-
-        public Dictionary<int, Trader> traders;
-
-        public string DATA_LOCATION = "./tarkovdata/traders.json";
         
+        
+
         private TraderData()
         {
-            traders = new Dictionary<int, Trader>();
-            
-            var json = JObject.Parse(File.ReadAllText(DATA_LOCATION));
-
-
-            foreach (JToken child in json.Children().Children())
-            {
-                Trader trader = JsonConvert.DeserializeObject<Trader>(child.ToString());
-                traders.Add(trader.id, trader);
-            }
+            DATA_LOCATION = "./tarkovdata/traders.json";
+            Load();
         }
 
         public TraderData GetInstance()
@@ -76,10 +67,6 @@ namespace TarkovAssistantWPF.data
 
             return _instance;
         }
-
-        public Trader GetTraderById(int id)
-        {
-            return traders[id];
-        }
+        
     }
 }

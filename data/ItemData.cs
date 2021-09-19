@@ -18,26 +18,14 @@ namespace TarkovAssistantWPF.data
         }
     }
     
-    public class ItemData
+    public class ItemData : BaseDataClass<Item>
     {
         private static ItemData _instance;
 
-        public List<Item> items;
-
-        private string ITEM_DATA_LOCATION = "./tarkovdata/items.en.json";
-
         private ItemData()
         {
-            items = new List<Item>();
-            
-            var json = JObject.Parse(File.ReadAllText(ITEM_DATA_LOCATION));
-
-
-            foreach (JToken child in json.Children().Children())
-            {
-                Item item = JsonConvert.DeserializeObject<Item>(child.ToString());
-                items.Add(item);
-            }
+            DATA_LOCATION = "./tarkovdata/items.en.json";
+            Load();
         }
 
         public static ItemData GetInstance()
@@ -49,13 +37,6 @@ namespace TarkovAssistantWPF.data
 
             return _instance;
         }
-
-        public void PrintAllItems()
-        {
-            foreach (var item in items)
-            {
-                Console.WriteLine(item);
-            }
-        }
+        
     }
 }
