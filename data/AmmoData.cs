@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -42,18 +43,18 @@ namespace TarkovAssistantWPF.data
     {
         private static AmmoData _instance;
         
-        private HashSet<string> allCalibers = new HashSet<string>(); 
+        private HashSet<string> Calibers = new HashSet<string>();
 
-        
-        
         private AmmoData()
         {
             DATA_LOCATION = "./tarkovdata/ammunition.json";
             Load(bullet =>
             {
-                allCalibers.Add(bullet.caliber);
+                Calibers.Add(bullet.caliber);
                 return true;
             });
+            
+            
         }
         
         public static AmmoData GetInstance()
@@ -66,29 +67,21 @@ namespace TarkovAssistantWPF.data
 
         public List<string> GetAllCalibers()
         {
-            return allCalibers.ToList();
+            return Calibers.ToList();
         }
 
         public List<Bullet> GetAmmoByCaliber(string caliber)
         {
-            foreach (var b in allData)
+            List<Bullet> output = new List<Bullet>();
+            
+            foreach (var keyValuePair in Data)
             {
-                var bullet = b.Value;
-                Debug.WriteLine("Bullet " + bullet.name + " has a caliber of " + bullet.caliber);
+                if (keyValuePair.Value.caliber == caliber)
+                {
+                    output.Add(keyValuePair.Value);
+                }
             }
 
-            List<Bullet> output = new List<Bullet>();
-
-            allData.Where(
-                bullet =>
-                {
-                    if (bullet.Value.caliber.Equals(caliber))
-                    {
-                        output.Add(bullet.Value);
-                    }
-                    return true;
-                });
-            
             return output;
         }
         
