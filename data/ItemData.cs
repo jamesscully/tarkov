@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using TarkovAssistantWPF.interfaces;
 
 namespace TarkovAssistantWPF.data
 {
-    public class Item
+    public class Item : BaseDataObjectClass
     {
-        public string id = "undefined";
         public string name = "undefined";
         public string shortName = "undefined";
 
@@ -25,7 +25,11 @@ namespace TarkovAssistantWPF.data
         private ItemData()
         {
             DATA_LOCATION = "./tarkovdata/items.en.json";
-            Load();
+            Load(item =>
+            {
+                Console.WriteLine(item);
+                return true;
+            });
         }
 
         public static ItemData GetInstance()
@@ -37,6 +41,5 @@ namespace TarkovAssistantWPF.data
 
             return _instance;
         }
-        
     }
 }

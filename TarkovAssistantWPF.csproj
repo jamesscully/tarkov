@@ -125,6 +125,7 @@
     </Compile>
     <Compile Include="data\AmmoData.cs" />
     <Compile Include="data\BaseDataClass.cs" />
+    <Compile Include="data\BaseDataObjectClass.cs" />
     <Compile Include="data\HideoutData.cs" />
     <Compile Include="data\ItemData.cs" />
     <Compile Include="data\QuestData.cs" />

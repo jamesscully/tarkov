@@ -7,12 +7,12 @@ using System.Linq;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using TarkovAssistantWPF.interfaces;
 
 namespace TarkovAssistantWPF.data
 {
-    public class Bullet
+    public class Bullet : BaseDataObjectClass
     {
-        public string id;
         public string name;
         public string shortName;
         public float weight;
@@ -48,8 +48,9 @@ namespace TarkovAssistantWPF.data
         private AmmoData()
         {
             DATA_LOCATION = "./tarkovdata/ammunition.json";
-            Load(bullet =>
+            Load( b =>
             {
+                Bullet bullet = (Bullet) b;
                 Calibers.Add(bullet.caliber);
                 return true;
             });
@@ -76,9 +77,10 @@ namespace TarkovAssistantWPF.data
             
             foreach (var keyValuePair in Data)
             {
-                if (keyValuePair.Value.caliber == caliber)
+                Bullet bullet = keyValuePair.Value as Bullet;
+                if (bullet.caliber == caliber)
                 {
-                    output.Add(keyValuePair.Value);
+                    output.Add(bullet);
                 }
             }
 
