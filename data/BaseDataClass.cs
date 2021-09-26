@@ -12,18 +12,19 @@ namespace TarkovAssistantWPF.data
         public readonly object id;
         public Dictionary<int, T> Data = new Dictionary<int, T>();
 
-       public JObject json;
+       public JToken json;
        public string DATA_LOCATION = "undefined";
        
        
        // Determines the 'root' point where we can loop over to get each data point.
        // Override if certain json file does not work with this class' approach
-       protected IJEnumerable<JToken> GetParseEntryPoint()
+       virtual public IJEnumerable<JToken> GetParseEntryPoint()
        {
+           Console.WriteLine("Stuff: " + json.Children());
            return json.Children().Children();
        }
 
-       public void Load()
+       virtual public void Load()
         {
             Data = new Dictionary<int, T>();
             
@@ -40,7 +41,7 @@ namespace TarkovAssistantWPF.data
         
         // Loads data from each json file into a main data dictionary, with primary ID's converted to hashcode for lookup.
         // forEachHook - lambda used to load or perform tasks in derived classes for each json token.
-        public void Load(Func<T, bool> forEachHook)
+        virtual public void Load(Func<T, bool> forEachHook)
         {
             json = JObject.Parse(File.ReadAllText(DATA_LOCATION));
             

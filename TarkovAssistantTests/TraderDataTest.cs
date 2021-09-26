@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TarkovAssistantTests
 {
-    [TestFixture]
+    [TestClass]
     public class TraderDataTest
     {
         

@@ -1,4 +1,6 @@
-﻿namespace TarkovAssistantWPF.data
+﻿using System;
+
+namespace TarkovAssistantWPF.data
 {
 
     public class HideoutStation
@@ -8,9 +10,9 @@
         public string imageSrc = "";
     }
     
-    public class HideoutModule
+    public class Module
     {
-        public class ModuleRequirement
+        public class Requirement
         {
             enum RequirementTypes
             {
@@ -22,8 +24,9 @@
         public int level = -1;
         
     }
+
     
-    public class HideoutData
+    public class HideoutData : BaseDataClass<HideoutStation>
     {
         private HideoutData _instance;
 
@@ -40,6 +43,12 @@
             }
 
             return _instance;
+        }
+
+        public override void Load(Func<HideoutStation, bool> forEachHook)
+        {
+            
+            base.Load(forEachHook);
         }
     }
 }
