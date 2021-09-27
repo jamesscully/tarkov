@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TarkovAssistantWPF.data;
 
 namespace TarkovAssistantTests
@@ -25,6 +26,10 @@ namespace TarkovAssistantTests
             QuestData data = QuestData.GetInstance();
             
             data.PrintAll();
+            
+            Console.WriteLine("No offence REQUIREMENTS: " + data.GetById(199) );
+
+            // Assert.IsTrue(data.GetById(1).require[0].level == 1);
         }
     }
 }

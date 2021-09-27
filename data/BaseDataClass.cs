@@ -17,10 +17,9 @@ namespace TarkovAssistantWPF.data
        
        
        // Determines the 'root' point where we can loop over to get each data point.
-       // Override if certain json file does not work with this class' approach
+       // Override > WITH Load() copied < if certain json file does not work with this class' approach
        virtual public IJEnumerable<JToken> GetParseEntryPoint()
        {
-           Console.WriteLine("Stuff: " + json.Children());
            return json.Children().Children();
        }
 
