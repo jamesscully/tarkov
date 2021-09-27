@@ -25,7 +25,13 @@ namespace TarkovAssistantWPF.data
         public Objective[] objectives;
 
         public string gameId;
-        
+
+        public Dictionary<string, string> locales;
+
+        public Reputation[] reputationFailure;
+        public int[] alternatives;
+        public bool nokappa;
+
         public class Objective
         {
             public string type;
@@ -36,10 +42,12 @@ namespace TarkovAssistantWPF.data
             public int number;
             public int location;
             public int id;
+            public int have;
         }
 
         public class Reputation
         {
+
             public int trader;
             public float rep;
         }
@@ -48,6 +56,14 @@ namespace TarkovAssistantWPF.data
         {
             public int level;
             public int[] quests;
+            
+            public class Loyalty
+            {
+                public int trader;
+                public int stage;
+            }
+            
+            public Loyalty[] loyalty;
         }
         
         public override string ToString()
@@ -87,7 +103,10 @@ namespace TarkovAssistantWPF.data
 
             foreach (JToken child in GetParseEntryPoint())
             {
-                Quest data = JsonConvert.DeserializeObject<Quest>(child.ToString());
+                Quest data = JsonConvert.DeserializeObject<Quest>(child.ToString(), new JsonSerializerSettings()
+                {
+                    MissingMemberHandling = MissingMemberHandling.Error
+                });
                 Console.WriteLine("Loading data: " + data);
                 Data.Add(data.GetHashCode(), data);
             }
