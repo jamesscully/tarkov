@@ -7,39 +7,12 @@ using System.Linq;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using TarkovAssistantWPF.data.models;
 using TarkovAssistantWPF.interfaces;
 
 namespace TarkovAssistantWPF.data
 {
-    public class Bullet : BaseDataObjectClass
-    {
-        public string name;
-        public string shortName;
-        public float weight;
-        public string caliber;
-        public int stackMaxSize;
-        public bool tracer;
-        public string tracerColor;
-        public string ammoType;
-        public int projectileCount;
-        
-        // since our data describes ballistics as a dictionary,
-        // we'll use functions to return needed fields
-        public Dictionary<string, float> ballistics;
-        
-        public float damage()               { return ballistics["damage"]; }
-        public float armorDamage()          { return ballistics["armorDamage"]; }
-        public float fragmentationChance()  { return ballistics["fragmentationChance"]; }
-        public float ricochetChance()       { return ballistics["ricochetChance"]; }
-        public float penetrationChance()    { return ballistics["penetrationChance"]; }
-        public float penetrationPower()     { return ballistics["penetrationPower"]; }
-        public float accuracy()             { return ballistics["accuracy"]; }
-        public float recoil()               { return ballistics["recoil"]; }
-        public float initialSpeed()         { return ballistics["initialSpeed"]; }
-
-    }
-
-    public class AmmoData : BaseDataClass<Bullet>
+    public class AmmoData : BaseDataClass<Ammo>
     {
         private static AmmoData _instance;
         
@@ -47,15 +20,14 @@ namespace TarkovAssistantWPF.data
 
         private AmmoData()
         {
-            DATA_LOCATION = "./tarkovdata/ammunition.json";
+            DATA_LOCATION = Constants.DATA_LOCATION_AMMO;
+            
             Load( b =>
             {
-                Bullet bullet = (Bullet) b;
-                Calibers.Add(bullet.caliber);
+                Ammo ammo = (Ammo) b;
+                Calibers.Add(ammo.caliber);
                 return true;
             });
-            
-            
         }
         
         public static AmmoData GetInstance()
@@ -71,22 +43,23 @@ namespace TarkovAssistantWPF.data
             return Calibers.ToList();
         }
 
-        public List<Bullet> GetAmmoByCaliber(string caliber)
+        public List<Ammo> GetAmmoByCaliber(string caliber)
         {
-            List<Bullet> output = new List<Bullet>();
+            List<Ammo> output = new List<Ammo>();
             
             foreach (var keyValuePair in Data)
             {
-                Bullet bullet = keyValuePair.Value as Bullet;
-                if (bullet.caliber == caliber)
+                Ammo ammo = keyValuePair.Value as Ammo;
+                if (ammo.caliber == caliber)
                 {
-                    output.Add(bullet);
+                    output.Add(ammo);
                 }
             }
 
             return output;
         }
-        
+
+        // Return proper naming for caliber
         public static string NormalizeCaliberName(string caliber)
         {
             switch (caliber)

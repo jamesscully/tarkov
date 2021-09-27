@@ -111,6 +111,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Constants.cs" />
     <Compile Include="controls\AmmoChartControl.xaml.cs">
       <DependentUpon>AmmoChartControl.xaml</DependentUpon>
     </Compile>
@@ -128,6 +129,10 @@
     <Compile Include="data\BaseDataObjectClass.cs" />
     <Compile Include="data\HideoutData.cs" />
     <Compile Include="data\ItemData.cs" />
+    <Compile Include="data\models\Ammo.cs" />
+    <Compile Include="data\models\Item.cs" />
+    <Compile Include="data\models\Quest.cs" />
+    <Compile Include="data\models\Trader.cs" />
     <Compile Include="data\QuestData.cs" />
     <Compile Include="data\TraderData.cs" />
     <Compile Include="enums\Keybind.cs" />

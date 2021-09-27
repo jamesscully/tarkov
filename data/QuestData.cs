@@ -4,87 +4,17 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using TarkovAssistantWPF.data.models;
 
 namespace TarkovAssistantWPF.data
 {
-
-    // Object representations of Json for automatic deserialization
-    public class Quest : BaseDataObjectClass
-    {
-        public int giver;
-        public int turnin;
-        public string title;
-
-        public string wiki;
-
-        public int exp;
-        public string[] unlocks;
-
-        public Requirements require;
-        public Reputation[] reputation;
-        public Objective[] objectives;
-
-        public string gameId;
-
-        public Dictionary<string, string> locales;
-
-        public Reputation[] reputationFailure;
-        public int[] alternatives;
-        public bool nokappa;
-
-        public class Objective
-        {
-            public string type;
-            public string tool;
-            public object target;
-            public string hint;
-            public string[] with;
-            public int number;
-            public int location;
-            public int id;
-            public int have;
-        }
-
-        public class Reputation
-        {
-
-            public int trader;
-            public float rep;
-        }
-
-        public class Requirements
-        {
-            public int level;
-            public int[] quests;
-            
-            public class Loyalty
-            {
-                public int trader;
-                public int stage;
-            }
-            
-            public Loyalty[] loyalty;
-        }
-        
-        public override string ToString()
-        {
-            float x = -1;
-            if (reputation.Length > 0)
-            {
-                x = reputation[0].rep;
-            }
-            return $"{title}, from {giver}, {wiki} {x}";
-        }
-
-    }
-    
     public class QuestData : BaseDataClass<Quest>
     {
         private static QuestData _instance;
 
         private QuestData()
         {
-            DATA_LOCATION = "./tarkovdata/quests.json";
+            DATA_LOCATION = Constants.DATA_LOCATION_QUESTS;
             
             Load();
         }
@@ -94,8 +24,8 @@ namespace TarkovAssistantWPF.data
             return json.Children();
         }
         
-        // Not the cleanest, but allows us to use virtual method... terrible design!
-        public override void Load()
+        // Not the cleanest, but allows us to use virtual method (GetParseEntryPoint) with code reuse ... terrible design!
+        public override void Load(Func<Quest, bool> forEachHook = null)
         {
             Data = new Dictionary<int, Quest>();
             
@@ -103,10 +33,7 @@ namespace TarkovAssistantWPF.data
 
             foreach (JToken child in GetParseEntryPoint())
             {
-                Quest data = JsonConvert.DeserializeObject<Quest>(child.ToString(), new JsonSerializerSettings()
-                {
-                    MissingMemberHandling = MissingMemberHandling.Error
-                });
+                Quest data = JsonConvert.DeserializeObject<Quest>(child.ToString());
                 Console.WriteLine("Loading data: " + data);
                 Data.Add(data.GetHashCode(), data);
             }

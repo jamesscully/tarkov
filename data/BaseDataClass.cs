@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TarkovAssistantWPF.interfaces;
@@ -22,31 +23,25 @@ namespace TarkovAssistantWPF.data
        {
            return json.Children().Children();
        }
-
-       virtual public void Load()
-        {
-            Data = new Dictionary<int, T>();
-            
-            json = JObject.Parse(File.ReadAllText(DATA_LOCATION));
-            
-            foreach (JToken child in GetParseEntryPoint())
-            {
-                T data = JsonConvert.DeserializeObject<T>(child.ToString());
-                Console.WriteLine("Loading data: " + data);
-                Data.Add(data.GetHashCode(), data);
-            }
-        }
-        
+       
         
         // Loads data from each json file into a main data dictionary, with primary ID's converted to hashcode for lookup.
         // forEachHook - lambda used to load or perform tasks in derived classes for each json token.
-        virtual public void Load(Func<T, bool> forEachHook)
+        virtual public void Load(Func<T, bool> forEachHook = null)
         {
             json = JObject.Parse(File.ReadAllText(DATA_LOCATION));
             
             foreach (JToken child in GetParseEntryPoint())
             {
+#if DEBUG
+                // Only throw a missing member error (to find unutilized fields) if we are not in production
+                T data = JsonConvert.DeserializeObject<T>(child.ToString(), new JsonSerializerSettings()
+                {
+                    MissingMemberHandling = MissingMemberHandling.Error
+                });
+#else
                 T data = JsonConvert.DeserializeObject<T>(child.ToString());
+#endif
                 Data.Add(data.GetHashCode(), data);
                 forEachHook(data);
             }
@@ -61,15 +56,11 @@ namespace TarkovAssistantWPF.data
             }
         }
 
-        public T GetById(int id)
+        public T GetById(object id)
         {
             return Data[id.GetHashCode()];
         }
         
-        public T GetById(string id)
-        {
-            return Data[id.GetHashCode()];
-        }
 
         public override int GetHashCode()
         {

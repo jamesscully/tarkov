@@ -2,12 +2,13 @@
 using System.Windows;
 using System.Windows.Controls;
 using TarkovAssistantWPF.data;
+using TarkovAssistantWPF.data.models;
 
 namespace TarkovAssistantWPF.controls
 {
     public partial class AmmoHoverTooltip : UserControl
     {
-        public AmmoHoverTooltip(Bullet bullet)
+        public AmmoHoverTooltip(Ammo bullet)
         {
             InitializeComponent();
             

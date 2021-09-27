@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using TarkovAssistantWPF.data;
+using TarkovAssistantWPF.data.models;
 
 namespace TarkovAssistantWPF.controls
 {
@@ -66,9 +67,9 @@ namespace TarkovAssistantWPF.controls
 
             foreach (string caliber in _selectedCalibers)
             {
-                List<Bullet> bullets = data.GetAmmoByCaliber(caliber);
+                List<Ammo> bullets = data.GetAmmoByCaliber(caliber);
 
-                foreach (Bullet bullet in bullets)
+                foreach (Ammo bullet in bullets)
                 {
                     Rectangle point = new Rectangle();
 
