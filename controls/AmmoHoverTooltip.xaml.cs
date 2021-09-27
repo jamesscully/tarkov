@@ -1,7 +1,5 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using TarkovAssistantWPF.data;
 using TarkovAssistantWPF.data.models;
 
 namespace TarkovAssistantWPF.controls

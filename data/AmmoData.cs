@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using TarkovAssistantWPF.data.models;
-using TarkovAssistantWPF.interfaces;
 
 namespace TarkovAssistantWPF.data
 {
