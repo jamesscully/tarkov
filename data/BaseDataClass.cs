@@ -21,9 +21,8 @@ namespace TarkovAssistantWPF.data
        {
            return json.Children().Children();
        }
-       
-        
-        // Loads data from each json file into a main data dictionary, with primary ID's converted to hashcode for lookup.
+
+       // Loads data from each json file into a main data dictionary, with primary ID's converted to hashcode for lookup.
         // forEachHook - lambda used to load or perform tasks in derived classes for each json token.
         virtual public void Load(Func<T, bool> forEachHook = null)
         {
