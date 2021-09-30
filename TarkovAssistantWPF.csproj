@@ -222,18 +222,20 @@
     <Content Include="tarkovdata\.git" />
     <Content Include="tarkovdata\.gitignore" />
     <Content Include="tarkovdata\ammunition.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="tarkovdata\cli.js" />
     <Content Include="tarkovdata\hideout.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="tarkovdata\items.en.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="tarkovdata\item_presets.json" />
+    <Content Include="tarkovdata\item_presets.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="tarkovdata\maps.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="tarkovdata\maps\Customs.svg" />
     <Content Include="tarkovdata\maps\CustomsSource.ai" />
@@ -243,14 +245,14 @@
     <Content Include="tarkovdata\maps\Shoreline.svg" />
     <Content Include="tarkovdata\maps\ShorelineSource.ai" />
     <Content Include="tarkovdata\package.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="tarkovdata\quests.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="tarkovdata\README.md" />
     <Content Include="tarkovdata\traders.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -292,9 +294,7 @@
   <ItemGroup>
     <Resource Include="icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="Autoupdater.NET.Official">
       <Version>1.6.4</Version>
