@@ -190,11 +190,11 @@
     <comment>Search box hint</comment>
   </data>
   <data name="update_data_url" xml:space="preserve">
-    <value>https://s3.eu-west-2.amazonaws.com/jwscully.uk/tarkov-assistant/update.zip</value>
+    <value>https://tarkov-assistant-publish.s3.eu-west-2.amazonaws.com/update.zip</value>
     <comment>ZIP file location for AutoUpdater.NET</comment>
   </data>
   <data name="update_xml_url" xml:space="preserve">
-    <value>https://s3.eu-west-2.amazonaws.com/jwscully.uk/tarkov-assistant/update_info.xml</value>
+    <value>https://tarkov-assistant-publish.s3.eu-west-2.amazonaws.com/update_info.xml</value>
     <comment>XML file location for AutoUpdater.NET</comment>
   </data>
   <data name="ZoomIn" xml:space="preserve">

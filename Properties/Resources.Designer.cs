@@ -223,7 +223,7 @@ namespace TarkovAssistantWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://s3.eu-west-2.amazonaws.com/jwscully.uk/tarkov-assistant/update.zip.
+        ///   Looks up a localized string similar to https://tarkov-assistant-publish.s3.eu-west-2.amazonaws.com/update.zip.
         /// </summary>
         internal static string update_data_url {
             get {
@@ -232,7 +232,7 @@ namespace TarkovAssistantWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://s3.eu-west-2.amazonaws.com/jwscully.uk/tarkov-assistant/update_info.xml.
+        ///   Looks up a localized string similar to https://tarkov-assistant-publish.s3.eu-west-2.amazonaws.com/update_info.xml.
         /// </summary>
         internal static string update_xml_url {
             get {
