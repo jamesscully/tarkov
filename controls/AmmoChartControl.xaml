@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="TarkovAssistantWPF.controls.AmmoChartControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:TarkovAssistantWPF.controls"
+             mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="600">
+    
+    <Grid>
+        <Canvas x:Name="ammoCanvas" 
+                VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch"
+                SizeChanged="AmmoCanvas_OnSizeChanged"/>
+    </Grid>
+    
+   
+</UserControl>

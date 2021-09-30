@@ -25,11 +25,13 @@
 
             </TabItem>
             <TabItem Header="Ammos">
-                <Grid Background="Red"/>
+                <controls:AmmoPageControl
+                    x:Name="ammoControl" Grid.Row="1">
+                </controls:AmmoPageControl>
             </TabItem>
 
             <TabItem Header="Items">
-                <Grid Background="Red"/>
+                <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>
     </Grid>

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 using System.Windows.Input;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
-using NUnit.Framework;
 using TarkovAssistantWPF.enums;
 using TarkovAssistantWPF.keybinding;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;

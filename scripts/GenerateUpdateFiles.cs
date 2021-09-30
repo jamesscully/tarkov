@@ -1,7 +1,5 @@
 ﻿
 using System;
-using System.CodeDom;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Xml;
@@ -9,8 +7,6 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using System.IO.Compression;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 
 
 namespace TarkovAssistantWPF.scripts

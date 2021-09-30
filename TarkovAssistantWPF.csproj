@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{720D5C05-51DF-418C-842E-159268591857}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>TarkovAssistantWPF</RootNamespace>
     <AssemblyName>TarkovAssistant</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -111,9 +111,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Constants.cs" />
+    <Compile Include="controls\AmmoChartControl.xaml.cs">
+      <DependentUpon>AmmoChartControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="controls\AmmoHoverTooltip.xaml.cs">
+      <DependentUpon>AmmoHoverTooltip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="controls\AmmoPageControl.xaml.cs">
+      <DependentUpon>AmmoPageControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="controls\MapWindowMenu.xaml.cs">
       <DependentUpon>MapWindowMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="data\AmmoData.cs" />
+    <Compile Include="data\BaseDataClass.cs" />
+    <Compile Include="data\BaseDataObjectClass.cs" />
+    <Compile Include="data\HideoutData.cs" />
+    <Compile Include="data\ItemData.cs" />
+    <Compile Include="data\models\Ammo.cs" />
+    <Compile Include="data\models\Item.cs" />
+    <Compile Include="data\models\Quest.cs" />
+    <Compile Include="data\models\Trader.cs" />
+    <Compile Include="data\QuestData.cs" />
+    <Compile Include="data\TraderData.cs" />
     <Compile Include="enums\Keybind.cs" />
     <Compile Include="enums\MapEnum.cs" />
     <Compile Include="controls\MapControl.xaml.cs">
@@ -132,6 +153,12 @@
     <Compile Include="keybinding\KeybindFileObject.cs" />
     <Compile Include="scripts\GenerateUpdateFiles.cs" />
     <Compile Include="wiki_parser\ParseWikiPage.cs" />
+    <Page Include="controls\AmmoChartControl.xaml" />
+    <Page Include="controls\AmmoHoverTooltip.xaml" />
+    <Page Include="controls\AmmoPageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="controls\MapControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -192,6 +219,39 @@
     <Content Include="maps\factory.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="tarkovdata\.git" />
+    <Content Include="tarkovdata\.gitignore" />
+    <Content Include="tarkovdata\ammunition.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tarkovdata\cli.js" />
+    <Content Include="tarkovdata\hideout.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tarkovdata\items.en.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tarkovdata\item_presets.json" />
+    <Content Include="tarkovdata\maps.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tarkovdata\maps\Customs.svg" />
+    <Content Include="tarkovdata\maps\CustomsSource.ai" />
+    <Content Include="tarkovdata\maps\Interchange.svg" />
+    <Content Include="tarkovdata\maps\InterchangeSource.ai" />
+    <Content Include="tarkovdata\maps\README.md" />
+    <Content Include="tarkovdata\maps\Shoreline.svg" />
+    <Content Include="tarkovdata\maps\ShorelineSource.ai" />
+    <Content Include="tarkovdata\package.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tarkovdata\quests.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tarkovdata\README.md" />
+    <Content Include="tarkovdata\traders.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="maps\customs.png">
@@ -232,7 +292,9 @@
   <ItemGroup>
     <Resource Include="icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="data\" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autoupdater.NET.Official">
       <Version>1.6.4</Version>
