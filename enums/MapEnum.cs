@@ -8,6 +8,7 @@
         RESERVE,
         RESERVE_TUNNELS,
         INTERCHANGE,
-        FACTORY
+        FACTORY,
+        LIGHTHOUSE
     }
 }

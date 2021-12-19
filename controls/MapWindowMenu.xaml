@@ -21,6 +21,7 @@
                 <MenuItem Click="MapButtonPressed"  Header="Interchange" HorizontalAlignment="Left" Tag="interchange"/>
                 <MenuItem Click="MapButtonPressed"  Header="Factory" HorizontalAlignment="Left" Tag="factory"/>
                 <MenuItem Click="MapButtonPressed"  Header="Reserve" HorizontalAlignment="Left" Tag="reserve"/>
+                <MenuItem Click="MapButtonPressed"  Header="Lighthouse" HorizontalAlignment="Left" Tag="lighthouse"/>
             </MenuItem>
         </MenuItem>
 
